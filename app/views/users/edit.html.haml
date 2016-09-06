@@ -1,0 +1,5 @@
+%h3= @user.id
+=simple_form_for @user do |f|
+  = f.error_notification
+  = f.input :role, label: 'Role'
+  = f.button :submit
