@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   root to: 'users#index'
   resources :users do
-    resources :donations
+    resources :donations do
+      resources :items, controller: :donation_items
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

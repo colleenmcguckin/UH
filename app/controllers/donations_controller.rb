@@ -20,7 +20,7 @@ class DonationsController < ApplicationController
 
     @donation = @user.donations.new(user_id: @user.id)
     if @donation.save
-      redirect_to user_donation_path(@user, @donation), notice: 'Donation has been created'
+      redirect_to new_user_donation_item_path(@user, @donation), notice: 'Donation has been created'
     else
       render :new
     end
