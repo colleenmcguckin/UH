@@ -8,3 +8,9 @@
 10.times do
   User.create role: %w[donor receiver].sample
 end
+
+2.times do
+  User.all.each do |user|
+    user.donations.create! user_id: user.id
+  end
+end

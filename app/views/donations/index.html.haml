@@ -1,0 +1,4 @@
+-@donations.each do |donation|
+  = link_to "#{donation.id}", user_donation_path(@user, donation)
+  = donation.user_id
+=link_to 'New Donation', new_user_donation_path(@user)
