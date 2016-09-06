@@ -1,1 +1,41 @@
-%h1 HELLO
+.jumbo-image.text-center
+  %h2 a scalable solution to hunger in our communities
+  #home-facts
+    #carousel-example.carousel.slide{"data-ride" => "carousel"}
+      / Wrapper for slides
+      .row
+        .col-xs-offset-3.col-xs-6
+          .carousel-inner
+            .item.active
+              .carousel-content
+                %div
+                  %h3 1 out of every 6 people in the United States is food insecure.
+            .item
+              .carousel-content
+                %div
+                  %h3 40% of all food produced in the United States is wasted.
+            .item
+              .carousel-content
+                %div
+                  %h3 Urban Harvester is a simple solution that connects surplus food to hungry people.
+            .item
+              .carousel-content
+                %div
+                  %h3 Urban Harvester is a scalable solution that reduces hunger and waste.
+            .item
+              .carousel-content
+                %div
+                  %h3 Urban Harvester's Food Recovery Program annually connects over 25,000 meals from our participating food donors to our network of local non profit community agencies throughout Los Angeles County and we're growing.
+            .item
+              .carousel-content
+                %div
+                  %h3 Our sustainable efforts prevented the needless discard of 20 tons of fresh healthy food from the waste stream reducing greenhouse gas emissions.
+            .item
+              .carousel-content
+                %div
+                  %h3 Start making a difference with your business today.
+      / Controls
+      %a.left.carousel-control{"data-slide" => "prev", :href => "#carousel-example"}
+        %span.glyphicon.glyphicon-chevron-left
+      %a.right.carousel-control{"data-slide" => "next", :href => "#carousel-example"}
+        %span.glyphicon.glyphicon-chevron-right
