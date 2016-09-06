@@ -1,3 +1,5 @@
 - @users.each do |user|
-  %h1= link_to "#{user.id}", user_path(user)
-  %h2= user.role
+  %p= link_to "#{user.id}", user_path(user)
+  %p= user.role
+  %p= "#{user.first_name} #{user.last_name}"
+  %p= user.organization_name

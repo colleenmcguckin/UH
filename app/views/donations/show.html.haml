@@ -1,7 +1,7 @@
 %h1 Donation
 = @donation.id
-%h2 Donor Id
-= @donation.user_id
+%h2 Donor
+= "#{@user.first_name} #{@user.last_name}"
 
 = link_to 'Edit', edit_user_donation_path(@user, @donation)
 = link_to 'Destroy', user_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}

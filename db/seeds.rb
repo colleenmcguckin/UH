@@ -6,7 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 10.times do
-  User.create role: %w[donor receiver].sample
+  User.create role: %w[donor receiver].sample,
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              organization_name: Faker::Company.name
 end
 
 2.times do

@@ -20,7 +20,12 @@ ActiveRecord::Schema.define(version: 20160906005806) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "role"
+    t.string   "role"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "organization_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

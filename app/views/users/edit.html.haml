@@ -2,4 +2,7 @@
 =simple_form_for @user do |f|
   = f.error_notification
   = f.input :role, label: 'Role'
+  = f.input :first_name, label: 'First Name'
+  = f.input :last_name, label: 'Last Name'
+  = f.input :organization_name, label: 'Organization Name'
   = f.button :submit
