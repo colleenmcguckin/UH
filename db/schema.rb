@@ -21,7 +21,10 @@ ActiveRecord::Schema.define(version: 20160906045758) do
   end
 
   create_table "donations", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "receiver_id"
+    t.integer  "donor_id"
+    t.string   "tracking_code"
+    t.datetime "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
