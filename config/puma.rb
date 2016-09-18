@@ -1,1 +1,1 @@
-plugin 'heroku'atom 
+plugin 'heroku'
