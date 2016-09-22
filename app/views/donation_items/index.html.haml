@@ -1,0 +1,5 @@
+-@donation_items.each do |donation_item|
+  = link_to "#{@donation.id}", user_donation_path(@user, @donation)
+  = donation_item.description
+  = donation_item.quantity
+  = donation_item.quantity_type
