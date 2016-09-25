@@ -2,12 +2,12 @@ class DonationsController < ApplicationController
 
   def index
     load_user
-    @donations = Donation.where(user_id: @user.id)
+    @donations = Donation.where(donor_id: @user.id)
   end
 
   def new
     load_user
-    @donation = Donation.new(user_id: @user.id)
+    @donation = Donation.new(donor_id: @user.id)
   end
 
   def edit
@@ -18,7 +18,7 @@ class DonationsController < ApplicationController
   def create
     load_user
 
-    @donation = @user.donations.new(user_id: @user.id)
+    @donation = Donation.new(donor_id: @user.id)
     if @donation.save
       redirect_to new_user_donation_item_path(@user, @donation), notice: 'Donation has been created'
     else

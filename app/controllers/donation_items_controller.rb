@@ -14,7 +14,7 @@ class DonationItemsController < ApplicationController
     load_user
     load_donation
 
-    @donation_item = @user.donations.find(@donation.id).items.new donation_item_params
+    @donation_item = Donation.find(@donation.id).items.new donation_item_params
     if @donation_item.save
       redirect_to user_donation_path(@user, @donation), notice: 'Donation Item has been added'
     else
