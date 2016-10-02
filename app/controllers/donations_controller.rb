@@ -2,7 +2,11 @@ class DonationsController < ApplicationController
 
   def index
     load_user
-    @donations = Donation.where(donor_id: @user.id)
+    if @user.donor?
+      @donations = Donation.where(donor_id: @user.id)
+    elsif @user.receiver?
+      @donations = Donation.where(receiver_id: @user.id)
+    end
   end
 
   def new
@@ -13,6 +17,7 @@ class DonationsController < ApplicationController
   def edit
     load_user
     load_donation
+    @receivers = User.receiver
   end
 
   def create
@@ -62,6 +67,12 @@ class DonationsController < ApplicationController
   end
 
   def donation_params
-    {}
+    params.require(:donation).permit(
+      :donor_id,
+      :receiver_id,
+      :tracking_code,
+      :confirmed_at,
+      items: []
+    )
   end
 end

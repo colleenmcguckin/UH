@@ -1,4 +1,6 @@
 %h1 edit donation
 = simple_form_for [@user, @donation] do |f|
   = f.error_notification
+  = f.input :receiver_id
+
   = f.button :submit

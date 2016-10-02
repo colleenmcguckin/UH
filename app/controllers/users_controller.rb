@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :load_user, except: [:index]
   def index
-    @users = User.all
+    @donors = User.donor
+    @receivers = User.receiver
   end
 
   def show

@@ -1,4 +1,12 @@
-- @users.each do |user|
+%h2 Donors
+- @donors.each do |user|
+  %p= link_to "#{user.id}", user_path(user)
+  %p= user.role
+  %p= "#{user.first_name} #{user.last_name}"
+  %p= user.organization_name
+
+%h2 receivers
+- @receivers.each do |user|
   %p= link_to "#{user.id}", user_path(user)
   %p= user.role
   %p= "#{user.first_name} #{user.last_name}"
