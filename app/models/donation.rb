@@ -1,6 +1,6 @@
 class Donation < ActiveRecord::Base
-  has_and_belongs_to_many :donors
-  has_and_belongs_to_many :receivers
+  belongs_to :donor
+  belongs_to :receiver
   #
   # belongs_to :donor, class_name: 'User', foreign_key: :donor_id
   # belongs_to :receiver, class_name: 'User', foreign_key: :receiver_id

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161002020009) do
+ActiveRecord::Schema.define(version: 20160906045758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,16 +24,12 @@ ActiveRecord::Schema.define(version: 20161002020009) do
   end
 
   create_table "donations", force: :cascade do |t|
+    t.integer  "receiver_id"
+    t.integer  "donor_id"
     t.string   "tracking_code"
     t.datetime "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "donations_users", force: :cascade do |t|
-    t.integer "receiver_id"
-    t.integer "donor_id"
-    t.integer "donation_id"
   end
 
   create_table "users", force: :cascade do |t|

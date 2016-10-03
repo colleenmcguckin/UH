@@ -1,3 +1,5 @@
 class Donor < User
-  has_and_belongs_to_many :donations
+  has_many :donations
+  accepts_nested_attributes_for :donations
+
 end

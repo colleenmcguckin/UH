@@ -21,10 +21,8 @@ end
 end
 
 
-2.times do
-  Donor.all.each do |donor|
-    donor.donations.create!
-  end
+10.times do
+  Donation.create donor_id: Donor.where(role: 'donor').sample.id
 end
 
 FOODS = [ 'asparagus',
