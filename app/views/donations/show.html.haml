@@ -7,13 +7,18 @@
   = item.description
   = item.quantity
   = item.quantity_type
-%h3 Receiver
-= @donation.receiver_id
-%h3 Tracking Code
-= @donation.tracking_code.upcase
+%br
+- if @donation.receiver_id.present?
+  %h3 Receiver
+  = link_to "#{@donation.receiver.organization_name}", user_path(@donation.receiver)
+  %h3 Tracking Code
+  = @donation.tracking_code&.upcase
+- else
+  = link_to 'Add Receiver', edit_user_donation_path(@user, @donation)
+%br
 %br
 = link_to 'Add Item', new_user_donation_item_path(@user, @donation)
 = link_to 'Edit', edit_user_donation_path(@user, @donation)
 = link_to 'Destroy', user_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
 = link_to 'Index', user_donations_path(@user)
-= link_to 'Add Receiver', edit_user_donation_path(@user, @donation)
+= link_to 'Edit Receiver', edit_user_donation_path(@user, @donation) if @donation.receiver_id

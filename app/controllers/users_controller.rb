@@ -6,6 +6,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    if @user.donor?
+      @donations = Donation.where(donor_id: @user.id)
+    elsif @user.receiver?
+      @donations = Donation.where(receiver_id: @user.id)
+    end
   end
 
   def edit

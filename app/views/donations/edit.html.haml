@@ -1,6 +1,6 @@
 %h1 edit donation
 = simple_form_for [@user, @donation] do |f|
   = f.error_notification
-  = f.input :receiver_id
+  = f.association :receiver, as: :select, collection: Receiver.where(role: 'receiver'), label_method: :organization_name, value_method: :id
 
   = f.button :submit

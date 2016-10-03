@@ -6,3 +6,14 @@
 =link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?'}
 =link_to 'New Donation', new_user_donation_path(@user)
 =link_to :back
+
+%h4 Donations
+
+-@donations.each do |donation|
+  = link_to "#{donation.id}", user_donation_path(@user, donation)
+  %br
+  - donation.items.each do |item|
+    = item.description
+    = item.quantity
+    = item.quantity_type
+    %br
