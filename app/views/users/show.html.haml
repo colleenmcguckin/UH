@@ -1,7 +1,0 @@
-%h4= @user.id
-%p= @user.role
-%p= "#{@user.first_name} #{@user.last_name}"
-%p= @user.organization_name
-=link_to 'Edit', edit_user_path(@user)
-=link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?'}
-=link_to :back
