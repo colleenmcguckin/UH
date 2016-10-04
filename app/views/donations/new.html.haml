@@ -1,0 +1,4 @@
+%h1 new donation
+= simple_form_for [@user, @donation] do |f|
+  = f.error_notification
+  = f.button :submit, label: 'Add Donation Items'

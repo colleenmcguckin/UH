@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20161004062333) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
+  create_table "donation_items", force: :cascade do |t|
+    t.string  "description"
+    t.integer "quantity"
+    t.string  "quantity_type"
+    t.integer "donation_id"
+  end
+
   create_table "donations", force: :cascade do |t|
     t.integer  "receiver_id"
     t.integer  "donor_id"
