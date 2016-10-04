@@ -1,0 +1,4 @@
+%h1 Receiver Index
+- @receivers.each do |receiver|
+  = receiver.id
+  = link_to "#{receiver.email}", receiver
