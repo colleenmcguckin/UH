@@ -1,4 +1,7 @@
 %h1 Receiver Index
 - @receivers.each do |receiver|
   = receiver.id
-  = link_to "#{receiver.email}", receiver
+  - unless @user.donor?
+    = link_to "#{receiver.email}", receiver
+  - else
+    = link_to "#{receiver.email}", donor_donation_receiver_path(@user, @donation, receiver)

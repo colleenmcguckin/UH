@@ -2,6 +2,8 @@
 = @donation.id
 %h2 Donor
 = @user.email
+%h3 Receiver
+= link_to @donation.receiver.email, @donation.receiver
 %h3 Items
 - @donation.items.each do |item|
   = item.description
@@ -11,4 +13,4 @@
 = link_to 'Edit', edit_donor_donation_path(@user, @donation)
 = link_to 'Destroy', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
 = link_to 'All Donations', donor_donations_path(@user)
-= link_to 'Add Receiver', receivers_path
+= link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation)

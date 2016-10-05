@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :donors do
     resources :donations do
       resources :donation_items
+      resources :receivers, only: [:index, :show]
     end
   end
   resources :receivers do
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
   resources :admins
+
+  get 'donation/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

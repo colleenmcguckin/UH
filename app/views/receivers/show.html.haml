@@ -2,8 +2,17 @@
 = @receiver.id
 = @receiver.email
 
-Select Donation to Add Receiver To:
-= simple_form_for [@user, :donation], url: donor_donations_path do |f|
-  = f.error_notification
-  = f.
-  = f.button :submit, label: 'Add This Receiver'
+-# = simple_form_for [@user, @donation], add_receiver_path do |f|
+-#   = f.error_notification
+-#   = f.button :submit, label: 'Add This Receiver'
+- if @donation
+  =link_to "Add to donation", donation_add_receiver_path(@donation)
+
+- if @receiver.donations.any?
+  %h2
+    Incoming Donation Items
+  - @receiver.donations.each do |donation|
+    - donation.items.each do |item|
+      = item.description.titleize
+      = item.quantity
+      = item.quantity_type.titleize
