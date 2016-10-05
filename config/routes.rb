@@ -4,8 +4,16 @@ Rails.application.routes.draw do
   devise_for :receivers
   devise_for :donors
   root to: 'home#welcome'
-  resources :donors
-  resources :receivers
+  resources :donors do
+    resources :donations do
+      resources :donation_items
+    end
+  end
+  resources :receivers do
+    resources :donations do
+      resources :donation_items
+    end
+  end
   resources :admins
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

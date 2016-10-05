@@ -5,4 +5,12 @@ class Receiver < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :donations
+
+  def donor?
+    false
+  end
+
+  def receiver?
+    true
+  end
 end

@@ -1,3 +1,9 @@
 %h1 Receiver Details
 = @receiver.id
 = @receiver.email
+
+Select Donation to Add Receiver To:
+= simple_form_for [@user, :donation], url: donor_donations_path do |f|
+  = f.error_notification
+  = f.
+  = f.button :submit, label: 'Add This Receiver'

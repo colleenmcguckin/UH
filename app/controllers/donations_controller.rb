@@ -20,7 +20,7 @@ class DonationsController < ApplicationController
 
     @donation = Donation.new(donor_id: @user.id)
     if @donation.save
-      redirect_to new_user_donation_item_path(@user, @donation), notice: 'Donation has been created'
+      redirect_to donor_donation_path(@user, @donation), notice: 'Donation has been created'
     else
       render :new
     end
@@ -54,7 +54,16 @@ class DonationsController < ApplicationController
   private
 
   def load_user
-    @user = User.find params[:user_id]
+    if current_donor
+      current_user = current_donor
+      @user = Donor.find params[:donor_id]
+    elsif current_receiver
+      current_user = current_donor
+      @user = Donor.find params[:donor_id]
+    elsif current_admin
+      current_user = current_donor
+      @user = Donor.find params[:donor_id]
+    end
   end
 
   def load_donation

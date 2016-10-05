@@ -1,13 +1,14 @@
 %h1 Donation
 = @donation.id
 %h2 Donor
-= "#{@user.first_name} #{@user.last_name}"
+= @user.email
 %h3 Items
 - @donation.items.each do |item|
   = item.description
   = item.quantity
   = item.quantity_type
-= link_to 'Add Item', new_user_donation_item_path(@user, @donation)
-= link_to 'Edit', edit_user_donation_path(@user, @donation)
-= link_to 'Destroy', user_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
-= link_to 'Index', user_donations_path(@user)
+= link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation)
+= link_to 'Edit', edit_donor_donation_path(@user, @donation)
+= link_to 'Destroy', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
+= link_to 'All Donations', donor_donations_path(@user)
+= link_to 'Add Receiver', receivers_path
