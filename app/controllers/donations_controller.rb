@@ -54,9 +54,9 @@ class DonationsController < ApplicationController
   def add_receiver
     load_user
     load_donation
-    @donation.update(receiver_id: params[:receiver_id])
+    @donation.update(receiver_id: params[:id])
     if @donation.save
-      redirect_to donor_donations_path(@user), notice: 'Receiver has been added.'
+      redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been added.'
     else
       render :show, notice: "Something went wrong, please try again. Receiver couldn't be added."
     end
@@ -83,6 +83,12 @@ class DonationsController < ApplicationController
   end
 
   def donation_params
-    {}
+    params.require(:donation).permit(
+      :donor_id,
+      :receiver_id,
+      :tracking_code,
+      :confirmed_at,
+      items: []
+    )
   end
 end
