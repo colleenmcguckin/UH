@@ -1,4 +1,10 @@
--@donations.each do |donation|
-  = link_to "#{donation.id}", user_donation_path(@user, donation)
-  = donation.donor_id
-=link_to 'New Donation', new_user_donation_path(@user)
+- if @user.donor?
+  -@donations.each do |donation|
+    = link_to "#{donation.id}", donor_donation_path(@user, donation)
+    = donation.donor_id
+  =link_to 'New Donation', new_donor_donation_path(@user)
+- if @user.receiver?
+  -@donations.each do |donation|
+    = link_to "#{donation.id}", receiver_donation_path(@user, donation)
+    = donation.receiver_id
+  =link_to 'New Donation', new_receiver_donation_path(@user)

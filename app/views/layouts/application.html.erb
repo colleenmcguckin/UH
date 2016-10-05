@@ -7,8 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render partial: 'layouts/navbar' %>
-<%= yield %>
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+  <% if current_donor %>
+    <%= current_donor.email %>
+  <% elsif current_receiver %>
+    <%= current_receiver.email %>
+  <% elsif current_admin %>
+    <%= current_admin.email %>
+  <% end %>
+  <%= yield %>
 
 </body>
 </html>

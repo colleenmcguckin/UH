@@ -1,1 +1,4 @@
 %h1 HELLO
+
+- %w[donor receiver admin].each do |role|
+  = link_to "#{role.titleize}", polymorphic_path("new_#{role}_session")
