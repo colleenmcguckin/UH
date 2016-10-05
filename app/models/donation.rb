@@ -39,4 +39,8 @@ class Donation < ActiveRecord::Base
   def donate!
     self.donated_at = Time.current
   end
+
+  def receive!
+    self.received_at = Time.current
+  end
 end

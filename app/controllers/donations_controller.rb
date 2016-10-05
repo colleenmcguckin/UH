@@ -2,7 +2,13 @@ class DonationsController < ApplicationController
 
   def index
     load_user
-    @donations = Donation.where(donor_id: @user.id)
+    if @user.donor?
+      @donations = Donation.where(donor_id: @user.id)
+    elsif @user.receiver?
+      @donations = Donation.where(receiver_id: @user.id)
+    else
+      @donations = Donation.all
+    end
   end
 
   def new
@@ -74,6 +80,18 @@ class DonationsController < ApplicationController
     end
   end
 
+  def receive
+    load_user
+    load_donation
+
+    @donation.receive!
+    if @donation.save
+      redirect_to receiver_donation_path(@user, @donation), notice: 'Donation has been confirmed. Thank you!'
+    else
+      render :show, notice: "Something went wrong, please try again. Donation couldn't be confirmed at this time."
+    end
+  end
+
   private
 
   def load_user
@@ -99,6 +117,8 @@ class DonationsController < ApplicationController
       :receiver_id,
       :tracking_code,
       :confirmed_at,
+      :donated_at,
+      :received_at,
       items: []
     )
   end
