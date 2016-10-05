@@ -2,6 +2,7 @@
 = @donation.id
 %br
 = @donation.donated? ? 'donated' : 'pending'
+
 %h2 Donor
 = @user.email
 
@@ -20,18 +21,24 @@
   - else
     = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation)
 
+- if @user.donor?
+  - if @donation.receiver
+    %h3
+      Step 4:
+      = link_to 'Confirm Donation', donation_donate_path(@donation)
+      You cannot modify a donation after this step.
 
-- if @donation.receiver
-  %h3
-    Step 4:
-    = link_to 'Confirm Donation', donation_donate_path(@donation)
-    You cannot modify a donation after this step.
+  - if @donation.donated?
+    %h3
+      Tracking Code:
+      = @donation.tracking_code
 
-- if @donation.donated?
-  %h3
-    Tracking Code:
-    = @donation.tracking_code
-
-= link_to 'Edit', edit_donor_donation_path(@user, @donation)
-= link_to 'Destroy', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
-= link_to 'All Donations', donor_donations_path(@user)
+  = link_to 'Edit', edit_donor_donation_path(@user, @donation)
+  = link_to 'Destroy', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
+  = link_to 'All Donations', donor_donations_path(@user)
+- if @user.receiver?
+  - if @donation.received?
+    %h3 Received
+  - else
+    %h3
+      = link_to 'Confirm Receipt', donation_receive_path(@donation)
