@@ -2,18 +2,32 @@
 = @donation.id
 %h2 Donor
 = @user.email
-%h3 Receiver
-- if @donation.receiver
-  = link_to @donation.receiver.email, @donation.receiver
-  = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation)
-- else
-  = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation)
+
 %h3 Items
 - @donation.items.each do |item|
   = item.description
   = item.quantity
   = item.quantity_type
 = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation)
+- if @donation.items.any?
+  %h3 Receiver
+  - if @donation.receiver
+    = link_to @donation.receiver.email, @donation.receiver
+    = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation)
+  - else
+    = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation)
+
+
+- if @donation.receiver
+  %h3
+    Step 4:
+    = link_to 'Confirm Donation', donation_donate_path(@donation)
+
+- if @donation.donated?
+  %h3
+    Tracking Code:
+    = @donation.tracking_code
+
 = link_to 'Edit', edit_donor_donation_path(@user, @donation)
 = link_to 'Destroy', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
 = link_to 'All Donations', donor_donations_path(@user)

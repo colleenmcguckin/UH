@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   end
   resources :admins
 
-  get 'donation/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
+  get 'donations/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
+  get 'donations/:id/receive', to: 'donations#receive', as: 'donation_receive'
+  get 'donations/:id/donate', to: 'donations#donate', as: 'donation_donate'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -4,7 +4,8 @@ class CreateDonations < ActiveRecord::Migration
       t.integer    :receiver_id
       t.integer    :donor_id
       t.string     :tracking_code
-      t.timestamp  :confirmed_at
+      t.timestamp  :received_at
+      t.timestamp  :donated_at
       t.timestamps true
     end
   end

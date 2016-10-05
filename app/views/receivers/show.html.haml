@@ -6,7 +6,7 @@
 -#   = f.error_notification
 -#   = f.button :submit, label: 'Add This Receiver'
 - if @donation
-  =link_to "Add to donation", donation_add_receiver_path(@donation)
+  =link_to "Add to donation", donation_add_receiver_path(@donation, receiver_id: @receiver.id)
 
 - if @receiver.donations.any?
   %h2

@@ -54,13 +54,24 @@ class DonationsController < ApplicationController
   def add_receiver
     load_user
     load_donation
-    @donation.update(receiver_id: params[:id])
+    @donation.update(receiver_id: params[:receiver_id])
     if @donation.save
       redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been added.'
     else
-      render :show, notice: "Something went wrong, please try again. Receiver couldn't be added."
+      render :show, notice: "Something went wrong, please try again. Receiver couldn't be added at this time."
     end
+  end
 
+  def donate
+    load_user
+    load_donation
+
+    @donation.donate!
+    if @donation.save
+      redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been notified. Take your donation to them now!'
+    else
+      render :show, notice: "Something went wrong, please try again. Receiver couldn't be confirmed at this time."
+    end
   end
 
   private
@@ -79,7 +90,7 @@ class DonationsController < ApplicationController
   end
 
   def load_donation
-    @donation = Donation.find params[:id]
+    @donation = Donation.find(params[:id])
   end
 
   def donation_params

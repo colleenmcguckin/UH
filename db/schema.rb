@@ -45,7 +45,8 @@ ActiveRecord::Schema.define(version: 20161004060108) do
     t.integer  "receiver_id"
     t.integer  "donor_id"
     t.string   "tracking_code"
-    t.datetime "confirmed_at"
+    t.datetime "received_at"
+    t.datetime "donated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
