@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
+  root to: 'home#welcome'
+
   devise_for :admins
   devise_for :receivers
   devise_for :donors
-  root to: 'home#welcome'
   resources :donors do
     resources :donations do
       resources :donation_items
