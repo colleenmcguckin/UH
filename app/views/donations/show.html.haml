@@ -1,7 +1,10 @@
 %h1 Donation
 = @donation.id
+%br
+= @donation.donated? ? 'donated' : 'pending'
 %h2 Donor
 = @user.email
+
 
 %h3 Items
 - @donation.items.each do |item|
@@ -22,6 +25,7 @@
   %h3
     Step 4:
     = link_to 'Confirm Donation', donation_donate_path(@donation)
+    You cannot modify a donation after this step.
 
 - if @donation.donated?
   %h3
