@@ -10,7 +10,10 @@ class Donation < ActiveRecord::Base
     donation.validates :tracking_code, uniqueness: true
   end
 
-
+  scope :donated, -> { where('donated_at < ?' Time.current) }
+  scope :received, -> { where('received_at < ?' Time.current) }
+  scope :not_donated, -> { where(donated_at: nil) }
+  scope :can_donate, -> { not_donated.where(receiver_id: nil) }
 
   def add_item(description, quantity, quantity_type)
     items.new(description: description, quantity: quantity, quantity_type: quantity_type)
