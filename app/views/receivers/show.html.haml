@@ -1,0 +1,27 @@
+- if @user.donor?
+  %h1 Receiver Details
+  = @receiver.id
+  = @receiver.email
+
+  -# = simple_form_for [@user, @donation], add_receiver_path do |f|
+  -#   = f.error_notification
+  -#   = f.button :submit, label: 'Add This Receiver'
+  - if @donation
+    =link_to "Add to donation", donation_add_receiver_path(@donation, receiver_id: @receiver.id)
+
+  - if @receiver.donations.any?
+    %h2
+      Incoming Donation Items
+    - @receiver.donations.each do |donation|
+      - donation.items.each do |item|
+        = item.description.titleize
+        = item.quantity
+        = item.quantity_type.titleize
+- elsif @user.receiver?
+  %h1 My Profile
+  %h3
+    = @receiver.id
+    = @receiver.email
+
+  .col-md-3
+    = link_to 'My Donations', receiver_donations_path(@user)

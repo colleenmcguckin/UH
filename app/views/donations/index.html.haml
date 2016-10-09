@@ -1,4 +1,32 @@
--@donations.each do |donation|
-  = link_to "#{donation.id}", user_donation_path(@user, donation)
-  = donation.donor_id
-=link_to 'New Donation', new_user_donation_path(@user)
+- if @user.donor?
+  -@donations.each do |donation|
+    = link_to "#{donation.id}", donor_donation_path(@user, donation)
+    = donation.donor_id
+  =link_to 'New Donation', new_donor_donation_path(@user)
+
+- if @user.receiver?
+  %table
+    %thead
+      - %w[ID Donor Date Items Status].each do |th|
+        %th= th
+    %tbody
+      - @donations.each do |donation|
+        %tr
+          %td
+            = link_to "#{donation.id}", receiver_donation_path(@user, donation)
+          %td
+            = donation.donor.email
+          %td
+            = donation.created_at
+          %td
+            - donation.items.each do |item|
+              = item.description.titleize
+              = item.quantity
+              = item.quantity_type.titleize
+              %br
+          %td
+            -if donation.received?
+              Confirmed
+            -else
+              = link_to 'Confirm Receipt', donation_receive_path(donation)
+= link_to 'Back to profile', receiver_path(@user)

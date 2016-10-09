@@ -1,11 +1,26 @@
 Rails.application.routes.draw do
 
-  root to: 'users#index'
-  resources :users do
+  root to: 'home#welcome'
+
+  devise_for :admins
+  devise_for :receivers
+  devise_for :donors
+  resources :donors do
     resources :donations do
-      resources :items, controller: :donation_items
+      resources :donation_items
+      resources :receivers, only: [:index, :show]
     end
   end
+  resources :receivers do
+    resources :donations do
+      resources :donation_items
+    end
+  end
+  resources :admins
+
+  get 'donations/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
+  get 'donations/:id/receive', to: 'donations#receive', as: 'donation_receive'
+  get 'donations/:id/donate', to: 'donations#donate', as: 'donation_donate'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

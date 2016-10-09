@@ -7,8 +7,25 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render partial: 'layouts/navbar' %>
-<%= yield %>
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+  <% if current_donor %>
+    <%= current_donor.email %>
+    <%= link_to "Sign Out", destroy_donor_session_path, method: :delete %>
+
+  <% elsif current_receiver %>
+    <%= current_receiver.email %>
+    <%= link_to "Sign Out", destroy_receiver_session_path, method: :delete %>
+
+  <% elsif current_admin %>
+    <%= current_admin.email %>
+    <%= link_to "Sign Out", destroy_admin_session_path, method: :delete %>
+  <% end %>
+  <%= yield %>
 
 </body>
 </html>
