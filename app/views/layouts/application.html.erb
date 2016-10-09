@@ -16,6 +16,7 @@
   <% if current_donor %>
     <%= current_donor.email %>
     <%= link_to "Sign Out", destroy_donor_session_path, method: :delete %>
+
   <% elsif current_receiver %>
     <%= current_receiver.email %>
     <%= link_to "Sign Out", destroy_receiver_session_path, method: :delete %>

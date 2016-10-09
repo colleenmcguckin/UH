@@ -6,20 +6,23 @@
 %h2 Donor
 = @user.email
 
-
 %h3 Items
-- @donation.items.each do |item|
-  = item.description
-  = item.quantity
-  = item.quantity_type
-= link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation)
+
+%ul
+  - @donation.items.each do |item|
+    %li
+      = item.description
+      = item.quantity
+      = item.quantity_type
+= link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation) unless @user.receiver?
 - if @donation.items.any?
-  %h3 Receiver
-  - if @donation.receiver
-    = link_to @donation.receiver.email, @donation.receiver
-    = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation)
-  - else
-    = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation)
+  - if @user.donor?
+    %h3 Receiver
+    - if @donation.receiver
+      = link_to @donation.receiver.email, @donation.receiver
+      = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation)
+    - else
+      = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation)
 
 - if @user.donor?
   - if @donation.receiver

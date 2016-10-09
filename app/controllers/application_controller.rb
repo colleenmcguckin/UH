@@ -18,4 +18,15 @@ class ApplicationController < ActionController::Base
       @user = Admin.find current_user
     end
   end
+
+  def authenticate_user!
+    case @user.role
+    when 'receiver'
+      authenticate_receiver!
+    when 'donor'
+      authenticate_donor!
+    when 'admin'
+      authenticate_admin!
+    end
+  end
 end

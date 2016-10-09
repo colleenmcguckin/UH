@@ -13,4 +13,5 @@ class Donor < ActiveRecord::Base
   def receiver?
     false
   end
+
 end
