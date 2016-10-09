@@ -3,6 +3,7 @@
     = link_to "#{donation.id}", donor_donation_path(@user, donation)
     = donation.donor_id
   =link_to 'New Donation', new_donor_donation_path(@user)
+  = link_to 'Back to profile', donor_path(@user)
 
 - if @user.receiver?
   %table
@@ -29,4 +30,4 @@
               Confirmed
             -else
               = link_to 'Confirm Receipt', donation_receive_path(donation)
-= link_to 'Back to profile', receiver_path(@user)
+  = link_to 'Back to profile', receiver_path(@user)
