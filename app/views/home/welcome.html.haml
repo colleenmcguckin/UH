@@ -1,9 +1,7 @@
 %h1 Log In as...
 
 - %w[donor receiver].each do |role|
-  .col-md-6
-    .btn.btn-primary.btn-login
-      %h1
-        = link_to "#{role.titleize}", polymorphic_path("new_#{role}_session")
+  .col-sm-6
+    = link_to "#{role.titleize}", polymorphic_path("new_#{role}_session"), class: "btn btn-primary btn-login"
 
 = link_to "admin login", new_admin_session_path
