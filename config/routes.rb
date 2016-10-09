@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   root to: 'home#welcome'
+  get 'login', to: 'home#login'
+  get 'register', to: 'home#register'
 
   devise_for :admins
   devise_for :receivers

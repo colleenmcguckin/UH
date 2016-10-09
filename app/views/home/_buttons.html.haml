@@ -1,0 +1,3 @@
+- %w[donor receiver].each do |role|
+  .col-sm-6
+    = link_to "#{role.titleize}", polymorphic_path("new_#{role}_#{path}"), class: "btn btn-primary btn-login"
