@@ -1,10 +1,5 @@
-%h1 My Profile
+%h3 Dashboard
+= link_to 'New Donation', new_donor_donation_path(@user)
 
-%h3
-  = @user.email
-
-.col-md-3
-  = link_to 'My Donations', donor_donations_path(@user)
-
-.col-md-9
-  = link_to 'New Donation', new_donor_donation_path(@user)
+.pull-right
+ = link_to 'Edit Profile', edit_donor_path(@user)

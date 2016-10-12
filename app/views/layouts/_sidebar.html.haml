@@ -1,0 +1,23 @@
+.profile-sidebar
+  .profile-userpic
+    =image_tag 'profile-placeholder.png', class: 'img-responsive'
+
+  .profile-usertitle
+    .profile-usertitle-name
+      = @user.email
+    .profile-usertitle-subheading
+    %h4 My Profile
+  .profile-userbuttons
+    = link_to 'Start New Donation', new_donor_donation_path(@user), class: 'btn btn-success btn-md'
+
+  .profile-usermenu
+    %ul.nav
+      %li
+        = link_to 'My Profile', donor_path(@user)
+      %li
+        = link_to 'My Donations', donor_donations_path(@user)
+      %li
+        %a
+          My Reports
+      %li
+        = render partial: 'layouts/signout'

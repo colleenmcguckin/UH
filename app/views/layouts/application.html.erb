@@ -13,19 +13,16 @@
   <% if alert %>
     <p class="alert alert-danger"><%= alert %></p>
   <% end %>
-  <% if current_donor %>
-    <%= current_donor.email %>
-    <%= link_to "Sign Out", destroy_donor_session_path, method: :delete %>
 
-  <% elsif current_receiver %>
-    <%= current_receiver.email %>
-    <%= link_to "Sign Out", destroy_receiver_session_path, method: :delete %>
+  <div class='col-sm-3'>
+    <%= render partial: 'layouts/sidebar' %>
+  </div>
 
-  <% elsif current_admin %>
-    <%= current_admin.email %>
-    <%= link_to "Sign Out", destroy_admin_session_path, method: :delete %>
-  <% end %>
-  <%= yield %>
+  <div class='col-sm-9'>
+    <div class='profile-content'>
+      <%= yield %>
+    </div>
+  </div>
 
 </body>
 </html>
