@@ -1,7 +1,68 @@
-%h1 Receiver Index
-- @receivers.each do |receiver|
-  = receiver.id
-  - unless @user.donor?
-    = link_to "#{receiver.email}", receiver
-  - else
-    = link_to "#{receiver.email}", donor_donation_receiver_path(@user, @donation, receiver)
+.content
+  .container
+    - @receivers.in_groups_of(2) do |receiver_group|
+      .row
+        .col-xl-6.margin-bottom-30
+          .portlet
+            .portlet-title
+              .caption
+                %i.glyphicon.glyphicon-calendar
+                %span.caption-subject.text-uppercase Portlet
+                %span.caption-helper weekly stats...
+              .actions
+                %a.btn{:href => "javascript:;"}
+                  %i.glyphicon.glyphicon-pencil
+                  Edit
+                %a.btn{:href => "javascript:;"}
+                  %i.glyphicon.glyphicon-paperclip
+                  Add
+                %a.btn.btn-circle{:href => "javascript:;"}
+                  %i.glyphicon.glyphicon-resize-full
+            .portlet-body
+              %h4
+                = receiver_group.first.email.upcase
+              %p Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
+        .col-xl-6.margin-bottom-30
+          .portlet
+            .portlet-title
+              .caption
+                %i.glyphicon.glyphicon-calendar
+                %span.caption-subject.text-uppercase Portlet
+                %span.caption-helper weekly stats...
+              .actions
+                %a.btn{:href => "javascript:;"}
+                  %i.glyphicon.glyphicon-pencil
+                  Edit
+                %a.btn{:href => "javascript:;"}
+                  %i.glyphicon.glyphicon-paperclip
+                  Add
+                %a.btn.btn-circle{:href => "javascript:;"}
+                  %i.glyphicon.glyphicon-resize-full
+            .portlet-body
+              %h4 Heading Text
+              %p Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
+-# %h1 Receiver Index
+-# - @receivers.each do |receiver|
+-#   .receiver-card
+-#     .receiver-card-title
+-#     %h3 Receiving Site
+-#     .row
+-#       .col-md-4
+-#         %ul
+-#           %li
+-#             Detail Bullet Points
+-#           %li
+-#             Detail Bullet Points
+-#           %li
+-#             Detail Bullet Points
+-#       .col-md-4
+-#         %p
+-#           Address Line 1
+-#           %br Address Line 2
+-#           %br Address Line 3
+-#       .col-md-4
+-#         =image_tag 'map', class: 'img-responsive'
+-#     - unless @user.donor?
+-#       = link_to "#{receiver.email}", receiver
+-#     - else
+-#       = link_to "See Details & Add To Donation", donor_donation_receiver_path(@user, @donation, receiver)

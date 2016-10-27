@@ -1,5 +1,6 @@
-%h3 Dashboard
-= link_to 'New Donation', new_donor_donation_path(@user)
+.profile-content
+  %h3 Dashboard
+  = link_to 'New Donation', new_donor_donation_path(@user)
 
-.pull-right
- = link_to 'Edit Profile', edit_donor_path(@user)
+  .pull-right
+    = link_to 'Edit Profile', edit_donor_path(@user)

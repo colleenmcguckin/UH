@@ -14,15 +14,17 @@
     <p class="alert alert-danger"><%= alert %></p>
   <% end %>
 
-  <div class='col-sm-3'>
-    <%= render partial: 'layouts/sidebar' %>
-  </div>
+  <% if @user %>
+    <div class='col-sm-3'>
+      <%= render partial: 'layouts/sidebar' %>
+    </div>
 
-  <div class='col-sm-9'>
-    <div class='profile-content'>
+    <div class='col-sm-9'>
       <%= yield %>
     </div>
-  </div>
+  <% else %>
+    <%= yield %>
+  <% end %>
 
 </body>
 </html>
