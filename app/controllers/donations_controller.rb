@@ -6,7 +6,7 @@ class DonationsController < ApplicationController
       @donations = Donation.where(donor_id: @user.id)
     elsif @user.receiver?
       @donations = Donation.where(receiver_id: @user.id)
-    else
+    elsif @user.admin?
       @donations = Donation.all
     end
   end
@@ -14,11 +14,6 @@ class DonationsController < ApplicationController
   def new
     load_user
     @donation = Donation.new(donor_id: @user.id)
-  end
-
-  def edit
-    load_user
-    load_donation
   end
 
   def create
@@ -30,6 +25,11 @@ class DonationsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    load_user
+    load_donation
   end
 
   def update
@@ -60,8 +60,7 @@ class DonationsController < ApplicationController
   def add_receiver
     load_user
     load_donation
-    @donation.update(receiver_id: params[:receiver_id])
-    if @donation.save
+    if @donation.update(receiver_id: params[:receiver_id])
       redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been added.'
     else
       render :show, notice: "Something went wrong, please try again. Receiver couldn't be added at this time."
@@ -72,8 +71,7 @@ class DonationsController < ApplicationController
     load_user
     load_donation
 
-    @donation.donate!
-    if @donation.save
+    if @donation.donate!
       redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been notified. Take your donation to them now!'
     else
       render :show, notice: "Something went wrong, please try again. Receiver couldn't be confirmed at this time."
@@ -84,8 +82,7 @@ class DonationsController < ApplicationController
     load_user
     load_donation
 
-    @donation.receive!
-    if @donation.save
+    if @donation.receive!
       redirect_to receiver_donations_path(@user, @donation), notice: 'Donation has been confirmed. Thank you!'
     else
       render :show, notice: "Something went wrong, please try again. Donation couldn't be confirmed at this time."
@@ -96,14 +93,11 @@ class DonationsController < ApplicationController
 
   def load_user
     if current_donor
-      current_user = current_donor
-      @user = Donor.find current_user
+      @user = Donor.find current_donor
     elsif current_receiver
-      current_user = current_receiver
-      @user = Receiver.find current_user
+      @user = Receiver.find current_receiver
     elsif current_admin
-      current_user = current_admin
-      @user = Admin.find current_user
+      @user = Admin.find current_admin
     end
   end
 

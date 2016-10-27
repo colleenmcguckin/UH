@@ -8,14 +8,11 @@ class ApplicationController < ActionController::Base
 
   def load_user
     if current_donor
-      current_user = current_donor
-      @user = Donor.find current_user
+      @user = Donor.find current_donor
     elsif current_receiver
-      current_user = current_receiver
-      @user = Receiver.find current_user
+      @user = Receiver.find current_receiver
     elsif current_admin
-      current_user = current_admin
-      @user = Admin.find current_user
+      @user = Admin.find current_admin
     end
   end
 

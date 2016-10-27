@@ -10,27 +10,24 @@ class Donation < ActiveRecord::Base
     donation.validates :tracking_code, uniqueness: true
   end
 
-
-
-  def add_item(description, quantity, quantity_type)
-    items.new(description: description, quantity: quantity, quantity_type: quantity_type)
+  def add_item description, quantity, quantity_type
+    items.new description: description, quantity: quantity, quantity_type: quantity_type
   end
 
   def donated?
-    true if donated_at
+    donated_at?
   end
 
   def received?
-    true if received_at
+    received_at?
   end
 
   def add_tracking_code
     unless tracking_code
-      code = ""
       chars = %w[A B C D E F G H J K L M N P R S T X Y Z 2 3 4 5 6 7 8 9]
-      5.times do
-        code << chars.sample
-      end
+
+      tracking_codes = Donation.pluck :tracking_code
+      loop { break if !tracking_codes.include? code = chars.sample(5).join }
 
       self.tracking_code = code
     end
