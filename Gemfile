@@ -30,6 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
+gem 'responsive_active_admin'
 
 gem 'pry'
 gem 'pry-doc'
