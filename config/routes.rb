@@ -1,24 +1,24 @@
 Rails.application.routes.draw do
 
+  devise_for :admins, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   root to: 'home#welcome'
   get 'login', to: 'home#login'
   get 'register', to: 'home#register'
 
-  devise_for :admins
   devise_for :receivers
   devise_for :donors
-  resources :donors do
+  resources :donors, only: [:show, :edit, :index] do
     resources :donations do
-      resources :donation_items
+      resources :donation_items, only: [:new, :create, :index]
       resources :receivers, only: [:index, :show]
     end
   end
-  resources :receivers do
+  resources :receivers, only: [:show, :index] do
     resources :donations do
-      resources :donation_items
+      resources :donation_items, only: [:new, :create, :index]
     end
   end
-  resources :admins
 
   get 'donations/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
   get 'donations/:id/receive', to: 'donations#receive', as: 'donation_receive'

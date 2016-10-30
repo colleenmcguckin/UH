@@ -172,3 +172,4 @@ Donation.all.each do |donation|
   donation.receiver_id = [Receiver.all.sample, nil].sample
   donation.save!
 end
+Admin.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

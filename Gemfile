@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 
+gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
+
 gem 'pry'
 gem 'pry-doc'
 gem 'pry-theme'
