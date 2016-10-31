@@ -16,6 +16,10 @@ class DonorsController < ApplicationController
     load_user
   end
 
+  def details
+    load_user
+  end
+
   private
 
   def load_user

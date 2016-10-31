@@ -24,7 +24,31 @@ class ReceiversController < ApplicationController
     end
   end
 
+  def update
+    load_user
+    if @user.update receiver_params
+      redirect_to receiver_path @user
+    elsif
+      render 'receivers#details'
+    end
+  end
+
+  def details
+    load_user
+  end
+
   private
+
+  def receiver_params
+    params.require(:receiver).permit(
+      :agency_name,
+      :street_address,
+      :city,
+      :state,
+      :zip,
+      :tax_id
+    )
+  end
 
   def load_user
     if current_donor

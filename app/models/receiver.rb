@@ -13,4 +13,10 @@ class Receiver < ActiveRecord::Base
   def receiver?
     true
   end
+
+  def verify!
+    #hit the api
+    #if verified update verified_at field
+    #if rejected give notice
+  end
 end

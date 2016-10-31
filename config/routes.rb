@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'login', to: 'home#login'
   get 'register', to: 'home#register'
 
-  devise_for :receivers
+  devise_for :receivers, controllers: { registrations: "registrations" }
   devise_for :donors
   resources :donors, only: [:show, :edit, :index] do
     resources :donations do
@@ -14,11 +14,13 @@ Rails.application.routes.draw do
       resources :receivers, only: [:index, :show]
     end
   end
-  resources :receivers, only: [:show, :index] do
+  resources :receivers, only: [:show, :index, :edit, :update] do
     resources :donations do
       resources :donation_items, only: [:new, :create, :index]
     end
   end
+
+  get 'receivers/:id/details', to: 'receivers#details', as: 'receiver_details'
 
   get 'donations/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
   get 'donations/:id/receive', to: 'donations#receive', as: 'donation_receive'
