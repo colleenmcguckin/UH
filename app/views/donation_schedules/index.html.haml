@@ -13,11 +13,17 @@
         Donors will want to know what times you are available to accept items.
         They can see this schedule when choosing a donation site, so try to keep this as updated as possible.
   .row
-    .col-md-4
-      = link_to 'Add Donation Hours', new_receiver_donation_schedule_path(@user)
-  .row
-    .col-md-4
-      - if @user.paused?
-        = link_to 'Unpause Availability', unpause_receiver_path(@user)
-      - else
-        = link_to 'Pause Availability', pause_receiver_path(@user)
+    .col-md-5
+      .row
+        .col-sm-12
+          %h4
+            Temporarily turn off your availability.
+          %p
+            Use this button to pause your availability.
+            Donors will not be able to view your profile or add you to donations while you are paused.
+      .row
+        .col-sm-12
+          - if @user.paused?
+            = link_to 'Unpause Availability', unpause_receiver_path(@user), class: 'btn btn-success'
+          - else
+            = link_to 'Pause Availability', pause_receiver_path(@user), class: 'btn btn-danger'

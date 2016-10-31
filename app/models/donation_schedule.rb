@@ -5,4 +5,7 @@ class DonationSchedule < ActiveRecord::Base
 
   validates :day_of_week, uniqueness: { scope: :receiver_id }
 
+  def closed?
+    open_at_hour.blank? || close_at_hour.blank?
+  end
 end
