@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031013904) do
+ActiveRecord::Schema.define(version: 20161031044403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 20161031013904) do
   end
 
   add_index "donation_items", ["donation_id"], name: "index_donation_items_on_donation_id", using: :btree
+
+  create_table "donation_schedules", force: :cascade do |t|
+    t.integer "receiver_id"
+    t.integer "day_of_week"
+    t.integer "open_at_hour"
+    t.integer "open_at_minute"
+    t.integer "close_at_hour"
+    t.integer "close_at_minute"
+  end
 
   create_table "donations", force: :cascade do |t|
     t.integer  "receiver_id"

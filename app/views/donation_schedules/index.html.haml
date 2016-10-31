@@ -1,0 +1,14 @@
+.profile-content
+  .row
+    .col-md-5
+      %h4 Current Availability:
+      = render partial: 'table_schedule', locals: {editable: true}
+    .col-md-5.col-md-offset-1
+      %h5
+        This is your availability to accept donations.
+      %p
+        Donors will want to know what times you are available to accept items.
+        They can see this schedule when choosing a donation site, so try to keep this as updated as possible.
+  .row
+    .col-md-4
+      = link_to 'Add Donation Hours', new_receiver_donation_schedule_path(@user)

@@ -1,0 +1,12 @@
+Current Schedule:
+
+- if @donation_schedules
+  - @donation_schedules.each do |schedule|
+    = schedule.day_of_week
+    = schedule.open_at_hour
+    = schedule.open_at_minute
+    = schedule.close_at_hour
+    = schedule.close_at_minute
+    = link_to 'Edit Schedule', edit_receiver_donation_schedule_path(@user, schedule)
+
+= link_to 'Add Donation Hours', new_receiver_donation_schedule_path(@user)

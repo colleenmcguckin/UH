@@ -18,6 +18,9 @@
       %li
         = link_to 'My Donations', receiver_donations_path(@user) if @user.receiver?
         = link_to 'My Donations', donor_donations_path(@user) if @user.donor?
+      - if @user.receiver?
+        %li
+          = link_to 'My Availability', receiver_donation_schedules_path(@user)
 
       %li
         %a

@@ -32,7 +32,26 @@
             =f.input :dfr_contact_cell_phone
             =f.input :dfr_preffered_contact_method
       %hr.featurette-divider
-
+        .row
+          .col-md-6
+            %h4 Donation Acceptance Schedule
+        .row
+          .col-md-6
+            %h4 Sunday Hours
+            =f.simple_fields_for :hours_of_donations do |h|
+              = h.input :day_of_week, :as => :hidden, :input_html => { :value => "0" }
+              = h.input :open_at_hour
+              = h.input :open_at_minute
+              = h.input :close_at_hour
+              = h.input :close_at_minute
+          .col-md-6
+            %h4 Monday Hours
+            =f.simple_fields_for :hours_of_donations do |h|
+              = h.input :day_of_week, :as => :hidden, :input_html => { :value => "1" }
+              = h.input :open_at_hour
+              = h.input :open_at_minute
+              = h.input :close_at_hour
+              = h.input :close_at_minute
     .text-sm-right
       .form-actions
         .row

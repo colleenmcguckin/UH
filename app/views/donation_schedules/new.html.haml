@@ -1,0 +1,8 @@
+= simple_form_for [@user, @donation_schedule] do |f|
+  = f.error_notification
+  = f.input :day_of_week
+  = f.input :open_at_hour
+  = f.input :open_at_minute
+  = f.input :close_at_hour
+  = f.input :close_at_minute
+  = f.button :submit

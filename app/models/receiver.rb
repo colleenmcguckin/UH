@@ -5,6 +5,7 @@ class Receiver < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :donations
+  has_many :donation_schedules
 
   def donor?
     false
@@ -19,4 +20,9 @@ class Receiver < ActiveRecord::Base
     #if verified update verified_at field
     #if rejected give notice
   end
+
+  def hours_on day_of_week
+    hours_of_donations.find_by(day_of_week: day_of_week)
+  end
+
 end
