@@ -1,9 +1,40 @@
-=simple_form_for(@user) do |f|
-  = f.error_notification
-  = f.input :agency_name
-  = f.input :street_address
-  = f.input :city
-  = f.input :state
-  = f.input :zip
-  = f.input :tax_id, label: 'Tax ID/EIN'
-  = f.button :submit
+.profile-content
+  %h3 Please supply the following details about your organization
+  = simple_form_for(@user) do |f|
+    = f.error_notification
+    .form-inputs
+      .row
+        .col-md-6
+          %h4 Agency Basics
+        .col-md-6
+          %h4 General Contact Information
+      .row
+        .col-md-6
+          = f.input :agency_name
+          = f.input :street_address
+          = f.input :city
+          = f.input :state
+          = f.input :zip
+          = f.input :tax_id, label: 'Tax ID/EIN'
+        .col-md-6
+          = f.input :contact_name
+          = f.input :contact_phone
+          = f.input :contact_email
+      %hr.featurette-divider
+        .row
+          .col-md-6
+            %h4 Daily Food Recovery Contact Information
+        .row
+          .col-md-6
+            =f.input :dfr_contact_name
+            =f.input :dfr_contact_email
+            =f.input :dfr_contact_office_phone
+            =f.input :dfr_contact_cell_phone
+            =f.input :dfr_preffered_contact_method
+      %hr.featurette-divider
+
+    .text-sm-right
+      .form-actions
+        .row
+          .col-md-9
+            = f.button :submit, "Save Details", { class: 'btn btn-success' }

@@ -46,7 +46,15 @@ class ReceiversController < ApplicationController
       :city,
       :state,
       :zip,
-      :tax_id
+      :tax_id,
+      :contact_name,
+      :contact_phone,
+      :contact_email,
+      :dfr_contact_name,
+      :dfr_contact_cell_phone,
+      :dfr_contact_office_phone,
+      :dfr_contact_email,
+      :dfr_preffered_contact_method
     )
   end
 
