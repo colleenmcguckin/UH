@@ -7,6 +7,8 @@ class Receiver < ActiveRecord::Base
   has_many :donations
   has_many :donation_schedules
 
+  after_create :setup_schedule
+
   def donor?
     false
   end
@@ -21,8 +23,16 @@ class Receiver < ActiveRecord::Base
     #if rejected give notice
   end
 
+  def setup_schedule
+    0.upto(6) do |i|
+      self.donation_schedules.create(
+        day_of_week: i
+      )
+    end
+  end
+
   def hours_on day_of_week
-    hours_of_donations.find_by(day_of_week: day_of_week)
+    self.donation_schedules.find_by(day_of_week: day_of_week)
   end
 
   def paused?
