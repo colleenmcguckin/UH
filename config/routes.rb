@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   end
 
   get 'receivers/:id/details', to: 'receivers#details', as: 'receiver_details'
+  get 'receivers/:id/pause', to: 'receivers#pause', as: 'pause_receiver'
+  get 'receivers/:id/unpause', to: 'receivers#unpause', as: 'unpause_receiver'
 
   get 'donations/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
   get 'donations/:id/receive', to: 'donations#receive', as: 'donation_receive'

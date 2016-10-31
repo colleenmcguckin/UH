@@ -2,7 +2,10 @@
   .row
     .col-md-5
       %h4 Current Availability:
-      = render partial: 'table_schedule', locals: {editable: true}
+      - unless @user.paused?
+        = render partial: 'table_schedule', locals: {editable: true}
+      - else
+        %h4 PAUSED
     .col-md-5.col-md-offset-1
       %h5
         This is your availability to accept donations.
@@ -12,3 +15,9 @@
   .row
     .col-md-4
       = link_to 'Add Donation Hours', new_receiver_donation_schedule_path(@user)
+  .row
+    .col-md-4
+      - if @user.paused?
+        = link_to 'Unpause Availability', unpause_receiver_path(@user)
+      - else
+        = link_to 'Pause Availability', pause_receiver_path(@user)

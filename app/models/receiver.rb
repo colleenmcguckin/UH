@@ -25,4 +25,17 @@ class Receiver < ActiveRecord::Base
     hours_of_donations.find_by(day_of_week: day_of_week)
   end
 
+  def paused?
+    true if paused
+  end
+
+  def pause!
+    self.paused = true
+    self.save
+  end
+
+  def unpause!
+    self.paused = false
+    self.save
+  end
 end

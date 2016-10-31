@@ -14,6 +14,6 @@ class AddDetailsToReceiver < ActiveRecord::Migration
     add_column :receivers, :dfr_contact_office_phone, :string
     add_column :receivers, :dfr_contact_cell_phone, :string
     add_column :receivers, :dfr_preffered_contact_method, :string
-
+    add_column :receivers, :paused, :boolean, default: false
   end
 end

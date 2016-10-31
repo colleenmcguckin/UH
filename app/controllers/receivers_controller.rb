@@ -37,6 +37,24 @@ class ReceiversController < ApplicationController
     load_user
   end
 
+  def pause
+    load_user
+    if @user.pause!
+      redirect_to receiver_donation_schedules_path(@user), notice: 'Availability successfully paused.'
+    else
+      render :index, notice: 'Availability could not be paused at this time. Please try again.'
+    end
+  end
+
+  def unpause
+    load_user
+    if @user.unpause!
+      redirect_to receiver_donation_schedules_path(@user), notice: 'Availability successfully unpaused.'
+    else
+      render :index, notice: 'Availability could not be unpaused at this time. Please try again.'
+    end
+  end
+
   private
 
   def receiver_params
@@ -54,7 +72,8 @@ class ReceiversController < ApplicationController
       :dfr_contact_cell_phone,
       :dfr_contact_office_phone,
       :dfr_contact_email,
-      :dfr_preffered_contact_method
+      :dfr_preffered_contact_method,
+      :paused
     )
   end
 
