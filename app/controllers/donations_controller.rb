@@ -65,7 +65,6 @@ class DonationsController < ApplicationController
 
   def donate
     load_donation
-
     if @donation.donate!
       redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been notified. Take your donation to them now!'
     else
@@ -112,6 +111,8 @@ class DonationsController < ApplicationController
   end
 
   def only_donors_allowed
-    redirect_to receiver_path @user, notice: 'You must be a donor to do this.'
+    if @user.receiver?
+      redirect_to receiver_path @user, notice: 'You must be a donor to do this.'
+    end
   end
 end

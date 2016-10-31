@@ -27,6 +27,7 @@ class Donation < ActiveRecord::Base
       chars = %w[A B C D E F G H J K L M N P R S T X Y Z 2 3 4 5 6 7 8 9]
 
       tracking_codes = Donation.pluck :tracking_code
+      code = ''
       loop { break if !tracking_codes.include? code = chars.sample(5).join }
 
       self.tracking_code = code
@@ -35,6 +36,7 @@ class Donation < ActiveRecord::Base
 
   def donate!
     self.donated_at = Time.current
+    self.save
   end
 
   def receive!

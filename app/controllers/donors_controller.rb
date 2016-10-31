@@ -6,7 +6,10 @@ class DonorsController < ApplicationController
   end
 
   def show
-    @user = Donor.find(params[:id])
+    load_user
+    unless @user.id.to_s == params[:id]
+      redirect_to donor_path @user
+    end
   end
 
   def edit
