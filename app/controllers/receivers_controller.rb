@@ -1,4 +1,7 @@
 class ReceiversController < ApplicationController
+
+  before_action :authenticate_user!
+
   def index
     load_user
     @receivers = Receiver.all
@@ -9,9 +12,15 @@ class ReceiversController < ApplicationController
 
   def show
     load_user
-    @receiver = Receiver.find(params[:id])
-    if params[:donation_id]
-      @donation = Donation.find(params[:donation_id])
+    if @user.donor?
+      @receiver = Receiver.find(params[:id])
+      if params[:donation_id]
+        @donation = Donation.find(params[:donation_id])
+      end
+    elsif @user.receiver?
+      unless @user.id.to_s == params[:id]
+        redirect_to receiver_path @user
+      end
     end
   end
 
@@ -19,11 +28,11 @@ class ReceiversController < ApplicationController
 
   def load_user
     if current_donor
-      @user = Donor.find current_donor
+      @user = Donor.find current_donor.id
     elsif current_receiver
-      @user = Receiver.find current_receiver
+      @user = Receiver.find current_receiver.id
     elsif current_admin
-      @user = Admin.find current_admin
+      @user = Admin.find current_admin.id
     end
   end
 

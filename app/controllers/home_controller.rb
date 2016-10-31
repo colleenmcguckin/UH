@@ -4,7 +4,6 @@ class HomeController < ApplicationController
   end
 
   def login
-
   end
 
   def register

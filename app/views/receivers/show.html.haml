@@ -17,11 +17,12 @@
         = item.description.titleize
         = item.quantity
         = item.quantity_type.titleize
+
 - elsif @user.receiver?
   %h1 My Profile
   %h3
-    = @receiver.id
-    = @receiver.email
+    = @user.id
+    = @user.email
 
   .col-md-3
     = link_to 'My Donations', receiver_donations_path(@user)

@@ -1,6 +1,9 @@
 class DonationItemsController < ApplicationController
-  before_action :load_donation
+
+
   before_action :load_user
+  before_action :authenticate_user!
+  before_action :load_donation
 
   def index
     @donation_items = DonationItem.where donation_id: @donation.id

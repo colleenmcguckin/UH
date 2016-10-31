@@ -1,7 +1,11 @@
 class DonationsController < ApplicationController
 
+
+  before_action :load_user
+  before_action :authenticate_user!
+  before_action :only_donors_allowed, except: [:index, :show, :receive]
+
   def index
-    load_user
     if @user.donor?
       @donations = Donation.where(donor_id: @user.id)
     elsif @user.receiver?
@@ -12,13 +16,10 @@ class DonationsController < ApplicationController
   end
 
   def new
-    load_user
     @donation = Donation.new(donor_id: @user.id)
   end
 
   def create
-    load_user
-
     @donation = Donation.new(donor_id: @user.id)
     if @donation.save
       redirect_to donor_donation_path(@user, @donation), notice: 'Donation has been created'
@@ -28,12 +29,10 @@ class DonationsController < ApplicationController
   end
 
   def edit
-    load_user
     load_donation
   end
 
   def update
-    load_user
     load_donation
     if @donation.update donation_params
       redirect_to donor_donation_path(@user, @donation), notice: 'Donation has been updated'
@@ -43,7 +42,6 @@ class DonationsController < ApplicationController
   end
 
   def destroy
-    load_user
     load_donation
     if @donation.destroy!
       redirect_to donor_donations_path(@user), notice: 'Donation has been deleted.'
@@ -53,12 +51,10 @@ class DonationsController < ApplicationController
   end
 
   def show
-    load_user
     load_donation
   end
 
   def add_receiver
-    load_user
     load_donation
     if @donation.update(receiver_id: params[:receiver_id])
       redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been added.'
@@ -68,7 +64,6 @@ class DonationsController < ApplicationController
   end
 
   def donate
-    load_user
     load_donation
 
     if @donation.donate!
@@ -79,7 +74,6 @@ class DonationsController < ApplicationController
   end
 
   def receive
-    load_user
     load_donation
 
     if @donation.receive!
@@ -115,5 +109,9 @@ class DonationsController < ApplicationController
       :received_at,
       items: []
     )
+  end
+
+  def only_donors_allowed
+    redirect_to receiver_path @user, notice: 'You must be a donor to do this.'
   end
 end

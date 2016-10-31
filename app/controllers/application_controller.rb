@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
   before_action :load_user
 
   private
@@ -17,12 +18,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    case @user.role
-    when 'receiver'
+    case @user
+    when @user.receiver?
       authenticate_receiver!
-    when 'donor'
+    when @user.donor?
       authenticate_donor!
-    when 'admin'
+    when @user.receiver? && @user.donor?
       authenticate_admin!
     end
   end
