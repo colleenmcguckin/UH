@@ -1,29 +1,46 @@
 .profile-content
   .row
     .col-md-5
-      %h4 Current Availability:
-      - unless @user.paused?
-        = render partial: 'table_schedule', locals: {editable: true}
-      - else
-        %h4 PAUSED
+      %h4
+        Current Availability:
+      = render partial: 'table_schedule', locals: {editable: true}
     .col-md-5.col-md-offset-1
       %h5
         This is your availability to accept donations.
       %p
         Donors will want to know what times you are available to accept items.
         They can see this schedule when choosing a donation site, so try to keep this as updated as possible.
+  %hr.featurette-divider
   .row
     .col-md-5
-      .row
-        .col-sm-12
-          %h4
-            Temporarily turn off your availability.
-          %p
-            Use this button to pause your availability.
-            Donors will not be able to view your profile or add you to donations while you are paused.
-      .row
-        .col-sm-12
-          - if @user.paused?
+      %h4
+        Current Status:
+        - if @user.paused?
+          .text-danger
+            %h3 PAUSED
+        - else
+          .text-success
+            %h3 ACTIVE
+    .col-md-5.col-md-offset-1
+      - if @user.paused?
+        .row
+          .col-sm-12
+            %h5
+              Your availability is currently paused.
+            %p
+              Donors are not currently able to see your profile or add your site to a donation.
+              Use this button to unpause your availability.
+        .row
+          .col-sm-12
             = link_to 'Unpause Availability', unpause_receiver_path(@user), class: 'btn btn-success'
-          - else
+      - else
+        .row
+          .col-sm-12
+            %h5
+              Temporarily turn off your availability.
+            %p
+              Use this button to pause your availability.
+              Donors will not be able to view your profile or add you to donations while you are paused.
+        .row
+          .col-sm-12
             = link_to 'Pause Availability', pause_receiver_path(@user), class: 'btn btn-danger'

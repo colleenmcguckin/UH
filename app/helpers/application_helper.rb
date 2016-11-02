@@ -12,7 +12,7 @@ module ApplicationHelper
     if hour > 12
       hour - 12
     else
-      hour
+      hour.zero? ? 12 : hour
     end
   end
 

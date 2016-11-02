@@ -1,17 +1,28 @@
-Current Schedule:
+.profile-content
+  .row
+    .col-md-5
+      %h4 Edit Schedule for #{@donation_schedule.day_of_week_in_words.titleize}
+      = simple_form_for [@user, @donation_schedule] do |f|
+        = f.error_notification
+        .row
+          .col-xs-6
+            = f.input :open_at_hour, as: :collection_select, collection: DonationSchedule::HOURS_OF_THE_DAY.zip(0.upto(24)), include_blank: 'Closed'
+          .col-xs-6
+            = f.input :open_at_minute, as: :collection_select, collection: (0..59).to_a.select { |n| n % 5 == 0}, selected: f.object.open_at_minute || 0, include_blank: 'Closed'
+        .row
+          .col-xs-6
+            = f.input :close_at_hour, as: :collection_select, collection: DonationSchedule::HOURS_OF_THE_DAY.zip(0.upto(24)), include_blank: 'Closed'
+          .col-xs-6
+            = f.input :close_at_minute, as: :collection_select, collection: 10.step(by: 5, to: 59).to_a , selected: f.object.open_at_minute || 0, include_blank: 'Closed'
+        .row
+          .col-xs-5
+            = link_to 'Back', receiver_donation_schedules_path(@user), class: 'btn btn-primary'
+          .col-xs-5.col-xs-offset-1
+            = f.button :submit, 'Update Schedule', class: 'btn btn-success'
 
-- @donation_schedules.each do |day|
-  = day.day_of_week
-  = day.open_at_hour
-  = day.open_at_minute
-  = day.close_at_hour
-  = day.close_at_minute
-
-= simple_form_for [@user, @donation_schedule] do |f|
-  = f.error_notification
-  = f.input :day_of_week
-  = f.input :open_at_hour
-  = f.input :open_at_minute
-  = f.input :close_at_hour
-  = f.input :close_at_minute
-  = f.button :submit
+    .col-md-5.col-md-offset-1
+      .row
+        %h5 Current Schedule:
+        = render partial: 'table_schedule', locals: {editable: false}
+      .row
+  %hr.featurette-divider
