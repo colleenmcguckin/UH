@@ -4,6 +4,9 @@ class ReceiversController < ApplicationController
 
   def index
     load_user
+    if @user.receiver?
+      redirect_to receiver_path @user
+    end
     @receivers = Receiver.all
     if @user.donor?
       @donation = Donation.find(params[:donation_id])
