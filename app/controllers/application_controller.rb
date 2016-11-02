@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :load_user
+  before_action :load_new_donation
 
   private
 
@@ -26,5 +27,9 @@ class ApplicationController < ActionController::Base
     when @user.receiver? && @user.donor?
       authenticate_admin!
     end
+  end
+
+  def load_new_donation
+    @new_donation = Donation.new
   end
 end

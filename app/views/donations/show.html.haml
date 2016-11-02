@@ -15,15 +15,15 @@
         = item.description
         = item.quantity
         = item.quantity_type
-  = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation) unless @user.receiver?
+  = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation) unless @user.receiver? || @donation.donated?
   - if @donation.items.any?
     - if @user.donor?
       %h3 Receiver
       - if @donation.receiver
         = link_to @donation.receiver.email, @donation.receiver
-        = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation)
+        = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
       - else
-        = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation)
+        = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
 
   - if @user.donor?
     - if @donation.receiver

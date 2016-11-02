@@ -8,7 +8,10 @@
     .profile-usertitle-subheading
     %h4 My Profile
   .profile-userbuttons
-    = link_to 'Start New Donation', new_donor_donation_path(@user), class: 'btn btn-success btn-md' if @user.donor?
+    -if @user.donor?
+      = simple_form_for [@user, @new_donation] do |f|
+        = f.error_notification
+        = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'
 
   .profile-usermenu
     %ul.nav
