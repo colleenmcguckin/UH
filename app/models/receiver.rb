@@ -9,6 +9,8 @@ class Receiver < ActiveRecord::Base
 
   after_create :setup_schedule
 
+  # validates_format_of :tax_id, with: /^[1-9]\d?-\d{7}$/, :on => :create
+
   def donor?
     false
   end

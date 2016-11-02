@@ -1,0 +1,72 @@
+<div class="panel panel-signup padding-10">
+
+  <div class="panel-body m-t-5">
+
+    <!-- LOGO -->
+    <img src="<%= image_path('logo_white.png') %>" alt="logo" class="" data-src="<%= image_path('logo_white.png') %>" data-src-retina="<%= image_path('logo_white_2x.png') %>" height="40" style="text-align: center !important;">
+    <hr>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="row">
+      <div class="col-md-6 no-padding">
+        <div class="field form-group form-group-default md-m-r-5 focused">
+          <%= f.label :contact_name %>
+          <%= f.text_field :contact_name, autofocus: true, class: 'form-control input-lg' %>
+        </div>
+      </div>
+      <div class="col-md-6 no-padding">
+        <div class="field form-group form-group-default md-m-r-5">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: 'form-control input-lg' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <div class="field form-group form-group-default md-m-r-5">
+          <%= f.label :tax_id %>
+          <%= f.text_field :tax_id, class: 'form-control input-lg' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 no-padding">
+        <div class="field form-group form-group-default md-m-r-5">
+          <%= f.label :password %>
+          <% if @validatable %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control input-lg" %>
+        </div>
+      </div>
+      <div class="col-md-6 no-padding">
+        <div class="field form-group form-group-default md-m-r-5">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control input-lg" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-t-20">
+
+      <div class="col-md-6 no-padding">
+        <p class="fs-9 bold text-white" style="font-size:11px;">
+          By clicking Create Account, you agree to our <a href="#">Terms</a> and have read our <a href="#">Privacy Policy.</a>
+        </p>
+      </div>
+      <div class="col-md-6 no-padding">
+        <div class="actions">
+          <%= f.submit "Create Account", class: "pull-right btn btn-primary btn-lg btn-block m-b-10 pull-right m-t-5 bold" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-signup panel-transparent padding-10">
+  <%= render "devise/shared/links" %>
+</div>
+<% end %>

@@ -37,6 +37,10 @@ class ReceiversController < ApplicationController
     load_user
   end
 
+  def verify
+    load_user
+  end
+
   def pause
     load_user
     if @user.pause!
