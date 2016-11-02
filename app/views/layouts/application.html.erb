@@ -7,14 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if notice %>
-    <div class="alert alert-success alert-dismissible"><%= notice %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-  <% end %>
-  <% if alert %>
-    <div class="alert alert-danger alert-dismissible"><%= alert %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+  <% flash.each do |key, value| %>
+    <div class="<%= flash_class(key) %>">
+      <%= value %>
     </div>
   <% end %>
 

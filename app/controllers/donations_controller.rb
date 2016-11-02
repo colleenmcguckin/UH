@@ -52,6 +52,15 @@ class DonationsController < ApplicationController
 
   def show
     load_donation
+    if @user.donor?
+      unless @user.id == @donation.donor_id
+        redirect_to donor_donations_path(@user), notice: 'You can only view your own donations.'
+      end
+    elsif @user.receiver?
+      unless @user.id == @donation.receiver_id
+        redirect_to receiver_donations_path(@user), notice: 'You can only view your own donations.'
+      end
+    end
   end
 
   def add_receiver
