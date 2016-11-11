@@ -1,6 +1,8 @@
 .profile-content
   %h3 Dashboard
-  = link_to 'New Donation', new_donor_donation_path(@user)
+  = simple_form_for [@user, @new_donation] do |f|
+    = f.error_notification
+    = f.button :submit, 'Start New Donation', class: 'btn btn-info btn-md'
 
   .pull-right
     = link_to 'Edit Profile', edit_donor_path(@user)

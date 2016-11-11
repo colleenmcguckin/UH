@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   devise_for :receivers, controllers: { registrations: "registrations" }
   devise_for :donors
   resources :donors, only: [:show, :edit, :index] do
-    resources :donations do
+    resources :donations, except: [:new] do
       resources :donation_items, only: [:new, :create, :index]
       resources :receivers, only: [:index, :show]
     end
