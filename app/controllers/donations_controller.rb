@@ -13,7 +13,11 @@ class DonationsController < ApplicationController
     elsif @user.admin?
       @donations = Donation.all
     end
-  end 
+  end
+
+  def new
+    @donation = Donation.new(donor_id: @user.id)
+  end
 
   def create
     @donation = Donation.new(donor_id: @user.id)
