@@ -51,17 +51,29 @@
     color: #666;
     box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
   }
+  .error-template {padding: 40px 15px;text-align: center;}
+  .error-actions {margin-top:15px;margin-bottom:15px;}
+  .error-actions .btn { margin-right:10px; }
   </style>
 </head>
 
 <body>
   <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <div>
-      <h1>The change you wanted was rejected.</h1>
-      <p>Maybe you tried to change something you didn't have access to.</p>
+  <div class="container">
+    <div class="row">
+      <div class="error-template">
+        <h1>Oops!</h1>
+        <h2>422 Unprocessable Entity</h2>
+        <div class="error-details">
+          Sorry, your request could not be processed.
+          <br>
+          <?php echo CHtml::encode($message); ?>
+        </div>
+        <div class="error-actions">
+
+        </div>
+      </div>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
   </div>
 </body>
 </html>
