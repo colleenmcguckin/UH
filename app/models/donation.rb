@@ -22,6 +22,10 @@ class Donation < ActiveRecord::Base
     received_at?
   end
 
+  def confirmed_by_donor?
+    confirmed_by_donor_at?
+  end
+
   def add_tracking_code
     unless tracking_code
       chars = %w[A B C D E F G H J K L M N P R S T X Y Z 2 3 4 5 6 7 8 9]
