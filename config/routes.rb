@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   devise_for :donors
   resources :donors, only: [:show, :edit, :index] do
     resources :donations do
-      resources :donation_items, only: [:new, :create, :index]
+      resources :donation_items, only: [:new, :create, :index, :destroy]
       resources :receivers, only: [:index, :show]
     end
   end

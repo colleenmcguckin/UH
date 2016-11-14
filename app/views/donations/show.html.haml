@@ -1,49 +1,99 @@
 .profile-content
-  %h1 Donation
-  = @donation.id
-  %br
-  = @donation.donated? ? 'donated' : 'pending'
-
-  %h2 Donor
-  = @user.email
-
-  %h3 Items
-
-  %ul
-    - @donation.items.each do |item|
-      %li
-        = item.description
-        = item.quantity
-        = item.quantity_type
-  = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation) unless @user.receiver? || @donation.donated?
-  - if @donation.items.any?
+  .text-center
+    %h2 Donation ##{@donation.id}
+  %hr.featurette-divider
+  .row
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Status
+        .panel-body
+          = @donation.donated? ? 'donated' : 'pending'
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Donor
+        .panel-body
+          = @user.email
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            Receiver
+        .panel-body
+          - if @donation.receiver
+            = link_to @donation.receiver.email, @donation.receiver
+            = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
+          - else
+            = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Items
+        .panel-body
+          .row
+            .col-md-4.offset-md-8
+              = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation) unless @user.receiver? || @donation.donated?
+        %table.table.table-striped
+          %thead
+            %th
+              Quantity
+            %th
+              Description
+            %th
+              Category
+            - if @user.donor?
+              %th
+                Remove
+          %tbody
+            - @donation.items.each do |item|
+              %tr
+                %td
+                  = item.description
+                %td
+                  #{item.quantity} #{item.quantity_type}
+                %td
+                  category
+                - if @user.donor?
+                  %td
+                    = link_to 'x', donor_donation_donation_item_path(@user, @donation, item), method: :delete, class: 'btn btn-danger'
+  - if @donation.donated?
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading
+            %h3.panel-title Tracking Code
+          .panel-body
+            %p Write the below code on your donation. This code allows your donation to be tracked and confirmed as received.
+            %h3
+              = @donation.tracking_code
+  .row
     - if @user.donor?
-      %h3 Receiver
       - if @donation.receiver
-        = link_to @donation.receiver.email, @donation.receiver
-        = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
-      - else
-        = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
-
-  - if @user.donor?
-    - if @donation.receiver
-      %h3
-        Step 4:
         - if @donation.donated?
-          %br
-          Your donation can no longer be modified. Please contact the receiver directly for a change in plans.
+          .col-md-12.text-center
+            %h4
+              Your donation can no longer be modified. Please contact the receiver directly for a change in plans.
         - else
-          = link_to 'Confirm Donation', donation_donate_path(@donation)
-          You cannot modify a donation after this step.
+          .col-md-6
+            - if @donation.items.any?
+              %h2
+                = link_to 'Confirm Donation', donation_donate_path(@donation), class: 'btn btn-success', width: '100%'
+              %i
+                You will no longer be able to modify your donation after confirming. Please contact the recipient of this donation & verify availability and details before confirming.
+          .col-md-6
+            - unless @donation.confirmed_by_donor?
+              %h2
+                = link_to 'Delete Donation', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger'
+              %i Donations cannot be retrieved after deletion.
+      - else
+        .col-md-6.col-md-offset-6
+          - unless @donation.confirmed_by_donor?
+            %h2
+              = link_to 'Delete Donation', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger'
+            %i Donations cannot be retrieved after deletion.
 
-    - if @donation.donated?
-      %h3
-        Tracking Code:
-        = @donation.tracking_code
-
-    = link_to 'Edit', edit_donor_donation_path(@user, @donation)
-    = link_to 'Destroy', donor_donation_path(@user, @donation), method: :delete, data: { confirm: 'Are you sure?'}
-    = link_to 'All Donations', donor_donations_path(@user)
   - if @user.receiver?
     - if @donation.received?
       %h3 Received
