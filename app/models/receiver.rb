@@ -6,6 +6,7 @@ class Receiver < ActiveRecord::Base
 
   has_many :donations
   has_many :donation_schedules
+  has_many :contact_details
 
   after_create :setup_schedule
 
