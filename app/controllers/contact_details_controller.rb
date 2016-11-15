@@ -15,7 +15,7 @@ class ContactDetailsController < ApplicationController
 
   def create
     @contact_detail = ContactDetail.new(receiver_id: @user.id)
-    if @contact_detail.update(demographic_params)
+    if @contact_detail.update(contact_detail_params)
       redirect_to receiver_path(@user), notice: 'Demographic data successfully saved.'
     else
       render :new
@@ -43,7 +43,15 @@ class ContactDetailsController < ApplicationController
 
   def contact_detail_params
     params.require(:contact_detail).permit(
-      :receiver_id
+      :receiver_id,
+      :contact_name,
+      :contact_email,
+      :contact_phone,
+      :dfr_contact_name,
+      :dfr_contact_email,
+      :dfr_contact_office_phone,
+      :dfr_contact_cell_phone,
+      :dfr_preffered_contact_method
     )
   end
 end
