@@ -1,8 +1,6 @@
 class Donation < ActiveRecord::Base
   include AASM
 
-  aasm do
-  end
   belongs_to :receiver
   belongs_to :donor
 
@@ -46,5 +44,26 @@ class Donation < ActiveRecord::Base
   def receive!
     self.received_at = Time.current
     self.save
+  end
+
+  aasm do
+    state :started, initial: true
+    state :confirmed_donated, :confirmed_received
+
+    event :confirm_donation do
+      transitions from: :started, to: :confirmed_donated, guard: [:items_added?, :receiver_added?]
+    end
+
+    event :confirm_receipt do
+      transitions from: [:started, :receiver_added], to: :confirmed_received
+    end
+
+    def items_added?
+      items.any?
+    end
+
+    def receiver_added?
+      receiver.present?
+    end
   end
 end
