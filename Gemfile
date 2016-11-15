@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 
+gem 'aasm'
+
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
 gem 'responsive_active_admin'
 

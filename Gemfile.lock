@@ -20,6 +20,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.11.1)
     actionmailer (4.2.7.1)
       actionpack (= 4.2.7.1)
       actionview (= 4.2.7.1)
@@ -254,6 +255,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   activeadmin!
   autoprefixer-rails
   awesome_print
@@ -285,4 +287,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.3
+   1.13.6

@@ -1,4 +1,8 @@
 class Donation < ActiveRecord::Base
+  include AASM
+
+  aasm do
+  end
   belongs_to :receiver
   belongs_to :donor
 

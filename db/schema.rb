@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031044403) do
+ActiveRecord::Schema.define(version: 20161115050028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,8 +73,10 @@ ActiveRecord::Schema.define(version: 20161031044403) do
     t.string   "tracking_code"
     t.datetime "received_at"
     t.datetime "donated_at"
+    t.datetime "confirmed_by_donor_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "aasm_state"
   end
 
   add_index "donations", ["receiver_id", "donor_id"], name: "index_donations_on_receiver_id_and_donor_id", using: :btree
