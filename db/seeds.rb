@@ -173,3 +173,8 @@ Donation.all.each do |donation|
   donation.save!
 end
 Admin.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+['Diabetic', 'Faith Based', 'Vegan', 'Vegetarian', 'Reduced Sodium', 'Other', 'n/a'].each do |name|
+  DietaryRestriction.create(
+    name: name
+  )
+end
