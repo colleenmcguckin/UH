@@ -9,6 +9,7 @@ class Receiver < ActiveRecord::Base
   has_many :contact_details
   has_many :programs
   has_many :dietary_restrictions, through: :programs
+  has_many :logistics
 
   after_create :setup_schedule
 

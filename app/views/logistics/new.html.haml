@@ -1,0 +1,27 @@
+.profile-content
+  %h3 Please supply the following details about your organization
+  = simple_form_for([@user, @logistic]) do |f|
+    = f.error_notification
+    .form-inputs
+      .row
+        .col-md-6.col-md-offset-3
+          %h4.text-center Logistics
+      .row
+        .col-md-6.col-md-offset-3
+          =f.input :transportation_available, as: :collection_select, collection: %w[Yes No], label: 'Do you provide transportation for the pickup of donated food?'
+          =f.input :driver_status, as: :collection_select, collection: ['Staff', 'Volunteers', 'Both', 'n/a'], label: 'Are your drivers staff or volunteers?'
+          =f.input :insurance_status, as: :collection_select, collection: ['Our organization provides insurance to drivers', 'Our drivers have their own private insurance.', 'We do not know the insurance status of our drivers.', 'n/a'], label: 'How are your drivers insured?'
+          =f.input :vehicle_style, as: :collection_select, collection: ['Car', 'Pickup Truck', 'Box Truck', 'Refrigerated Vehicle', 'Other', 'n/a'], label: 'What type of vehicle do you use?'
+          =f.input :freezer_type, as: :collection_select, collection: ['Upright', 'Walk-in', 'n/a'], label: 'What type of freezer does your facility use?'
+          =f.input :refrigerator_type, as: :collection_select, collection: ['Upright', 'Walk-in', 'n/a'], label: 'What type of refrigerator does your facility use?'
+          =f.input :indoor_dry_storage, as: :collection_select, collection: %w[Yes No], label: 'Do you have indoor dry storage space?'
+          =f.input :safe_handling_program, as: :string, label: 'What safe food handling or public health certification is in place?'
+          =f.input :meal_usage, as: :collection_select, collection: ['We provide meals or groceries only.', 'Providing meals is part of a larger program we offer.'], label: 'How does the donation of fresh food fit into your organization?'
+          =f.input :meal_distribution_frequency, as: :collection_select, collection: ['Multiple times per day', 'Daily', 'Multiple times per week', 'Weekly', 'Other', 'n/a'], label: 'How often do you provide food to your clients?'
+          -# =f.association :dietary_restrictions, as: :check_boxes, collection: DietaryRestriction.all.to_a, label_method: :name, label: 'Which dietary restrictions do you accomodate?'
+      %hr.featurette-divider
+    .text-sm-right
+      .form-actions
+        .row
+          .col-md-6.col-md-offset-3
+            = f.button :submit, "Save Logistics", { class: 'btn btn-success' }

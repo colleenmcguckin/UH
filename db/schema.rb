@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115110738) do
+ActiveRecord::Schema.define(version: 20161116055100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,12 +119,27 @@ ActiveRecord::Schema.define(version: 20161115110738) do
   add_index "donors", ["email"], name: "index_donors_on_email", unique: true, using: :btree
   add_index "donors", ["reset_password_token"], name: "index_donors_on_reset_password_token", unique: true, using: :btree
 
+  create_table "logistics", force: :cascade do |t|
+    t.integer "receiver_id"
+    t.string  "transportation_available"
+    t.string  "driver_status"
+    t.string  "insurance_status"
+    t.string  "vehicle_style"
+    t.string  "freezer_type"
+    t.string  "refrigerator_type"
+    t.string  "indoor_dry_storage"
+    t.string  "safe_handling_program"
+    t.string  "meal_usage"
+    t.string  "meal_distribution_frequency"
+  end
+
   create_table "programs", force: :cascade do |t|
     t.integer "receiver_id"
     t.string  "perishable_food_distribution"
     t.string  "charge_for_service"
     t.string  "meal_style"
     t.integer "staff_size"
+    t.string  "food_type_provided"
   end
 
   create_table "receivers", force: :cascade do |t|
