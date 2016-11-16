@@ -7,6 +7,8 @@ class Receiver < ActiveRecord::Base
   has_many :donations
   has_many :donation_schedules
   has_many :contact_details
+  has_many :programs
+  has_many :dietary_restrictions, through: :programs
 
   after_create :setup_schedule
 

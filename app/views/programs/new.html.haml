@@ -1,0 +1,21 @@
+.profile-content
+  %h3 Please supply the following details about your organization
+  = simple_form_for([@user, @program]) do |f|
+    = f.error_notification
+    .form-inputs
+      .row
+        .col-md-6.col-md-offset-3
+          %h4.text-center Program Info
+      .row
+        .col-md-6.col-md-offset-3
+          =f.input :perishable_food_distribution, as: :collection_select, collection: %w[Yes No], label: 'Does your agency have a perishable food distribution program in place?'
+          =f.input :charge_for_service, as: :collection_select, collection: %w[Yes No], label: 'Do you charge guests for the groceries or meals you offer?'
+          =f.input :meal_style, as: :collection_select, collection: ['Take Out', 'Eat In', 'Both', 'n/a'], label: 'How are the meals provided?'
+          =f.input :staff_size, input_html: {value: 0}, label: 'How many people are on your staff?'
+          =f.association :dietary_restrictions, as: :check_boxes, collection: DietaryRestriction.all.to_a, label_method: :name, label: 'Which dietary restrictions do you accomodate?'
+      %hr.featurette-divider
+    .text-sm-right
+      .form-actions
+        .row
+          .col-md-6.col-md-offset-3
+            = f.button :submit, "Save Program Info", { class: 'btn btn-success' }
