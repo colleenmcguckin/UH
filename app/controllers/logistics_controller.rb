@@ -52,7 +52,8 @@ class LogisticsController < ApplicationController
       :indoor_dry_storage,
       :safe_handling_program,
       :meal_usage,
-      :meal_distribution_frequency
+      :meal_distribution_frequency,
+      contribution_ids: []
     )
   end
 end
