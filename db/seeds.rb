@@ -178,3 +178,8 @@ Admin.create!(email: 'admin@example.com', password: 'password', password_confirm
     name: name
   )
 end
+['Community Donations', 'Feeding America/FEMA', 'Purchased by agency', 'Other', 'n/a'].each do |name|
+  Contribution.create(
+    name: name
+  )
+end

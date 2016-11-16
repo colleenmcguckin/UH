@@ -6,6 +6,7 @@ class CreateProgram < ActiveRecord::Migration
       t.string :charge_for_service
       t.string  :meal_style
       t.integer :staff_size
+      t.string :food_type_provided
     end
   end
 end

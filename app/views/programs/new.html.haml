@@ -9,6 +9,7 @@
       .row
         .col-md-6.col-md-offset-3
           =f.input :perishable_food_distribution, as: :collection_select, collection: %w[Yes No], label: 'Does your agency have a perishable food distribution program in place?'
+          =f.input :food_type_provided, as: :collection_select, collection: ['Full Meals', 'Groceries', 'Both', 'n/a'], label: 'Does your agency provide meals or groceries to your clients?'
           =f.input :charge_for_service, as: :collection_select, collection: %w[Yes No], label: 'Do you charge guests for the groceries or meals you offer?'
           =f.input :meal_style, as: :collection_select, collection: ['Take Out', 'Eat In', 'Both', 'n/a'], label: 'How are the meals provided?'
           =f.input :staff_size, input_html: {value: 0}, label: 'How many people are on your staff?'

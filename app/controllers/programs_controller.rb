@@ -47,6 +47,7 @@ class ProgramsController < ApplicationController
       :charge_for_service,
       :meal_style,
       :staff_size,
+      :food_type_provided,
       dietary_restriction_ids: []
     )
   end

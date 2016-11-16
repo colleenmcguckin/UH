@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :receivers, only: [:show, :index, :edit, :update] do
     resources :contact_details
     resources :programs
+    resources :logistics
     resources :donation_schedules, path: 'schedule'
     resources :donations do
       resources :donation_items, only: [:new, :create, :index]
