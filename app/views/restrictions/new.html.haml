@@ -1,0 +1,18 @@
+.profile-content
+  %h3 Please supply the following details about your organization
+  = simple_form_for([@user, @restriction]) do |f|
+    = f.error_notification
+    .form-inputs
+      .row
+        .col-md-6.col-md-offset-3
+          %h4.text-center Restrictions
+      .row
+        .col-md-6.col-md-offset-3
+          = f.association :categories, as: :check_boxes, collection: Category.all.to_a, label_method: :name, label: 'Restrict food categories:'
+          = f.association :storage_temps, as: :check_boxes, collection: StorageTemp.all.to_a, label_method: :description, label: 'Restrict storage methods:'
+      %hr.featurette-divider
+    .text-sm-right
+      .form-actions
+        .row
+          .col-md-6.col-md-offset-3
+            = f.button :submit, "Save Logistics", { class: 'btn btn-success' }

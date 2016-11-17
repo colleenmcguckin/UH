@@ -29,6 +29,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_in_path_for resource
+    if resource.is_a?(Donor)
+      donor_path resource
+    elsif resource.is_a?(Receiver)
+      receiver_path resource
+    else
+      super
+    end
+  end
+
   def load_new_donation
     @new_donation = Donation.new
   end

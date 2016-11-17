@@ -1,0 +1,26 @@
+.profile-content
+  %h3 Please supply the following details about your organization
+  = simple_form_for([@user, @contact_detail]) do |f|
+    = f.error_notification
+    .form-inputs
+      .row
+        .col-md-6
+          %h4.text-center General Contact Information
+          %hr.featurette-divider
+          = f.input :contact_name
+          = f.input :contact_phone
+          = f.input :contact_email
+        .col-md-6
+          %h4.text-center Daily Food Recovery Contact Information
+          %hr.featurette-divider
+          =f.input :dfr_contact_name
+          =f.input :dfr_contact_email
+          =f.input :dfr_contact_office_phone
+          =f.input :dfr_contact_cell_phone
+          =f.input :dfr_preffered_contact_method
+      %hr.featurette-divider
+    .text-sm-right
+      .form-actions
+        .row
+          .col-md-9
+            = f.button :submit, "Save Details", { class: 'btn btn-success' }

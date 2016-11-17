@@ -1,6 +1,5 @@
 class DonationItemsController < ApplicationController
 
-
   before_action :load_user
   before_action :authenticate_user!
   before_action :load_donation
@@ -16,9 +15,18 @@ class DonationItemsController < ApplicationController
   def create
     @donation_item = Donation.find(@donation.id).items.new donation_item_params
     if @donation_item.save
-      redirect_to donor_donation_path(@user, @donation), notice: 'Donation Item has been added'
+      redirect_to donor_donation_path(@user, @donation), notice: 'Donation item has been added.'
     else
       render :new
+    end
+  end
+
+  def destroy
+    @donation_item = DonationItem.find(params[:id])
+    if @donation_item.destroy!
+      redirect_to donor_donation_path(@user, @donation), notice: 'Item has been removed from donation.'
+    else
+      redirect_to donor_donation_path(@user, @donation), notice: 'Item could not be removed at this time.'
     end
   end
 
@@ -40,7 +48,7 @@ class DonationItemsController < ApplicationController
 
   def donation_item_params
     params.require(:donation_item).permit(
-      :description,
+      :food_id,
       :quantity,
       :quantity_type
     )

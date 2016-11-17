@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20161115071748) do
   end
 
   create_table "donation_items", force: :cascade do |t|
-    t.string  "description"
+    t.integer "food_id"
     t.integer "quantity"
     t.string  "quantity_type"
     t.integer "donation_id"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20161115071748) do
     t.string   "tracking_code"
     t.datetime "received_at"
     t.datetime "donated_at"
+    t.datetime "confirmed_by_donor_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -130,37 +131,78 @@ ActiveRecord::Schema.define(version: 20161115071748) do
   add_index "donors", ["email"], name: "index_donors_on_email", unique: true, using: :btree
   add_index "donors", ["reset_password_token"], name: "index_donors_on_reset_password_token", unique: true, using: :btree
 
+  create_table "foods", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "storage_temp"
+    t.boolean  "prepared_meal"
+    t.integer  "donor_id"
+    t.integer  "category_id"
+    t.datetime "deleted_at"
+  end
+
+  add_index "foods", ["deleted_at"], name: "index_foods_on_deleted_at", using: :btree
+
+  create_table "logistics", force: :cascade do |t|
+    t.integer "receiver_id"
+    t.string  "transportation_available"
+    t.string  "driver_status"
+    t.string  "insurance_status"
+    t.string  "vehicle_style"
+    t.string  "freezer_type"
+    t.string  "refrigerator_type"
+    t.string  "indoor_dry_storage"
+    t.string  "safe_handling_program"
+    t.string  "meal_usage"
+    t.string  "meal_distribution_frequency"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.integer "receiver_id"
+    t.string  "perishable_food_distribution"
+    t.string  "charge_for_service"
+    t.string  "meal_style"
+    t.integer "staff_size"
+    t.string  "food_type_provided"
+  end
+
   create_table "receivers", force: :cascade do |t|
-    t.string   "email",                        default: "",    null: false
-    t.string   "encrypted_password",           default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "agency_name"
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
     t.integer  "zip"
     t.string   "tax_id"
-    t.string   "contact_name"
-    t.string   "contact_email"
-    t.string   "contact_phone"
-    t.string   "dfr_contact_name"
-    t.string   "dfr_contact_email"
-    t.string   "dfr_contact_office_phone"
-    t.string   "dfr_contact_cell_phone"
-    t.string   "dfr_preffered_contact_method"
-    t.boolean  "paused",                       default: false
+    t.boolean  "paused",                 default: false
   end
 
   add_index "receivers", ["email"], name: "index_receivers_on_email", unique: true, using: :btree
   add_index "receivers", ["reset_password_token"], name: "index_receivers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "restrictions", force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "receiver_id"
+  end
+
+  create_table "restrictions_storage_temps", force: :cascade do |t|
+    t.integer "restriction_id"
+    t.integer "storage_temp_id"
+  end
+
+  create_table "storage_temps", force: :cascade do |t|
+    t.string "description"
+  end
 
 end

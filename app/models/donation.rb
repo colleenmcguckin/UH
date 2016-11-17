@@ -10,8 +10,8 @@ class Donation < ActiveRecord::Base
     donation.validates :tracking_code, uniqueness: true
   end
 
-  def add_item description, quantity, quantity_type
-    items.new description: description, quantity: quantity, quantity_type: quantity_type
+  def add_item food, quantity, quantity_type
+    items.new food_id: food.id, quantity: quantity, quantity_type: quantity_type
   end
 
   def donated?
@@ -20,6 +20,10 @@ class Donation < ActiveRecord::Base
 
   def received?
     received_at?
+  end
+
+  def confirmed_by_donor?
+    confirmed_by_donor_at?
   end
 
   def add_tracking_code

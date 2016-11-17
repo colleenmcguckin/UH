@@ -2,7 +2,7 @@
   = f.error_notification
   = f.input :day_of_week
   = f.input :open_at_hour
-  = f.input :open_at_minute
+  = f.input :open_at_minute, input_html: {value: @donation_schedule.open_at_minute or 0 }
   = f.input :close_at_hour
-  = f.input :close_at_minute
+  = f.input :close_at_minute, input_html: {value: @donation_schedule.close_at_minute or 0 }
   = f.button :submit

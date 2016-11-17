@@ -6,9 +6,14 @@ class Receiver < ActiveRecord::Base
 
   has_many :donations
   has_many :donation_schedules
+  has_many :contact_details
   has_many :demographics
-
   accepts_nested_attributes_for :demographics
+  has_many :programs
+  has_many :dietary_restrictions, through: :programs
+  has_many :logistics
+  has_many :contributions, through: :logistics
+  has_many :restrictions
 
   after_create :setup_schedule
 
