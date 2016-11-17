@@ -1,0 +1,28 @@
+.profile-content
+  .col-md-12
+    = link_to 'New Food', new_donor_food_path(@user)
+    %table.table.table-striped
+      %thead
+        %th
+          Name
+        %th
+          Description
+        %th
+          Category
+        %th
+          Storage
+        %th
+          Prepared Meal?
+      %tbody
+        - @foods.each do |food|
+          %tr
+            %td
+              = food.name
+            %td
+              = food.description
+            %td
+              = food.category.name
+            %td
+              = food.storage_temp
+            %td
+              = food.prepared_meal

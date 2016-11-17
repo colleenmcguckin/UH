@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 Donor.create email: 'donor@donor.com',
              password: 'password'
 
@@ -172,14 +165,22 @@ Donation.all.each do |donation|
   donation.receiver_id = [Receiver.all.sample, nil].sample
   donation.save!
 end
+
 Admin.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 ['Diabetic', 'Faith Based', 'Vegan', 'Vegetarian', 'Reduced Sodium', 'Other', 'n/a'].each do |name|
   DietaryRestriction.create(
     name: name
   )
 end
+
 ['Community Donations', 'Feeding America/FEMA', 'Purchased by agency', 'Other', 'n/a'].each do |name|
   Contribution.create(
+    name: name
+  )
+end
+
+['Fruits', 'Vegetables', 'Meat', 'Poultry', 'Fish', 'Shellfish', 'Grains', 'Dairy', 'Shelf Stable', 'Prepared Meal'].each do |name|
+  Category.create(
     name: name
   )
 end

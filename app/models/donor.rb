@@ -5,6 +5,7 @@ class Donor < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :donations
+  has_many :foods
 
   def donor?
     true

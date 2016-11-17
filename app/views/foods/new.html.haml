@@ -1,0 +1,11 @@
+.profile-content
+  %h1 Add Food
+
+  = simple_form_for [@user, @food], url: donor_foods_path, method: :post do |f|
+    = f.error_notification
+    = f.input :name
+    = f.input :description
+    = f.input :storage_temp
+    = f.input :prepared_meal, as: :boolean
+    = f.association :category, value_method: :id, label_method: :name
+    = f.button :submit, label: 'Add Food to List'
