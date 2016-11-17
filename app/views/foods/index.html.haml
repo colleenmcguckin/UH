@@ -1,28 +1,41 @@
 .profile-content
-  .col-md-12
-    = link_to 'New Food', new_donor_food_path(@user)
-    %table.table.table-striped
-      %thead
-        %th
-          Name
-        %th
-          Description
-        %th
-          Category
-        %th
-          Storage
-        %th
-          Prepared Meal?
-      %tbody
-        - @foods.each do |food|
-          %tr
-            %td
-              = food.name
-            %td
-              = food.description
-            %td
-              = food.category.name
-            %td
-              = food.storage_temp
-            %td
-              = food.prepared_meal
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Your Foods
+        .panel-body
+          .row
+            .col-md-4.offset-md-8
+              = link_to 'New Food', new_donor_food_path(@user)
+        %table.table.table-striped
+          %thead
+            %th
+              Food
+            %th
+              Description
+            %th
+              Storage
+            %th
+              Prepared Meal?
+            %th
+              Category
+            %th
+              Archive
+          %tbody
+            - @foods.each do |food|
+              %tr
+                %td
+                  = link_to food.name.titleize, donor_food_path(@user, food)
+                %td
+                  = food.description
+                %td
+                  = food.storage_temp
+                %td
+                  = food.prepared_meal
+                %td
+                  = food.category.name
+                - if @user.donor?
+                  %td
+                    -# = link_to donor_food_path(@user, food), class: 'btn btn-warning' do
+                    -#   %i.glyphicon.glyphicon-folder-open

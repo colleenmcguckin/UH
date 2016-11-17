@@ -38,9 +38,9 @@
         %table.table.table-striped
           %thead
             %th
-              Quantity
+              Food
             %th
-              Description
+              Quantity
             %th
               Category
             - if @user.donor?
@@ -50,11 +50,11 @@
             - @donation.items.each do |item|
               %tr
                 %td
-                  = item.description
+                  = link_to item.food.name.titleize, donor_food_path(@user, item.food)
                 %td
                   #{item.quantity} #{item.quantity_type}
                 %td
-                  category
+                  = item.food.category.name
                 - if @user.donor?
                   %td
                     = link_to 'x', donor_donation_donation_item_path(@user, @donation, item), method: :delete, class: 'btn btn-danger'

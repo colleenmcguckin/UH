@@ -7,8 +7,6 @@ class FoodsController < ApplicationController
   def index
     if @user.donor?
       @foods = Food.where(donor_id: @user.id)
-    elsif @user.receiver?
-      @foods = Food.where(receiver_id: @user.id)
     elsif @user.admin?
       @foods = Food.all
     end
@@ -34,7 +32,7 @@ class FoodsController < ApplicationController
   def update
     load_food
     if @food.update food_params
-      redirect_to donor_food_path(@user, @food), notice: 'Donation has been updated'
+      redirect_to donor_food_path(@user, @food), notice: 'Food has been updated'
     else
       render :edit
     end
@@ -43,7 +41,7 @@ class FoodsController < ApplicationController
   def destroy
     load_food
     if @food.destroy!
-      redirect_to donor_foods_path(@user), notice: 'Donation has been deleted.'
+      redirect_to donor_foods_path(@user), notice: 'Food has been archived.'
     else
       render :show, notice: "Donation couldn't be deleted."
     end
@@ -54,10 +52,6 @@ class FoodsController < ApplicationController
     if @user.donor?
       unless @user.id == @food.donor_id
         redirect_to donor_foods_path(@user), notice: 'You can only view your own foods.'
-      end
-    elsif @user.receiver?
-      unless @user.id == @food.receiver_id
-        redirect_to receiver_foods_path(@user), notice: 'You can only view your own foods.'
       end
     end
   end

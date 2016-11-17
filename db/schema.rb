@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116081729) do
+ActiveRecord::Schema.define(version: 20161117070921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20161116081729) do
   end
 
   create_table "donation_items", force: :cascade do |t|
-    t.string  "description"
+    t.integer "food_id"
     t.integer "quantity"
     t.string  "quantity_type"
     t.integer "donation_id"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20161116081729) do
     t.boolean "prepared_meal"
     t.integer "donor_id"
     t.integer "category_id"
+    t.boolean "archived",      default: false
   end
 
   create_table "logistics", force: :cascade do |t|
