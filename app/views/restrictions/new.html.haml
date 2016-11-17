@@ -1,4 +1,7 @@
 .profile-content
+  .progress
+    .progress-bar.progress-bar-success.progress-bar-striped{"aria-valuemax": "100", "aria-valuemin": "0", "aria-valuenow": "100", role: "progressbar", style: "width: 100%"}
+      %span.sr-only 100% Complete (success)  
   %h3 Please supply the following details about your organization
   = simple_form_for([@user, @restriction]) do |f|
     = f.error_notification
