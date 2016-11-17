@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
   resources :receivers, only: [:show, :index, :edit, :update] do
     resources :contact_details
+    resources :demographics
     resources :programs
     resources :logistics
     resources :restrictions
