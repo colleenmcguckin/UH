@@ -8,13 +8,12 @@
           .col-xs-6
             = f.input :open_at_hour, as: :collection_select, collection: DonationSchedule::HOURS_OF_THE_DAY.zip(0.upto(24)), include_blank: 'Closed'
           .col-xs-6
-            = f.input :open_at_minute, as: :collection_select, collection: (0..59).to_a.select { |n| n % 5 == 0}, selected: f.object.open_at_minute || 0, include_blank: 'Closed'
+            = f.input :open_at_minute, as: :collection_select, collection: (0..59).to_a.select { |n| n % 5 == 0}, selected: (f.object.open_at_minute or 0), include_blank: 'Closed'
         .row
           .col-xs-6
             = f.input :close_at_hour, as: :collection_select, collection: DonationSchedule::HOURS_OF_THE_DAY.zip(0.upto(24)), include_blank: 'Closed'
           .col-xs-6
-            = f.input :close_at_minute, as: :collection_select, collection: 10.step(by: 5, to: 59).to_a , selected: f.object.open_at_minute || 0, include_blank: 'Closed'
-        .row
+            = f.input :close_at_minute, as: :collection_select, collection: (0..59).to_a.select { |n| n % 5 == 0}, selected: (f.object.open_at_minute or 0), include_blank: 'Closed'
           .col-xs-5
             = link_to 'Back', receiver_donation_schedules_path(@user), class: 'btn btn-primary'
           .col-xs-5.col-xs-offset-1
