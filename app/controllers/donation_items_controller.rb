@@ -1,6 +1,5 @@
 class DonationItemsController < ApplicationController
 
-
   before_action :load_user
   before_action :authenticate_user!
   before_action :load_donation
@@ -49,7 +48,7 @@ class DonationItemsController < ApplicationController
 
   def donation_item_params
     params.require(:donation_item).permit(
-      :description,
+      :food_id,
       :quantity,
       :quantity_type
     )

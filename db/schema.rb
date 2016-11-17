@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116064817) do
+ActiveRecord::Schema.define(version: 20161117080151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,10 @@ ActiveRecord::Schema.define(version: 20161116064817) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "contact_details", force: :cascade do |t|
     t.string  "contact_name"
     t.string  "contact_email"
@@ -80,7 +84,7 @@ ActiveRecord::Schema.define(version: 20161116064817) do
   end
 
   create_table "donation_items", force: :cascade do |t|
-    t.string  "description"
+    t.integer "food_id"
     t.integer "quantity"
     t.string  "quantity_type"
     t.integer "donation_id"
@@ -127,6 +131,19 @@ ActiveRecord::Schema.define(version: 20161116064817) do
 
   add_index "donors", ["email"], name: "index_donors_on_email", unique: true, using: :btree
   add_index "donors", ["reset_password_token"], name: "index_donors_on_reset_password_token", unique: true, using: :btree
+
+  create_table "foods", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "storage_temp"
+    t.boolean  "prepared_meal"
+    t.integer  "donor_id"
+    t.integer  "category_id"
+    t.boolean  "archived",      default: false
+    t.datetime "deleted_at"
+  end
+
+  add_index "foods", ["deleted_at"], name: "index_foods_on_deleted_at", using: :btree
 
   create_table "logistics", force: :cascade do |t|
     t.integer "receiver_id"
