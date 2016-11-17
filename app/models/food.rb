@@ -12,4 +12,8 @@ class Food < ActiveRecord::Base
       end
     end
   end
+
+  def donation_count
+    DonationItem.where(food_id: self.id).to_a.count{ |item| item.donation.donated? }
+  end
 end

@@ -1,12 +1,47 @@
 .profile-content
-  %h3= @food.name.titleize
-  %h4 Description
-  = @food.description
-  %h4 Storage
-  = @food.storage_temp
-  %h4 Prepared Meal?
-  = @food.prepared_meal
-  %h4 Category
-  = @food.category.name
-  %br
-  = link_to 'Edit', edit_donor_food_path(@user, @food)
+  .text-center
+    %h2= @food.name.titleize
+  %hr.featurette-divider
+  .row
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Description
+        .panel-body
+          = @food.description
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Storage
+        .panel-body
+          = @food.storage_temp
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            Category
+        .panel-body
+          = @food.category.name
+  .row
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Prepared Meal?
+        .panel-body
+          = @food.prepared_meal.to_s.titleize
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Status
+        .panel-body
+          = @food.archived? ? 'Archived' : 'Active'
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            Donation Count
+        .panel-body
+          = @food.donation_count
+  .row
+    .col-md-12
+      = link_to 'Edit', edit_donor_food_path(@user, @food), class: 'btn btn-primary'
