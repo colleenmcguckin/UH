@@ -49,7 +49,7 @@
               = donation.created_at
             %td
               - donation.items.each do |item|
-                = item.description.titleize
+                = unscoped_food(item.food_id).name.titleize
                 = item.quantity
                 = item.quantity_type.titleize
                 %br

@@ -8,13 +8,18 @@
         .panel-heading
           %h3.panel-title Status
         .panel-body
-          = @donation.donated? ? 'donated' : 'pending'
+          - if @donation.received?
+            = 'Received'
+          - elsif @donation.donated?
+            = 'Donated'
+          - else
+            = 'Pending' unless @donation.donated?
     .col-md-4
       .panel.panel-default
         .panel-heading
           %h3.panel-title Donor
         .panel-body
-          = @user.email
+          = @donation.donor.email
     .col-md-4
       .panel.panel-default
         .panel-heading
@@ -95,8 +100,6 @@
             %i Donations cannot be retrieved after deletion.
 
   - if @user.receiver?
-    - if @donation.received?
-      %h3 Received
-    - else
+    - unless @donation.received?
       %h3
-        = link_to 'Confirm Receipt', donation_receive_path(@donation)
+        = link_to 'Confirm Receipt', donation_receive_path(@donation), class: 'btn btn-success', width: '100%'
