@@ -16,19 +16,19 @@
   .profile-usermenu
     %ul.nav
       %li
-        = link_to 'My Profile', receiver_path(@user) if @user.receiver?
-        = link_to 'My Profile', donor_path(@user) if @user.donor?
+        = link_to 'Profile', receiver_path(@user) if @user.receiver?
+        = link_to 'Profile', donor_path(@user) if @user.donor?
       %li
-        = link_to 'My Donations', receiver_donations_path(@user) if @user.receiver?
-        = link_to 'My Donations', donor_donations_path(@user) if @user.donor?
+        = link_to 'Donations', receiver_donations_path(@user) if @user.receiver?
+        = link_to 'Donations', donor_donations_path(@user) if @user.donor?
       - if @user.receiver?
         %li
-          = link_to 'My Availability', receiver_donation_schedules_path(@user)
+          = link_to 'Availability', receiver_donation_schedules_path(@user)
         %li
-          = link_to 'Manage Restrictions', receiver_restriction_path(@user, @user.restrictions.first)
+          = link_to 'Restrictions', receiver_restriction_path(@user, @user.restrictions.first)
       - if @user.donor?
         %li
-          = link_to 'My Foods', donor_foods_path(@user)
+          = link_to 'Foods', donor_foods_path(@user)
       %li
         %a
           My Reports
