@@ -24,6 +24,9 @@
       - if @user.receiver?
         %li
           = link_to 'My Availability', receiver_donation_schedules_path(@user)
+      - if @user.donor?
+        %li
+          = link_to 'My Foods', donor_foods_path(@user)
       %li
         %a
           My Reports
