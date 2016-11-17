@@ -16,7 +16,7 @@ class ContactDetailsController < ApplicationController
   def create
     @contact_detail = ContactDetail.new(receiver_id: @user.id)
     if @contact_detail.update(contact_detail_params)
-      redirect_to receiver_path(@user), notice: 'Demographic data successfully saved.'
+      redirect_to new_receiver_program_path(@user), notice: 'Contact details successfully saved.'
     else
       render :new
     end

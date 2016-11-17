@@ -15,7 +15,7 @@ class ProgramsController < ApplicationController
   def create
     @program = Program.new(receiver_id: @user.id)
     if @program.update(program_params)
-      redirect_to receiver_path(@user), notice: 'Program info successfully saved.'
+      redirect_to new_receiver_demographic_path(@user), notice: 'Program info successfully saved.'
     else
       render :new, notice: 'Could not save program info at this time. Please try again.'
     end

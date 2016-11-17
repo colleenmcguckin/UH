@@ -15,7 +15,7 @@ class DemographicsController < ApplicationController
   def create
     @demographic = Demographic.new(receiver_id: @user.id)
     if @demographic.update(demographic_params)
-      redirect_to receiver_path(@user, @donation), notice: 'Demographic data successfully saved.'
+      redirect_to new_receiver_logistic_path(@user), notice: 'Demographic data successfully saved.'
     else
       render :new
     end
