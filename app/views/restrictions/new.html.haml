@@ -1,4 +1,5 @@
 .profile-content
+  = render partial: 'shared/progress_bar', locals: {value: 100}
   %h3 Please supply the following details about your organization
   = simple_form_for([@user, @restriction]) do |f|
     = f.error_notification
@@ -15,4 +16,4 @@
       .form-actions
         .row
           .col-md-6.col-md-offset-3
-            = f.button :submit, "Save Logistics", { class: 'btn btn-success' }
+            = f.button :submit, "Save Restrictions", { class: 'btn btn-success' }

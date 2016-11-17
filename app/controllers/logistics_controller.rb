@@ -15,7 +15,7 @@ class LogisticsController < ApplicationController
   def create
     @logistic = Logistic.new(receiver_id: @user.id)
     if @logistic.update(logistic_params)
-      redirect_to receiver_path(@user), notice: 'Logistic info successfully saved.'
+      redirect_to new_receiver_restriction_path(@user), notice: 'Logistic info successfully saved.'
     else
       render :new, notice: 'Could not save logistic info at this time. Please try again.'
     end

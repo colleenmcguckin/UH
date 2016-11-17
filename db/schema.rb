@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115071748) do
+ActiveRecord::Schema.define(version: 20161117100446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,36 @@ ActiveRecord::Schema.define(version: 20161115071748) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "categories_restrictions", force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "restriction_id"
+  end
+
+  create_table "contact_details", force: :cascade do |t|
+    t.string  "contact_name"
+    t.string  "contact_email"
+    t.string  "contact_phone"
+    t.string  "dfr_contact_name"
+    t.string  "dfr_contact_email"
+    t.string  "dfr_contact_office_phone"
+    t.string  "dfr_contact_cell_phone"
+    t.string  "dfr_preffered_contact_method"
+    t.integer "receiver_id"
+  end
+
+  create_table "contributions", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "contributions_logistics", force: :cascade do |t|
+    t.integer "logistic_id"
+    t.integer "contribution_id"
+  end
+
   create_table "demographics", force: :cascade do |t|
     t.string  "percent_male"
     t.string  "percent_female"
@@ -72,14 +102,23 @@ ActiveRecord::Schema.define(version: 20161115071748) do
     t.string  "percent_veteran_military"
     t.string  "percent_active_military"
     t.string  "percentage_with_dietary_restrictions"
-    t.string  "total_guests_served_per_week"
-    t.string  "meals_served_per_breakfast"
-    t.string  "meals_served_per_lunch"
-    t.string  "meals_served_per_dinner"
-    t.string  "total_receiving_groceries"
+    t.integer "total_guests_served_per_week"
+    t.integer "meals_served_per_breakfast"
+    t.integer "meals_served_per_lunch"
+    t.integer "meals_served_per_dinner"
+    t.integer "total_receiving_groceries"
     t.string  "mode_of_transportation"
     t.string  "distance_traveled"
     t.integer "receiver_id"
+  end
+
+  create_table "dietary_restrictions", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "dietary_restrictions_programs", force: :cascade do |t|
+    t.integer "program_id"
+    t.integer "dietary_restriction_id"
   end
 
   create_table "donation_items", force: :cascade do |t|

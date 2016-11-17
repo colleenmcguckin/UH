@@ -1,4 +1,5 @@
 .profile-content
+    = render partial: 'shared/progress_bar', locals: {value: 40}
   %h3 Please supply the following details about your organization
   = simple_form_for([@user, @program]) do |f|
     = f.error_notification
