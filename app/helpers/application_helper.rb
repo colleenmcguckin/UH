@@ -25,4 +25,8 @@ module ApplicationHelper
     end
   end
 
+  def unscoped_food id
+    Food.unscoped.find(id)
+  end
+
 end

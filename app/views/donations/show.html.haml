@@ -43,19 +43,19 @@
               Quantity
             %th
               Category
-            - if @user.donor?
+            - if @user.donor? && !@donation.donated?
               %th
                 Remove
           %tbody
             - @donation.items.each do |item|
               %tr
                 %td
-                  = link_to item.food.name.titleize, donor_food_path(@user, item.food)
+                  = link_to unscoped_food(item.food_id).name.titleize, donor_food_path(@user, unscoped_food(item.food_id))
                 %td
                   #{item.quantity} #{item.quantity_type}
                 %td
-                  = item.food.category.name
-                - if @user.donor?
+                  = unscoped_food(item.food_id).category.name
+                - if @user.donor? && !@donation.donated?
                   %td
                     = link_to 'x', donor_donation_donation_item_path(@user, @donation, item), method: :delete, class: 'btn btn-danger'
   - if @donation.donated?
