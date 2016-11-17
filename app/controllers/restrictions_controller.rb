@@ -13,9 +13,9 @@ class RestrictionsController < ApplicationController
   end
 
   def create
-    @restriction = Restriction.new(receiver_id: @user.id)
+    @restriction = @user.restrictions.first || Restriction.new(receiver_id: @user.id)
     if @restriction.update(restriction_params)
-      redirect_to receiver_donation_schedules_path(@user), notice: 'Restriction info successfully saved. Set up your schedule now!'
+      redirect_to receiver_restriction_path(@user, @restriction), notice: 'Restriction info successfully saved. Set up your schedule now!'
     else
       render :new, notice: 'Could not save restriction info at this time. Please try again.'
     end
@@ -25,6 +25,12 @@ class RestrictionsController < ApplicationController
   end
 
   def update
+    @restriction = @user.restrictions.first || Restriction.new(receiver_id: @user.id)
+    if @restriction.update(restriction_params)
+      redirect_to receiver_restriction_path(@user, @restriction), notice: 'Restriction info successfully saved. Set up your schedule now!'
+    else
+      render :new, notice: 'Could not save restriction info at this time. Please try again.'
+    end
   end
 
   def destroy

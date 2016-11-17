@@ -1,0 +1,30 @@
+.profile-content
+  .text-center
+    %h2 Current Food Restrictions
+  %hr.featurette-divider
+  .row
+    .col-md-12
+      %h4
+        These are the foods you do not accept:
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title By Category
+        .panel-body
+          %ul
+            - @restriction.categories.each do |category|
+              %li
+                = category.name.titleize
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title By Storage Need
+        .panel-body
+          %ul
+            - @restriction.storage_temps.each do |temp|
+              %li
+                = temp.description.titleize
+  .row
+    .col-md-12
+      = link_to 'Edit', edit_receiver_restriction_path(@user, @restriction), class: 'btn btn-primary'

@@ -24,6 +24,8 @@
       - if @user.receiver?
         %li
           = link_to 'My Availability', receiver_donation_schedules_path(@user)
+        %li
+          = link_to 'Manage Restrictions', receiver_restriction_path(@user, @user.restrictions.first)
       - if @user.donor?
         %li
           = link_to 'My Foods', donor_foods_path(@user)

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :load_user
   before_action :load_new_donation
+  before_action :load_restriction_to_edit
 
   private
 
@@ -41,5 +42,9 @@ class ApplicationController < ActionController::Base
 
   def load_new_donation
     @new_donation = Donation.new
+  end
+
+  def load_restriction_to_edit
+    @restricion_to_edit = @user.restrictions.first || @user.restrictions.create
   end
 end
