@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117080151) do
+ActiveRecord::Schema.define(version: 20161117100446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,11 @@ ActiveRecord::Schema.define(version: 20161117080151) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "categories_restrictions", force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "restriction_id"
   end
 
   create_table "contact_details", force: :cascade do |t|
@@ -139,7 +144,6 @@ ActiveRecord::Schema.define(version: 20161117080151) do
     t.boolean  "prepared_meal"
     t.integer  "donor_id"
     t.integer  "category_id"
-    t.boolean  "archived",      default: false
     t.datetime "deleted_at"
   end
 
@@ -192,5 +196,19 @@ ActiveRecord::Schema.define(version: 20161117080151) do
 
   add_index "receivers", ["email"], name: "index_receivers_on_email", unique: true, using: :btree
   add_index "receivers", ["reset_password_token"], name: "index_receivers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "restrictions", force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "receiver_id"
+  end
+
+  create_table "restrictions_storage_temps", force: :cascade do |t|
+    t.integer "restriction_id"
+    t.integer "storage_temp_id"
+  end
+
+  create_table "storage_temps", force: :cascade do |t|
+    t.string "description"
+  end
 
 end

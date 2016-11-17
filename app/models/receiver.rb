@@ -11,6 +11,7 @@ class Receiver < ActiveRecord::Base
   has_many :dietary_restrictions, through: :programs
   has_many :logistics
   has_many :contributions, through: :logistics
+  has_many :restrictions
 
   after_create :setup_schedule
 

@@ -188,3 +188,6 @@ end
     name: name
   )
 end
+['Refrigerate', 'Freeze', 'Shelf Stable'].each do |desc|
+  StorageTemp.create(description: desc)
+end
