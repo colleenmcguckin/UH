@@ -21,7 +21,7 @@
             %th
               Category
             %th
-              Archive
+              = params[:archive] ? 'Restore' : 'Archive'
           %tbody
             - @foods.each do |food|
               %tr
@@ -37,5 +37,8 @@
                   = food.category.name
                 - if @user.donor?
                   %td
-                    -# = link_to donor_food_path(@user, food), class: 'btn btn-warning' do
-                    -#   %i.glyphicon.glyphicon-folder-open
+                    = link_to donor_food_path(@user, food), method: :delete, class: 'btn btn-warning' do
+                      %i.glyphicon.glyphicon-folder-open
+  .row
+    .col-md-12
+      = link_to 'See Archived Foods', donor_foods_path(archived: true)

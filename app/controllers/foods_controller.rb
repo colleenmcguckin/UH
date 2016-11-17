@@ -6,7 +6,11 @@ class FoodsController < ApplicationController
 
   def index
     if @user.donor?
-      @foods = Food.where(donor_id: @user.id)
+      if params[:archived]
+        @foods= Food.only_deleted.where(donor_id: @user.id)
+      else
+        @foods = Food.where(donor_id: @user.id)
+      end
     elsif @user.admin?
       @foods = Food.all
     end
@@ -40,10 +44,19 @@ class FoodsController < ApplicationController
 
   def destroy
     load_food
-    if @food.destroy!
-      redirect_to donor_foods_path(@user), notice: 'Food has been archived.'
+
+    if @food.deleted?
+      if @food.restore
+        redirect_to donor_foods_path(@user), notice: 'Food has been restored.'
+      else
+        render :index, notice: "Food couldn't be restored. Please try again."
+      end
     else
-      render :show, notice: "Donation couldn't be deleted."
+      if @food.destroy && @food.remove_from_pending_donations
+        redirect_to donor_foods_path(@user), notice: 'Food has been archived.'
+      else
+        render :show, notice: "Food couldn't be archived. Please try again."
+      end
     end
   end
 
@@ -69,7 +82,7 @@ class FoodsController < ApplicationController
   end
 
   def load_food
-    @food = Food.find(params[:id])
+    @food = Food.with_deleted.find(params[:id])
   end
 
   def food_params
