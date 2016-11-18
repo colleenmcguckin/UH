@@ -10,6 +10,9 @@ class Donation < ActiveRecord::Base
     donation.validates :tracking_code, uniqueness: true
   end
 
+  scope :donated, ->{ where(donated_at: 'IS NOT NULL') }
+  scope :received, -> { donated.where(received_at: 'IS NOT NULL') }
+
   def add_item food, quantity, quantity_type
     items.new food_id: food.id, quantity: quantity, quantity_type: quantity_type
   end

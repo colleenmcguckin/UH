@@ -22,6 +22,6 @@
     .col-md-5.col-md-offset-1
       .row
         %h5 Current Schedule:
-        = render partial: 'table_schedule', locals: {editable: false}
+        = render partial: 'table_schedule', locals: {donation_schedules: @donation_schedules, editable: false}
       .row
   %hr.featurette-divider

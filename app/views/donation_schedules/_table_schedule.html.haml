@@ -1,6 +1,6 @@
 %table
   %tbody
-    - @donation_schedules.each_with_index do |day|
+    - donation_schedules.each_with_index do |day|
       %tr
         %td
           = DonationSchedule::DAYS_IN_WORDS[day.day_of_week].titleize

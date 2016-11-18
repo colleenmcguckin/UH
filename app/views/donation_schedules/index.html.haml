@@ -3,7 +3,7 @@
     .col-md-5
       %h4
         Current Availability:
-      = render partial: 'table_schedule', locals: {editable: true}
+      = render partial: 'table_schedule', locals: {donation_schedules: @donation_schedules, editable: true}
     .col-md-5.col-md-offset-1
       %h5
         This is your availability to accept donations.

@@ -2,7 +2,12 @@ Donor.create email: 'donor@donor.com',
              password: 'password'
 
 Receiver.create email: 'receiver@receiver.com',
-                password: 'password'
+                password: 'password',
+                agency_name: Faker::Company.name,
+                street_address: Faker::Address.street_address,
+                city: Faker::Address.city,
+                state: Faker::Address.state_abbr,
+                zip: Faker::Address.zip_code
 
 10.times do
   Donor.create email:     Faker::Internet.email,
@@ -11,7 +16,12 @@ end
 
 10.times do
   Receiver.create email:     Faker::Internet.email,
-                  password: 'password'
+                  password: 'password',
+                  agency_name: Faker::Company.name,
+                  street_address: Faker::Address.street_address,
+                  city: Faker::Address.city,
+                  state: Faker::Address.state_abbr,
+                  zip: Faker::Address.zip_code
 end
 
 Admin.create email:    'admin@admin.com',
@@ -162,7 +172,7 @@ end
   'Zucchini' ].each do |food|
   Food.create(name: food,
               description: Faker::Hipster.sentence,
-              storage_temp: ['Refrigerate', 'Freeze', 'Shelf Stable'].sample,
+              storage_temp: ['Refrigerated', 'Frozen', 'Shelf Stable'].sample,
               prepared_meal: [true, false].sample,
               category_id: Category.all.sample.id,
               donor_id: Donor.all.sample.id)
@@ -188,6 +198,31 @@ end
     name: name
   )
 end
-['Refrigerate', 'Freeze', 'Shelf Stable'].each do |desc|
+['Refrigerated', 'Frozen', 'Shelf Stable'].each do |desc|
   StorageTemp.create(description: desc)
+end
+
+Receiver.all.each do |r|
+  r.logistics.create(
+    transportation_available: %w[Yes No].sample,
+    driver_status: ['Staff', 'Volunteers', 'Both', 'n/a'].sample,
+    insurance_status: ['Our organization provides insurance to drivers', 'Our drivers have their own private insurance.', 'We do not know the insurance status of our drivers.', 'n/a'].sample,
+    vehicle_style: ['Car', 'Pickup Truck', 'Box Truck', 'Refrigerated Vehicle', 'Other', 'n/a'].sample,
+    freezer_type: ['Upright', 'Walk-in', 'n/a'].sample,
+    refrigerator_type: ['Upright', 'Walk-in', 'n/a'].sample,
+    indoor_dry_storage: %w[Yes No].sample,
+    safe_handling_program: Faker::Commerce.product_name,
+    meal_usage: ['We provide meals or groceries only.', 'Providing meals is part of a larger program we offer.'].sample,
+    meal_distribution_frequency: ['Multiple times per day', 'Daily', 'Multiple times per week', 'Weekly', 'Other', 'n/a'].sample
+  )
+  r.contact_details.create(
+    contact_name: Faker::Name.name,
+    contact_email: Faker::Internet.email,
+    contact_phone: Faker::PhoneNumber.cell_phone,
+    dfr_contact_name: Faker::Name.name,
+    dfr_contact_cell_phone: Faker::PhoneNumber.cell_phone,
+    dfr_contact_office_phone: Faker::PhoneNumber.cell_phone,
+    dfr_contact_email: Faker::Internet.email,
+    dfr_preferred_contact_method: %w[office cell].sample
+  )
 end

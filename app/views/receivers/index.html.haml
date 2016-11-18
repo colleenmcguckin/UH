@@ -1,68 +1,183 @@
 .content
   .container
-    - @receivers.in_groups_of(2) do |receiver_group|
+    - @receivers.each do |receiver|
       .row
         .col-xl-6.margin-bottom-30
           .portlet
             .portlet-title
               .caption
-                %i.glyphicon.glyphicon-calendar
-                %span.caption-subject.text-uppercase Portlet
-                %span.caption-helper weekly stats...
+                %i.glyphicon.glyphicon-cutlery
+                %span.caption-subject.text-uppercase
+                  = receiver.agency_name&.upcase
+                %span.caption-helper
+                  Waiting on #{receiver.pending_donation_count} donations
               .actions
-                %a.btn{:href => "javascript:;"}
-                  %i.glyphicon.glyphicon-pencil
-                  Edit
-                %a.btn{:href => "javascript:;"}
-                  %i.glyphicon.glyphicon-paperclip
-                  Add
-                %a.btn.btn-circle{:href => "javascript:;"}
-                  %i.glyphicon.glyphicon-resize-full
+                %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_contact"}
+                  %i.glyphicon.glyphicon-phone-alt
+                %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_schedule"}
+                  %i.glyphicon.glyphicon-calendar
+                = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, receiver), class: 'btn'
             .portlet-body
-              %h4
-                = receiver_group.first.email.upcase
-              %p Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
-        .col-xl-6.margin-bottom-30
-          .portlet
-            .portlet-title
-              .caption
-                %i.glyphicon.glyphicon-calendar
-                %span.caption-subject.text-uppercase Portlet
-                %span.caption-helper weekly stats...
-              .actions
-                %a.btn{:href => "javascript:;"}
-                  %i.glyphicon.glyphicon-pencil
-                  Edit
-                %a.btn{:href => "javascript:;"}
-                  %i.glyphicon.glyphicon-paperclip
-                  Add
-                %a.btn.btn-circle{:href => "javascript:;"}
-                  %i.glyphicon.glyphicon-resize-full
-            .portlet-body
-              %h4 Heading Text
-              %p Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
--# %h1 Receiver Index
--# - @receivers.each do |receiver|
--#   .receiver-card
--#     .receiver-card-title
--#     %h3 Receiving Site
--#     .row
--#       .col-md-4
--#         %ul
--#           %li
--#             Detail Bullet Points
--#           %li
--#             Detail Bullet Points
--#           %li
--#             Detail Bullet Points
--#       .col-md-4
--#         %p
--#           Address Line 1
--#           %br Address Line 2
--#           %br Address Line 3
--#       .col-md-4
--#         =image_tag 'map', class: 'img-responsive'
--#     - unless @user.donor?
--#       = link_to "#{receiver.email}", receiver
--#     - else
--#       = link_to "See Details & Add To Donation", donor_donation_receiver_path(@user, @donation, receiver)
+              .row
+                .col-md-3
+                  %h5 Incoming Items:
+                  - if receiver.donations.any?
+                    - receiver.donations.each do |donation|
+                      - donation.items.each do |item|
+                        = "#{item.quantity} #{item.quantity_type.capitalize} of #{item.food.name.titleize}"
+                .col-md-3
+                  %h5 Restrictions:
+                  %ul
+                    - receiver.restrictions.each do |restriction|
+                      -restriction.categories.each do |category|
+                        %li= category.name
+                      -restriction.storage_temps.each do |storage_temp|
+                        %li= storage_temp.description
+                .col-md-3
+                  %h5 Location:
+                  %p
+                    = receiver.street_address
+                    %br
+                    = "#{receiver.city}, #{receiver.state} #{receiver.zip}"
+                .col-md-3
+                  .row
+                    .col-xs-12
+                      .text-center
+                        =image_tag 'map', class: 'img-responsive img-center', width:'70%'
+                  - if receiver.transportation_available?
+                    .row
+                      .col-xs-12
+                        .text-center
+                          %i.glyphicon.glyphicon-ok
+                          Pick-up available
+        .modal.fade{role: "dialog", id: "#{receiver.id}_contact"}
+          .modal-dialog
+            / Modal content
+            .modal-content
+              .modal-header
+                %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                %h4.modal-title= receiver.agency_name&.upcase
+              .modal-body
+                .row
+                  .col-sm-6
+                    %h5.text-center
+                      General Contact Info:
+                    %table.table
+                      %thead
+                        %th
+                        %th
+                      %tbody
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-user
+                          %td
+                            = receiver.contact_details.first&.contact_name
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-earphone
+                          %td
+                            = receiver.contact_details.first&.contact_phone
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-envelope
+                          %td
+                            = receiver.contact_details.first&.contact_email
+                  .col-sm-6
+                    %h5.text-center
+                      Daily Food Recovery Contact:
+                    %table.table
+                      %thead
+                        %th
+                        %th
+                      %tbody
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-user
+                          %td
+                            = receiver.contact_details.first&.dfr_contact_name
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-earphone
+                          %td
+                            = "#{receiver.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if receiver.contact_details.first&.dfr_preferred_contact_method == 'office'}"
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-phone
+                          %td
+                            = "#{receiver.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if receiver.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-envelope
+                          %td
+                            = receiver.contact_details.first&.contact_email
+                %hr
+                = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
+        .modal.fade{role: "dialog", id: "#{receiver.id}_schedule"}
+          .modal-dialog
+            / Modal content
+            .modal-content
+              .modal-header
+                %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                %h4.modal-title= receiver.agency_name&.upcase
+              .modal-body
+                .row
+                  .col-sm-12
+                    %h5 Hours of Operation:
+                .row
+                  .col-sm-9
+                    = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: receiver.donation_schedules, editable: false}
+              .modal-footer
+                = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
+-#         .col-xl-6.margin-bottom-30
+-#           .portlet
+-#             .portlet-title
+-#               .caption
+-#                 %i.glyphicon.glyphicon-cutlery
+-#                 %span.caption-subject.text-uppercase
+-#                   = receiver_group.second.agency_name&.upcase
+-#                 %span.caption-helper weekly stats...
+-#               .actions
+-#                 %a.btn{'data-toggle': "modal", 'data-target': "##{receiver_group.second.id}"}
+-#                   %i.glyphicon.glyphicon-calendar
+-#                 = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, receiver_group.second), class: 'btn'
+-#             .portlet-body
+-#               %h4
+-#                 = receiver_group.second.email.upcase
+-#               %p Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
+-#         .modal.fade{role: "dialog", id: "#{receiver_group.second.id}"}
+-#           .modal-dialog
+-#             / Modal content
+-#             .modal-content
+-#               .modal-header
+-#                 %button.close{"data-dismiss" => "modal", :type => "button"} ×
+-#                 %h4.modal-title Modal Header
+-#               .modal-body
+-#                 %p Some text in the modal.
+-#               .modal-footer
+-#                 = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver_group.second.id), class: 'btn btn-primary'
+-#
+-# -# %h1 Receiver Index
+-# -# - @receivers.each do |receiver|
+-# -#   .receiver-card
+-# -#     .receiver-card-title
+-# -#     %h3 Receiving Site
+-# -#     .row
+-# -#       .col-md-4
+-# -#         %ul
+-# -#           %li
+-# -#             Detail Bullet Points
+-# -#           %li
+-# -#             Detail Bullet Points
+-# -#           %li
+-# -#             Detail Bullet Points
+-# -#       .col-md-4
+-# -#         %p
+-# -#           Address Line 1
+-# -#           %br Address Line 2
+-# -#           %br Address Line 3
+-# -#       .col-md-4
+-# -#         =image_tag 'map', class: 'img-responsive'
+-# -#     - unless @user.donor?
+-# -#       = link_to "#{receiver.email}", receiver
+-# -#     - else
+-# -#       = link_to "See Details & Add To Donation", donor_donation_receiver_path(@user, @donation, receiver)

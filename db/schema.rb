@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20161117100446) do
     t.string  "dfr_contact_email"
     t.string  "dfr_contact_office_phone"
     t.string  "dfr_contact_cell_phone"
-    t.string  "dfr_preffered_contact_method"
+    t.string  "dfr_preferred_contact_method"
     t.integer "receiver_id"
   end
 

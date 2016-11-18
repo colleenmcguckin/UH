@@ -8,6 +8,6 @@ class ContactDetail < ActiveRecord::Base
   validates :dfr_contact_email, presence: true
   validates :dfr_contact_office_phone, presence: true
   validates :dfr_contact_cell_phone, presence: true
-  validates :dfr_preffered_contact_method, presence: true
+  validates :dfr_preferred_contact_method, presence: true
   validates :receiver_id, presence: true
 end

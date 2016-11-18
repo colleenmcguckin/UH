@@ -45,6 +45,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_restriction_to_edit
-    @restricion_to_edit = @user.restrictions.first || @user.restrictions.create
+    if current_receiver
+      @restricion_to_edit = @user.restrictions.first || @user.restrictions.create
+    end
   end
 end

@@ -33,6 +33,10 @@ class Receiver < ActiveRecord::Base
     #if rejected give notice
   end
 
+  def transportation_available?
+    logistics.first.transportation_available == 'Yes'
+  end
+
   def setup_schedule
     0.upto(6) do |i|
       self.donation_schedules.create(
@@ -58,4 +62,9 @@ class Receiver < ActiveRecord::Base
     self.paused = false
     self.save
   end
+
+  def pending_donation_count
+    Donation.where(receiver_id: self.id).to_a.count{ |donation| donation.donated? && !donation.received? }
+  end
+
 end
