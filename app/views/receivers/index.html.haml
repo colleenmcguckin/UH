@@ -10,7 +10,7 @@
                 %span.caption-subject.text-uppercase
                   = receiver.agency_name&.upcase
                 %span.caption-helper
-                  Waiting on #{receiver.pending_donation_count} donations
+                  Waiting on #{receiver.pending_donation_count} donation#{'s' if receiver.pending_donation_count != 1}
               .actions
                 %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_contact"}
                   %i.glyphicon.glyphicon-phone-alt
@@ -110,7 +110,7 @@
                             %i.glyphicon.glyphicon-envelope
                           %td
                             = receiver.contact_details.first&.contact_email
-                %hr
+              .modal-footer
                 = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
         .modal.fade{role: "dialog", id: "#{receiver.id}_schedule"}
           .modal-dialog
