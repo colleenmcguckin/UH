@@ -31,6 +31,8 @@ gem 'simple_form'
 
 gem "paranoia", "~> 2.2"
 
+gem 'kaminari'
+
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
 gem 'responsive_active_admin'
 

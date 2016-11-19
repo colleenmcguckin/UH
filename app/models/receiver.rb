@@ -1,4 +1,5 @@
 class Receiver < ActiveRecord::Base
+  paginates_per 5
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -65,6 +66,16 @@ class Receiver < ActiveRecord::Base
 
   def pending_donation_count
     Donation.where(receiver_id: self.id).to_a.count{ |donation| donation.donated? && !donation.received? }
+  end
+
+  def pending_donation_items
+    items = []
+    Donation.where(receiver_id: self.id).where("donated_at IS NOT NULL").where(received_at: nil).each do |d|
+      d.items.each do |i|
+        items << i
+      end
+    end
+    return items
   end
 
 end

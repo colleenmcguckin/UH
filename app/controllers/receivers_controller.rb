@@ -6,11 +6,11 @@ class ReceiversController < ApplicationController
     load_user
     if @user.receiver?
       redirect_to receiver_path @user
-    end
-    @receivers = Receiver.all
-    if @user.donor?
+    else
+      @receivers = Receiver.order(:agency_name).page params[:page]
       @donation = Donation.find(params[:donation_id])
     end
+
   end
 
   def show

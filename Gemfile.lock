@@ -268,6 +268,7 @@ DEPENDENCIES
   hamlit
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   paranoia (~> 2.2)
   pg
   pry
