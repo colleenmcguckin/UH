@@ -1,5 +1,7 @@
 class Receiver < ActiveRecord::Base
   paginates_per 5
+  geocoded_by :address
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,6 +19,8 @@ class Receiver < ActiveRecord::Base
   has_many :restrictions
 
   after_create :setup_schedule
+  after_validation :geocode, if: ->(obj){ obj.street_address.present? and obj.street_address_changed? }
+
 
   # validates_format_of :tax_id, with: /^[1-9]\d?-\d{7}$/, :on => :create
 
@@ -76,6 +80,10 @@ class Receiver < ActiveRecord::Base
       end
     end
     return items
+  end
+
+  def address
+    [street_address, city, state, 'USA'].compact.join(', ')
   end
 
 end

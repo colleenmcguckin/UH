@@ -7,5 +7,7 @@ class AddDetailsToReceiver < ActiveRecord::Migration
     add_column :receivers, :zip, :integer
     add_column :receivers, :tax_id, :string
     add_column :receivers, :paused, :boolean, default: false
+    add_column :receivers, :latitude, :float
+    add_column :receivers, :longitude, :float
   end
 end

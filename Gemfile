@@ -33,6 +33,8 @@ gem "paranoia", "~> 2.2"
 
 gem 'kaminari'
 
+gem 'geocoder'
+
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
 gem 'responsive_active_admin'
 

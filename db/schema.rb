@@ -225,6 +225,8 @@ ActiveRecord::Schema.define(version: 20161117100446) do
     t.integer  "zip"
     t.string   "tax_id"
     t.boolean  "paused",                 default: false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "receivers", ["email"], name: "index_receivers_on_email", unique: true, using: :btree
