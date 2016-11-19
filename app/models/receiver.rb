@@ -88,7 +88,13 @@ class Receiver < ActiveRecord::Base
 
   def self.filter donation
     # get rid of receivers who have restrictions that are included in the donation
-    Receiver.where()
+    # this will be either a category through the food, or a storage_temp on the food, which is one of many items on the donation
+    # Receiver where each receiver.restrictions.first.categories != each donation.items.(first/2nd/etc).food.category
+    # && each restricions.first.storage_temps != each donation.items.(first/2nd/etc).food.storage_temp
+    categories_to_exclude = donation.items.map(&:food).map(&:category)
+    storage_temps_to_exclude = donation.items.map(&:food).map(&:storage_temp)
+
+    # Receiver.includes(restrictions: [:categories, :storage_temps]).map(&:category)
   end
 
 end
