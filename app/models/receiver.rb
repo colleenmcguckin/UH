@@ -1,6 +1,6 @@
 class Receiver < ActiveRecord::Base
   paginates_per 5
-  geocoded_by :address
+  geocoded_by :zip
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

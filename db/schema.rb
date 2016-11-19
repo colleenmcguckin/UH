@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 20161117100446) do
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
-    t.integer  "zip"
+    t.string   "zip"
     t.string   "tax_id"
     t.boolean  "paused",                 default: false
     t.float    "latitude"
