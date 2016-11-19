@@ -43,7 +43,8 @@
                     .row
                       .col-xs-12
                         .text-center
-                          =image_tag 'map', class: 'img-responsive img-center', width:'70%'
+                          = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{receiver.latitude},#{receiver.longitude}&markers=#{receiver.latitude},#{receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+                                      class: 'img-responsive img-rounded', alt: "#{receiver.agency_name} on the map"
                     - if receiver.transportation_available?
                       %br
                       .row
