@@ -1,6 +1,54 @@
 .content
   .container
     .row
+      %form.form-inline
+        .form-group
+          %input#search-field.form-control{:placeholder => "Quick Search", :type => "text"}
+          %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample"} Sort & Filter
+      #collapseExample.collapse
+        .card.card-block
+          .row
+            .col-xs
+              .form-group
+                %select#exampleSelect1.custom-select
+                  %option Filter a Thing
+                  %option 2
+                  %option 3
+                  %option 4
+                  %option 5
+            .col-xs
+              .form-group
+                %select#exampleSelect1.custom-select
+                  %option Filter a Thing
+                  %option 2
+                  %option 3
+                  %option 4
+                  %option 5
+            .col-xs
+              .form-group
+                %select#exampleSelect1.custom-select
+                  %option Filter a Thing
+                  %option 2
+                  %option 3
+                  %option 4
+                  %option 5
+            .col-xs
+              .form-group
+                %select#exampleSelect1.custom-select
+                  %option Filter a Thing
+                  %option 2
+                  %option 3
+                  %option 4
+                  %option 5
+            .col-xs
+              .form-group
+                %select#exampleSelect1.custom-select
+                  %option Filter a Thing
+                  %option 2
+                  %option 3
+                  %option 4
+                  %option 5
+    .row
       - @receivers.each do |receiver|
         .row
           .col-xl-6.margin-bottom-30
