@@ -86,4 +86,9 @@ class Receiver < ActiveRecord::Base
     [street_address, city, state, 'USA'].compact.join(', ')
   end
 
+  def self.filter donation
+    # get rid of receivers who have restrictions that are included in the donation
+    Receiver.where()
+  end
+
 end

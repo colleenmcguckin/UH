@@ -17,4 +17,5 @@
 /tmp
 
 # Ignore environment variables
-/config/env.*.yml
+/config/env.development.yml
+/config/env.test.yml
