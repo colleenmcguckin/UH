@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require select2/select2.min
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$('.select-2').select2();

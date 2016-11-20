@@ -7,7 +7,11 @@ class ReceiversController < ApplicationController
       redirect_to receiver_path @user
     else
       @donation = Donation.find(params[:donation_id])
-      @receivers = Receiver.filter(@donation).order(:agency_name).page params[:page]
+      if params[:search]
+        @receivers = Receiver.filter(@donation).near(params[:search][:zip], params[:search][:distance].to_i).order(:agency_name).page params[:page]
+      else
+        @receivers = Receiver.filter(@donation).order(:agency_name).page params[:page]
+      end
     end
 
   end
