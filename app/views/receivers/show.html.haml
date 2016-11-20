@@ -12,11 +12,8 @@
   - if @receiver.donations.any?
     %h2
       Incoming Donation Items
-    - @receiver.donations.each do |donation|
-      - donation.items.each do |item|
-        = item.description.titleize
-        = item.quantity
-        = item.quantity_type.titleize
+    - pending_items_in_strings(@receiver).each do |item|
+      = item
 
 - elsif @user.receiver?
   %h1 My Profile
