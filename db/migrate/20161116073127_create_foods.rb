@@ -4,7 +4,7 @@ class CreateFoods < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.string :storage_temp
-      t.boolean :prepared_meal
+      t.boolean :prepared_meal, default: false
       t.integer :donor_id
       t.integer :category_id
     end

@@ -21,7 +21,7 @@
             %th
               Category
             %th
-              = params[:archive] ? 'Restore' : 'Archive'
+              = params[:archived] == 'true' ? 'Restore' : 'Archive'
           %tbody
             - @foods.each do |food|
               %tr
@@ -41,4 +41,7 @@
                       %i.glyphicon.glyphicon-folder-open
   .row
     .col-md-12
-      = link_to 'See Archived Foods', donor_foods_path(archived: true)
+      - if params[:archived] == 'true'
+        = link_to 'See Active Foods', donor_foods_path(archived: false)
+      - else
+        = link_to 'See Archived Foods', donor_foods_path(archived: true)

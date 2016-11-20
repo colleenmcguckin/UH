@@ -5,7 +5,7 @@ class FoodsController < ApplicationController
 
   def index
     if @user.donor?
-      if params[:archived]
+      if params[:archived] == 'true'
         @foods= Food.only_deleted.where(donor_id: @user.id)
       else
         @foods = Food.where(donor_id: @user.id)
@@ -79,9 +79,7 @@ class FoodsController < ApplicationController
       :donor_id,
       :category_id,
       :name,
-      :refrigerated,
-      :keep_frozen,
-      :shelf_stable,
+      :storage_temp,
       :prepared_meal,
       :description
     )
