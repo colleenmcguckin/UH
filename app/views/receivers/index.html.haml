@@ -1,57 +1,42 @@
 .content
+  %nav.navbar.navbar-default#search-bar
+    .container-fluid
+      / Brand and toggle get grouped for better mobile display
+      .navbar-header
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %a.navbar-brand{:href => "#"} Search within
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Select Distance
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                %a{:href => "#"} Action
+              %li
+                %a{:href => "#"} Another action
+              %li
+                %a{:href => "#"} Something else here
+              %li.divider{:role => "separator"}
+              %li
+                %a{:href => "#"} Separated link
+          %li
+            %a.navbar-brand{:href => "#"} of
+          %li
+            %form.navbar-form.navbar-left
+              .form-group
+                %input.form-control{:placeholder => "Zip Code", :type => "text"}/
+          %li
+            %form.navbar-form.navbar-left
+              %button.btn.btn-default{:type => "submit"} Submit
+
   .container
-    .row
-      %form.form-inline
-        .form-group
-          %input#search-field.form-control{:placeholder => "Quick Search", :type => "text"}
-          %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample"} Sort & Filter
-      #collapseExample.collapse
-        .card.card-block
-          .row
-            .col-xs
-              .form-group
-                %select#exampleSelect1.custom-select
-                  %option Filter a Thing
-                  %option 2
-                  %option 3
-                  %option 4
-                  %option 5
-            .col-xs
-              .form-group
-                %select#exampleSelect1.custom-select
-                  %option Filter a Thing
-                  %option 2
-                  %option 3
-                  %option 4
-                  %option 5
-            .col-xs
-              .form-group
-                %select#exampleSelect1.custom-select
-                  %option Filter a Thing
-                  %option 2
-                  %option 3
-                  %option 4
-                  %option 5
-            .col-xs
-              .form-group
-                %select#exampleSelect1.custom-select
-                  %option Filter a Thing
-                  %option 2
-                  %option 3
-                  %option 4
-                  %option 5
-            .col-xs
-              .form-group
-                %select#exampleSelect1.custom-select
-                  %option Filter a Thing
-                  %option 2
-                  %option 3
-                  %option 4
-                  %option 5
+
+
     .row
       - @receivers.each do |receiver|
         .row
-          .col-xl-6.margin-bottom-30
+          .col-lg-12.margin-bottom-30
             .portlet
               .portlet-title
                 .caption
@@ -74,10 +59,10 @@
                       = item
                   .col-md-3
                     %h5 Restrictions:
-                    - receiver.restrictions.first.categories.each do |category|
+                    - receiver.restrictions&.first&.categories&.each do |category|
                       = category.name
                       %br
-                    - receiver.restrictions.first.storage_temps.each do |storage_temp|
+                    - receiver.restrictions&.first&.storage_temps&.each do |storage_temp|
                       = storage_temp.description
                       %br
                   .col-md-3
