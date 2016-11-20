@@ -29,4 +29,8 @@ module ApplicationHelper
     Food.unscoped.find(id)
   end
 
+  def format_date_long date
+    date.strftime("%m/%d/%Y")
+  end
+
 end

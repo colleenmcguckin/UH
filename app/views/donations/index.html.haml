@@ -15,7 +15,7 @@
               -else
                 = link_to 'Add Receiver', donor_donation_receivers_path(@user, donation)
             %td
-              = donation.created_at
+              = format_date_long donation.created_at
             %td
               -if donation.items.any?
                 - donation.items.each do |item|
@@ -46,7 +46,7 @@
             %td
               = donation.donor.email
             %td
-              = donation.created_at
+              = format_date_long donation.created_at
             %td
               - donation.items.each do |item|
                 = unscoped_food(item.food_id).name.titleize
