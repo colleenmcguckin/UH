@@ -1,6 +1,5 @@
 class DonationItemsController < ApplicationController
 
-  before_action :load_user
   before_action :authenticate_user!
   before_action :load_donation
 
@@ -34,16 +33,6 @@ class DonationItemsController < ApplicationController
 
   def load_donation
     @donation = Donation.find params[:donation_id]
-  end
-
-  def load_user
-    if current_donor
-      @user = Donor.find current_donor
-    elsif current_receiver
-      @user = Receiver.find current_receiver
-    elsif current_admin
-      @user = Admin.find current_admin
-    end
   end
 
   def donation_item_params

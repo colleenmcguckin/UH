@@ -94,7 +94,17 @@ class Receiver < ActiveRecord::Base
     categories_to_exclude = donation.items.map(&:food).map(&:category)
     storage_temps_to_exclude = donation.items.map(&:food).map(&:storage_temp)
 
-    Receiver.includes(restrictions: [:categories, :storage_temps]).map(&:category)
+    receivers_to_keep = Receiver.select do |receiver|
+      receiver.restrictions.none? do |restriction|
+        restriction.categories.any? do |category|
+          categories_to_exclude.include?(category) || restriction.storage_temps.any? do |temp|
+            storage_temps_to_exclude.include? temp
+          end
+        end
+      end
+    end
+
+    Receiver.where id: receivers_to_keep.map(&:id)
   end
 
 end

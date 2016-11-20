@@ -1,7 +1,6 @@
 class DonationsController < ApplicationController
 
 
-  before_action :load_user
   before_action :authenticate_user!
   before_action :only_donors_allowed, except: [:index, :show, :receive]
 
@@ -92,16 +91,6 @@ class DonationsController < ApplicationController
   end
 
   private
-
-  def load_user
-    if current_donor
-      @user = Donor.find current_donor.id
-    elsif current_receiver
-      @user = Receiver.find current_receiver.id
-    elsif current_admin
-      @user = Admin.find current_admin.id
-    end
-  end
 
   def load_donation
     @donation = Donation.find(params[:id])
