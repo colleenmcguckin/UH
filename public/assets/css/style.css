@@ -21,14 +21,17 @@ body {
 }
 
 .custom-nav {
-  background-color: #6C7A89;
-  border-color: #6C7A89;
+  background-color: transparent;
+  border-color: transparent;
   font-family: 'Lora', serif;
   color: white;
   height: 70px;
   vertical-align: middle;
 }
 .navbar-brand a {
+  color: white;
+}
+#navbar > ul > li > a {
   color: white;
 }
 .navbar-inverse .navbar-brand {
