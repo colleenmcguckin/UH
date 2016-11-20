@@ -1,6 +1,5 @@
 class DonationSchedulesController < ApplicationController
 
-  before_action :load_user
   before_action :authenticate_user!
 
   def index
@@ -38,16 +37,6 @@ class DonationSchedulesController < ApplicationController
   end
 
   private
-
-  def load_user
-    if current_donor
-      @user = Donor.find current_donor
-    elsif current_receiver
-      @user = Receiver.find current_receiver
-    elsif current_admin
-      @user = Admin.find current_admin
-    end
-  end
 
   def load_donation_schedules
     @donation_schedules = @user.donation_schedules.order(:day_of_week)

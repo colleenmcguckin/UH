@@ -1,6 +1,5 @@
 class FoodsController < ApplicationController
 
-  before_action :load_user
   before_action :authenticate_user!
   before_action :only_donors_allowed, except: [:index, :show, :receive]
 
@@ -70,16 +69,6 @@ class FoodsController < ApplicationController
   end
 
   private
-
-  def load_user
-    if current_donor
-      @user = Donor.find current_donor.id
-    elsif current_receiver
-      @user = Receiver.find current_receiver.id
-    elsif current_admin
-      @user = Admin.find current_admin.id
-    end
-  end
 
   def load_food
     @food = Food.with_deleted.find(params[:id])

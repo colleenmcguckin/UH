@@ -74,11 +74,12 @@
                       = item
                   .col-md-3
                     %h5 Restrictions:
-                    - receiver.restrictions.first.categories.each do |category|
-                      = category.name
+                    - receiver.restrictions.each do |restriction|
+                      - restriction.categories.each do |category|
+                        = category.name
                       %br
-                    - receiver.restrictions.first.storage_temps.each do |storage_temp|
-                      = storage_temp.description
+                      - restriction.storage_temps.each do |storage_temp|
+                        = storage_temp.description
                       %br
                   .col-md-3
                     %h5 Location:

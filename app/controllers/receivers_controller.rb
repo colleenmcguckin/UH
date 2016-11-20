@@ -3,18 +3,16 @@ class ReceiversController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    load_user
     if @user.receiver?
       redirect_to receiver_path @user
     else
-      @receivers = Receiver.order(:agency_name).page params[:page]
       @donation = Donation.find(params[:donation_id])
+      @receivers = Receiver.filter(@donation).page params[:page]
     end
 
   end
 
   def show
-    load_user
     if @user.donor?
       @receiver = Receiver.find(params[:id])
       if params[:donation_id]
@@ -28,7 +26,6 @@ class ReceiversController < ApplicationController
   end
 
   def update
-    load_user
     if @user.update receiver_params
       redirect_to new_receiver_contact_detail_path @user, notice: 'Details successfully saved.'
     elsif
@@ -37,15 +34,12 @@ class ReceiversController < ApplicationController
   end
 
   def details
-    load_user
   end
 
   def verify
-    load_user
   end
 
   def pause
-    load_user
     if @user.pause!
       redirect_to receiver_donation_schedules_path(@user), notice: 'Availability successfully paused.'
     else
@@ -54,7 +48,6 @@ class ReceiversController < ApplicationController
   end
 
   def unpause
-    load_user
     if @user.unpause!
       redirect_to receiver_donation_schedules_path(@user), notice: 'Availability successfully unpaused.'
     else
@@ -82,16 +75,6 @@ class ReceiversController < ApplicationController
       :dfr__contact_method,
       :paused
     )
-  end
-
-  def load_user
-    if current_donor
-      @user = Donor.find current_donor.id
-    elsif current_receiver
-      @user = Receiver.find current_receiver.id
-    elsif current_admin
-      @user = Admin.find current_admin.id
-    end
   end
 
 end
