@@ -59,6 +59,6 @@
               = donation.tracking_code
             %td
               -if donation.received?
-                Confirmed
+                = donation_status_text donation
               -else
                 = link_to 'Confirm Receipt', donation_receive_path(donation)

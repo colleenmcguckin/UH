@@ -34,11 +34,10 @@ module ApplicationHelper
   end
 
   def donation_status_text donation
-    if donation.donated?
-      if donation.received?
-        content_tag(:div, "Confirmed", class: ["green", "italic"])
-      end
-        content_tag(:div, "Donated", class: ["blue", "italic"])
+    if donation.donated? && donation.received?
+      content_tag(:div, "Confirmed", class: ["green", "italic"])
+    elsif donation.donated?
+      content_tag(:div, "confirmed", class: ["blue", "italic"])
     else
       content_tag(:div, "Pending", class: ["orange", "italic"])
     end
