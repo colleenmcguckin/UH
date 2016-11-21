@@ -3,13 +3,13 @@
     %table.table.table-striped
       %thead
         %th
-        - %w[Recipient Date Items Status].each do |th|
+        - ['Recipient', 'Donation Date', 'Items', 'Tracking Code', 'Status'].each do |th|
           %th= th
       %tbody
         - @donations.each do |donation|
           %tr
             %td
-              = link_to "View", receiver_donation_path(@user, donation)
+              = link_to "View", donor_donation_path(@user, donation)
             %td
               -if donation.receiver
                 = link_to "#{donation.receiver.agency_name.titleize}", donor_donation_receiver_path(donation.donor, donation, donation.receiver)
@@ -27,6 +27,8 @@
                 = link_to 'Add Item', new_donor_donation_donation_item_path(@user, donation) unless donation.donated?
                 %br
             %td
+              = donation.tracking_code if donation.donated?
+            %td
               = donation_status_text donation
     = simple_form_for [@user, @new_donation] do |f|
       = f.error_notification
@@ -35,7 +37,8 @@
   - if @user.receiver?
     %table
       %thead
-        - %w[ID Donor Date Items Status].each do |th|
+        %th
+        - ['Donor', 'Donation Date', 'Items', 'Tracking Code', 'Status'].each do |th|
           %th= th
       %tbody
         - @donations.each do |donation|
@@ -45,13 +48,15 @@
             %td
               = donation.donor.email
             %td
-              = format_date_long donation.created_at
+              = format_date_long donation.donated_at
             %td
               - donation.items.each do |item|
                 = unscoped_food(item.food_id).name.titleize
                 = item.quantity
                 = item.quantity_type.titleize
                 %br
+            %td
+              = donation.tracking_code
             %td
               -if donation.received?
                 Confirmed

@@ -8,7 +8,7 @@
         = f.association :food, collection: @user.foods, value_method: :id, label_method: :name
         = f.input :quantity
         = f.input :quantity_type, as: :collection_select, collection: DonationItem::QUANTITY_TYPES
-        = f.button :submit, label: 'Add Donation Items', class: 'btn btn-success'
+        = f.button :submit, 'Add to Donation', class: 'btn btn-success'
 
   .row
     .col-sm-6.col-sm-offset-3

@@ -6,9 +6,9 @@ class DonationsController < ApplicationController
 
   def index
     if @user.donor?
-      @donations = Donation.where(donor_id: @user.id)
+      @donations = Donation.where(donor_id: @user.id).order(created_at: :desc)
     elsif @user.receiver?
-      @donations = Donation.where(receiver_id: @user.id)
+      @donations = Donation.where(receiver_id: @user.id).order(donated_at: :desc)
     elsif @user.admin?
       @donations = Donation.all
     end
