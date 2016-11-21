@@ -13,5 +13,25 @@ ActiveAdmin.register Donor do
 #   permitted
 # end
 
+  index do
+   column(:agency_name)
+   column(:contact_name)
+   column(:city)
+   column(:state)
+   column 'Completed Donations' do |donor|
+     donor.donations.select{ |d| d.received? }.count
+   end
+   column 'Waiting for Confirmation' do |donor|
+     donor.donations.select{ |d| d.donated? }.reject{ |d| d.received? }.count
+   end
+   column(:last_sign_in_at)
+   acions
+  end
+
+  filter :email
+  filter :contact_name
+  filter :city
+  filter :state
+  filter :last_sign_in_at, as: :datepicker
 
 end

@@ -13,5 +13,23 @@ ActiveAdmin.register Receiver do
 #   permitted
 # end
 
+  index do
+    column(:agency_name)
+    column(:contact_name)
+    column(:city)
+    column(:state)
+    column 'Incoming Donations' do |receiver|
+      receiver.donations.select{ |d| d.donated? }.reject{ |d| d.received? }.count
+    end
+    column 'Completed Donations' do |receiver|
+      receiver.donations.select{ |d| d.received? }.count
+    end
+    actions
+  end
+
+  filter :agency_name
+  filter :contact_name
+  filter :city
+  filter :state
 
 end
