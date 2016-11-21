@@ -25,7 +25,7 @@ ActiveAdmin.register Donor do
      donor.donations.select{ |d| d.donated? }.reject{ |d| d.received? }.count
    end
    column(:last_sign_in_at)
-   acions
+   actions
   end
 
   filter :email
@@ -33,5 +33,48 @@ ActiveAdmin.register Donor do
   filter :city
   filter :state
   filter :last_sign_in_at, as: :datepicker
+
+  show do
+    attributes_table do
+      row :agency_name
+      row :contact_name
+      row :street_address
+      row :city
+      row :state
+      row :zip
+      row :last_sign_in_at
+      row :last_sign_in_ip
+    end
+
+    table_for donor.donations do
+      column "Recipient", :receiver do |d|
+        link_to(d.receiver.agency_name, admin_receiver_path(d.receiver)) if d.receiver
+      end
+
+      column "Donation Date", :donated_at do |d|
+        d.donated_at
+      end
+
+      column "Items" do |d|
+        d.items.map{ |i| i.food.name }.to_sentence
+      end
+
+      column 'Tracking Code' do |d|
+        d.tracking_code
+      end
+
+      column 'Status' do |d|
+        if d.donated?
+          if d.received?
+            'Received'
+          else
+            'Donated'
+          end
+        else
+          'In Progress'
+        end
+      end
+    end
+  end
 
 end
