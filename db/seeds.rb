@@ -1,5 +1,13 @@
 Donor.create email: 'donor@donor.com',
-             password: 'password'
+             password: 'password',
+             agency_name: Faker::Company.name,
+             street_address: Faker::Address.street_address,
+             city: Faker::Address.city,
+             state: Faker::Address.state_abbr,
+             zip: Faker::Address.zip_code,
+             contact_name: Faker::Name.name,
+             contact_email: Faker::Internet.email,
+             contact_phone: Faker::PhoneNumber.cell_phone
 
 Receiver.create email: 'receiver@receiver.com',
                 password: 'password',
@@ -11,7 +19,17 @@ Receiver.create email: 'receiver@receiver.com',
 
 10.times do
   Donor.create email:     Faker::Internet.email,
-               password: 'password'
+               password: 'password',
+               agency_name: Faker::Company.name,
+               street_address: Faker::Address.street_address,
+               city: Faker::Address.city,
+               state: Faker::Address.state_abbr,
+               zip: Faker::Address.zip_code,
+               contact_name: Faker::Name.name,
+               contact_email: Faker::Internet.email,
+               contact_phone: Faker::PhoneNumber.cell_phone
+
+
 end
 
 10.times do
