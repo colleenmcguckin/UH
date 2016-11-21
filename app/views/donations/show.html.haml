@@ -138,7 +138,7 @@
             - if @donation.items.any?
               = link_to 'Add one now', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
             - else
-              You must add an item before selecting a receiver.
+              Add your items before selecting a receiver.
   .row
     .col-md-12
       .panel.panel-default

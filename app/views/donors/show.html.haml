@@ -3,6 +3,46 @@
   = simple_form_for [@user, @new_donation] do |f|
     = f.error_notification
     = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'
+  .row
+    .show-portlet
+      .portlet-title
+        .caption
+          %i.glyphicon.glyphicon-cutlery
+          %span.caption-subject.text-uppercase
+            = @user.agency_name&.upcase
+          %span.caption-helper
+            Donor
+      .portlet-body
+        .row
+          .col-md-6
+            %h5 Location:
+            %p
+              = @user.street_address
+              %br
+              = "#{@user.city}, #{@user.state} #{@user.zip}"
+          .col-md-6
+            %h5.text-center
+              Contact Info:
+            %table.table
+              %thead
+                %th
+                %th
+              %tbody
+                %tr
+                  %td
+                    %i.glyphicon.glyphicon-user
+                  %td
+                    = @user.contact_name
+                %tr
+                  %td
+                    %i.glyphicon.glyphicon-earphone
+                  %td
+                    = @user.contact_phone
+                %tr
+                  %td
+                    %i.glyphicon.glyphicon-envelope
+                  %td
+                    = @user.contact_email
 
   .pull-right
-    = link_to 'Edit Profile', edit_donor_path(@user)
+    = link_to 'Edit Profile', edit_donor_path(@user), class: 'btn btn-primary'

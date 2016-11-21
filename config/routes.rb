@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   devise_for :receivers
   devise_for :donors
-  resources :donors, only: [:show, :edit, :index] do
+  resources :donors do
     resources :foods
     resources :donations, except: [:new] do
       resources :donation_items, only: [:new, :create, :index, :destroy]

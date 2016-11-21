@@ -37,7 +37,7 @@
                   = food.category.name
                 - if @user.donor?
                   %td
-                    = link_to donor_food_path(@user, food), method: :delete, class: 'btn btn-warning' do
+                    = link_to donor_food_path(@user, food), method: :delete, class: "btn btn-#{params[:archived] == 'true' ? 'success' : 'warning'}" do
                       %i.glyphicon.glyphicon-folder-open
   .row
     .col-md-12
