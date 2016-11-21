@@ -44,7 +44,7 @@
         - @donations.each do |donation|
           %tr
             %td
-              = link_to "#{donation.id}", receiver_donation_path(@user, donation)
+              = link_to "View", receiver_donation_path(@user, donation)
             %td
               = donation.donor.email
             %td
