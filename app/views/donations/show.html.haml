@@ -30,7 +30,7 @@
                   - pending_items_in_strings(@donation.receiver).each do |item|
                     = item
                 .col-md-3
-                  %h5 tions:
+                  %h5 Restrictions:
                   - @donation.receiver.restrictions.each do |restriction|
                     - restriction.categories.each do |category|
                       = category.name
@@ -132,6 +132,49 @@
                   .row
                     .col-sm-9
                       = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @donation.receiver.donation_schedules, editable: false}
+        - else
+          %h3
+            No receiving agency yet.
+            - if @donation.items.any?
+              = link_to 'Add one now', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
+            - else
+              Add your items before selecting a receiver.
+  - elsif @user.receiver?
+    .row
+      .col-md-12
+        %h4 FROM:
+        - if @donation.receiver
+          .show-portlet
+            .portlet-title
+              .caption
+                %i.glyphicon.glyphicon-cutlery
+                %span.caption-subject.text-uppercase
+                  = @donation.donor.agency_name&.upcase
+                %span.caption-helper
+            .portlet-body
+              .row
+                .col-sm-6.col-sm-offset-3
+                  Donor Contact:
+                  %table.table
+                    %thead
+                      %th
+                      %th
+                    %tbody
+                      %tr
+                        %td
+                          %i.glyphicon.glyphicon-user
+                        %td
+                          = @donation.donor.contact_name
+                      %tr
+                        %td
+                          %i.glyphicon.glyphicon-earphone
+                        %td
+                          = @donation.donor.contact_phone
+                      %tr
+                        %td
+                          %i.glyphicon.glyphicon-phone
+                        %td
+                          = @donation.donor.contact_email
         - else
           %h3
             No receiving agency yet.

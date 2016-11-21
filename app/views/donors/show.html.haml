@@ -1,8 +1,6 @@
 .profile-content
   %h3 Dashboard
-  = simple_form_for [@user, @new_donation] do |f|
-    = f.error_notification
-    = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'
+  = link_to 'Edit Profile', edit_donor_path(@user), class: 'btn btn-primary'
   .row
     .show-portlet
       .portlet-title
@@ -11,7 +9,7 @@
           %span.caption-subject.text-uppercase
             = @user.agency_name&.upcase
           %span.caption-helper
-            Donor
+            = "#{@user.donations.select{ |d| d.received?}.count} Confirmed Donations"
       .portlet-body
         .row
           .col-md-6
@@ -43,6 +41,45 @@
                     %i.glyphicon.glyphicon-envelope
                   %td
                     = @user.contact_email
-
-  .pull-right
-    = link_to 'Edit Profile', edit_donor_path(@user), class: 'btn btn-primary'
+    .show-portlet
+      .portlet-title
+        .caption
+          %i.glyphicon.glyphicon-cutlery
+          %span.caption-subject.text-uppercase
+            RECENT ACTIVITY
+          %span.caption-helper
+            = "#{@user.donations.reject{ |d| d.received?}.count} In Progress Donations"
+      .portlet-body
+        %table.table.table-striped
+          %thead
+            %th
+            - ['Recipient', 'Donation Date', 'Items', 'Tracking Code', 'Status'].each do |th|
+              %th= th
+          %tbody
+            - @user.donations.last(5).each do |donation|
+              %tr
+                %td
+                  = link_to "View", donor_donation_path(@user, donation)
+                %td
+                  -if donation.receiver
+                    = link_to "#{donation.receiver.agency_name.titleize}", donor_donation_receiver_path(donation.donor, donation, donation.receiver)
+                  -elsif donation.items.any?
+                    = link_to 'Add Receiver', donor_donation_receivers_path(@user, donation)
+                %td
+                  = format_date_long donation.created_at
+                %td
+                  -if donation.items.any?
+                    - donation.items.each do |item|
+                      = unscoped_food(item.food_id).name.titleize
+                      = item.quantity
+                      = item.quantity_type.titleize
+                  -else
+                    = link_to 'Add Item', new_donor_donation_donation_item_path(@user, donation) unless donation.donated?
+                    %br
+                %td
+                  = donation.tracking_code if donation.donated?
+                %td
+                  = donation_status_text donation
+        = simple_form_for [@user, @new_donation] do |f|
+          = f.error_notification
+          = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'

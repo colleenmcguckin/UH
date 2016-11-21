@@ -8,7 +8,7 @@ class DonationsController < ApplicationController
     if @user.donor?
       @donations = Donation.where(donor_id: @user.id).order(created_at: :desc)
     elsif @user.receiver?
-      @donations = Donation.where(receiver_id: @user.id).order(donated_at: :desc)
+      @donations = Donation.where(receiver_id: @user.id).where("donated_at IS NOT NULL").order(donated_at: :desc)
     elsif @user.admin?
       @donations = Donation.all
     end

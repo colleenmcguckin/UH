@@ -30,7 +30,7 @@ module ApplicationHelper
   end
 
   def format_date_long date
-    date.strftime("%m/%d/%Y")
+    date&.strftime("%m/%d/%Y")
   end
 
   def donation_status_text donation
