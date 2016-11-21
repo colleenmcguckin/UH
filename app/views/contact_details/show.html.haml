@@ -1,0 +1,67 @@
+.profile-content
+  .text-center
+    %h2 Current Contact Details
+  %hr.featurette-divider
+  .row
+    .col-md-12
+      %h4
+        These are your current contact details:
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Daily Food Recovery Contact
+        .panel-body
+          %table.table
+            %thead
+              %th
+              %th
+            %tbody
+              %tr
+                %td
+                  %i.glyphicon.glyphicon-user
+                %td
+                  = @user.contact_details.first&.dfr_contact_name
+              %tr
+                %td
+                  %i.glyphicon.glyphicon-earphone
+                %td
+                  = "#{@user.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if @user.contact_details.first&.dfr_preferred_contact_method == 'office'}"
+              %tr
+                %td
+                  %i.glyphicon.glyphicon-phone
+                %td
+                  = "#{@user.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if @user.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
+              %tr
+                %td
+                  %i.glyphicon.glyphicon-envelope
+                %td
+                  = @user.contact_details.first&.dfr_contact_email
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title General Contact
+        .panel-body
+          %table.table
+            %thead
+              %th
+              %th
+            %tbody
+              %tr
+                %td
+                  %i.glyphicon.glyphicon-user
+                %td
+                  = @user.contact_details.first&.contact_name
+              %tr
+                %td
+                  %i.glyphicon.glyphicon-earphone
+                %td
+                  = @user.contact_details.first&.contact_phone
+              %tr
+                %td
+                  %i.glyphicon.glyphicon-envelope
+                %td
+                  = @user.contact_details.first&.contact_email
+  .row
+    .col-md-12
+      = link_to 'Edit', edit_receiver_contact_detail_path(@user, @user.contact_details.first), class: 'btn btn-primary'

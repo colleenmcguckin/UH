@@ -1,0 +1,89 @@
+.profile-content
+  .text-center
+    %h2 Current Logistic Details
+  %hr.featurette-divider
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Transportaion Details
+        .panel-body
+          %table.table
+            %thead
+              %th
+              %th
+            %tbody
+              %tr
+                %td
+                  Transportation available?
+                %td
+                  = @user.logistics.first&.transportation_available
+              %tr
+                %td
+                  Driver Details
+                %td
+                  = @user.logistics.first&.driver_status
+              %tr
+                %td
+                  Insurance Status
+                %td
+                  = @user.logistics.first&.insurance_status
+              %tr
+                %td
+                  Vehicle Details
+                %td
+                  = @user.logistics.first&.vehicle_style
+    .col-md-6
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Storage Details
+        .panel-body
+          %table.table
+            %thead
+              %th
+              %th
+            %tbody
+              %tr
+                %td
+                  Freezer Type
+                %td
+                  = @user.logistics.first&.freezer_type
+              %tr
+                %td
+                  Refrigerator Type
+                %td
+                  = @user.logistics.first&.refrigerator_type
+              %tr
+                %td
+                  Indoor Dry Storage?
+                %td
+                  = @user.logistics.first&.indoor_dry_storage
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Other Details
+        .panel-body
+          %table.table
+            %thead
+              %th
+              %th
+            %tbody
+              %tr
+                %td
+                  Safe Handling Program
+                %td
+                  = @user.logistics.first&.safe_handling_program
+              %tr
+                %td
+                  Meal Usage
+                %td
+                  = @user.logistics.first&.meal_usage
+              %tr
+                %td
+                  Distribution Frequency
+                %td
+                  = @user.logistics.first&.meal_distribution_frequency
+  .row
+    .col-md-12
+      = link_to 'Edit', edit_receiver_logistic_path(@user, @user.logistics.first), class: 'btn btn-primary'

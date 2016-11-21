@@ -26,6 +26,12 @@ class ContactDetailsController < ApplicationController
   end
 
   def update
+    @contact_detail = @user.contact_details.first || Restriction.new(receiver_id: @user.id)
+    if @contact_detail.update(contact_detail_params)
+      redirect_to receiver_contact_detail_path(@user, @contact_detail), notice: 'Contact details successfully updated.'
+    else
+      render :new, notice: 'Could not save contact details at this time. Please try again.'
+    end
   end
 
   def destroy

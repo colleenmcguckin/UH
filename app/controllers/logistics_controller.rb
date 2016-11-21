@@ -25,6 +25,12 @@ class LogisticsController < ApplicationController
   end
 
   def update
+    @logistic = @user.logistics.first || Restriction.new(receiver_id: @user.id)
+    if @logistic.update(logistic_params)
+      redirect_to receiver_logistic_path(@user, @logistic), notice: 'Logistic info successfully updated.'
+    else
+      render :new, notice: 'Could not save logistic info at this time. Please try again.'
+    end
   end
 
   def destroy

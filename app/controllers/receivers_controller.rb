@@ -31,9 +31,13 @@ class ReceiversController < ApplicationController
 
   def update
     if @user.update receiver_params
-      redirect_to new_receiver_contact_detail_path @user, notice: 'Details successfully saved.'
+      if @user.contact_details.any?
+        redirect_to receiver_path(@user), notice: 'Location successfully updated.'
+      else
+        redirect_to new_receiver_contact_detail_path @user, notice: 'Details successfully saved.'
+      end
     elsif
-      render 'receivers#details', notice: 'Details could not be saved at this time, please try again.'
+      render 'receivers#details', notice: 'Location could not be saved at this time, please try again.'
     end
   end
 

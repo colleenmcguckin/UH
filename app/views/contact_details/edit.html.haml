@@ -1,6 +1,5 @@
 .profile-content
-  = render partial: 'shared/progress_bar', locals: {value: 20}
-  %h3 Please supply the following details about your organization
+  %h3 Edit Contact Details
   = simple_form_for([@user, @contact_detail]) do |f|
     = f.error_notification
     .form-inputs
