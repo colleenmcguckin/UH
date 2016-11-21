@@ -29,13 +29,14 @@
                 - pending_items_in_strings(@donation.receiver).each do |item|
                   = item
               .col-md-3
-                %h5 Restrictions:
+                %h5 tions:
                 - @donation.receiver.restrictions.each do |restriction|
                   - restriction.categories.each do |category|
                     = category.name
                   %br
-                  - @donation.restriction.storage_temps.each do |storage_temp|
-                    = storage_temp.description
+                  - @donation.receiver.restrictions.each do |restriction|
+                    - restriction.storage_temps.each do |storage_temp|
+                      = storage_temp.description
                   %br
               .col-md-3
                 %h5 Location:
