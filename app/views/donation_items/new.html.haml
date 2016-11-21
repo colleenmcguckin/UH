@@ -1,9 +1,16 @@
 .profile-content
-  %h1 Add Item To Donation #{@donation.id}
+  .row
+    .col-sm-6.col-sm-offset-3
+      %h1 Add Item To Donation #{@donation.id}
 
-  = simple_form_for [@user, @donation, @donation_item], url: donor_donation_donation_items_path, method: :post do |f|
-    = f.error_notification
-    = f.association :food, collection: @user.foods, value_method: :id, label_method: :name
-    = f.input :quantity
-    = f.input :quantity_type, as: :collection_select, collection: DonationItem::QUANTITY_TYPES
-    = f.button :submit, label: 'Add Donation Items'
+      = simple_form_for [@user, @donation, @donation_item], url: donor_donation_donation_items_path, method: :post do |f|
+        = f.error_notification
+        = f.association :food, collection: @user.foods, value_method: :id, label_method: :name
+        = f.input :quantity
+        = f.input :quantity_type, as: :collection_select, collection: DonationItem::QUANTITY_TYPES
+        = f.button :submit, label: 'Add Donation Items', class: 'btn btn-success'
+
+  .row
+    .col-sm-6.col-sm-offset-3
+      %h5 Don't see what you're looking for?
+      = link_to "Add a food", new_donor_food_path(@user), class: 'btn btn-primary'

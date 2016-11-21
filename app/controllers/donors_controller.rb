@@ -9,6 +9,8 @@ class DonorsController < ApplicationController
     unless @user.id.to_s == params[:id]
       redirect_to donor_path @user
     end
+    @donations = @user.donations
+    render 'donations/index'
   end
 
   def edit

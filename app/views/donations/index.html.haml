@@ -35,7 +35,6 @@
     = simple_form_for [@user, @new_donation] do |f|
       = f.error_notification
       = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'
-    = link_to 'Back to profile', donor_path(@user)
 
   - if @user.receiver?
     %table
@@ -62,4 +61,3 @@
                 Confirmed
               -else
                 = link_to 'Confirm Receipt', donation_receive_path(donation)
-    = link_to 'Back to profile', receiver_path(@user)
