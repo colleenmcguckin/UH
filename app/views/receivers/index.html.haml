@@ -16,137 +16,141 @@
 
   .container
 
-
-    .row
-      - @receivers.each do |receiver|
-        .row
-          .col-lg-12.margin-bottom-30
-            .portlet
-              .portlet-title
-                .caption
-                  %i.glyphicon.glyphicon-cutlery
-                  %span.caption-subject.text-uppercase
-                    = receiver.agency_name&.upcase
-                  %span.caption-helper
-                    Waiting on #{receiver.pending_donation_count} donation#{'s' if receiver.pending_donation_count != 1}
-                .actions
-                  %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_contact"}
-                    %i.glyphicon.glyphicon-phone-alt
-                  %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_schedule"}
-                    %i.glyphicon.glyphicon-calendar
-                  = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, receiver), class: 'btn'
-              .portlet-body
-                .row
-                  .col-md-3
-                    %h5 Incoming Items:
-                    - pending_items_in_strings(receiver).each do |item|
-                      = item
-                  .col-md-3
-                    %h5 Restrictions:
-                    - receiver.restrictions.each do |restriction|
-                      - restriction.categories.each do |category|
-                        = category.name
-                      %br
-                      - restriction.storage_temps.each do |storage_temp|
-                        = storage_temp.description
-                      %br
-                  .col-md-3
-                    %h5 Location:
-                    %p
-                      = receiver.street_address
-                      %br
-                      = "#{receiver.city}, #{receiver.state} #{receiver.zip}"
-                  .col-md-3
-                    .row
-                      .col-xs-12
-                        .text-center
-                          = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{receiver.latitude},#{receiver.longitude}&markers=#{receiver.latitude},#{receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
-                                      class: 'img-responsive img-rounded', alt: "#{receiver.agency_name} on the map"
-                    - if receiver.transportation_available?
-                      %br
+    - if @receivers.any?
+      .row
+        - @receivers.each do |receiver|
+          .row
+            .col-lg-12.margin-bottom-30
+              .portlet
+                .portlet-title
+                  .caption
+                    %i.glyphicon.glyphicon-cutlery
+                    %span.caption-subject.text-uppercase
+                      = receiver.agency_name&.upcase
+                    %span.caption-helper
+                      Waiting on #{receiver.pending_donation_count} donation#{'s' if receiver.pending_donation_count != 1}
+                  .actions
+                    %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_contact"}
+                      %i.glyphicon.glyphicon-phone-alt
+                    %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_schedule"}
+                      %i.glyphicon.glyphicon-calendar
+                    = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, receiver), class: 'btn'
+                .portlet-body
+                  .row
+                    .col-md-3
+                      %h5 Incoming Items:
+                      - pending_items_in_strings(receiver).each do |item|
+                        = item
+                    .col-md-3
+                      %h5 Restrictions:
+                      - receiver.restrictions.each do |restriction|
+                        - restriction.categories.each do |category|
+                          = category.name
+                        %br
+                        - restriction.storage_temps.each do |storage_temp|
+                          = storage_temp.description
+                        %br
+                    .col-md-3
+                      %h5 Location:
+                      %p
+                        = receiver.street_address
+                        %br
+                        = "#{receiver.city}, #{receiver.state} #{receiver.zip}"
+                    .col-md-3
                       .row
                         .col-xs-12
                           .text-center
-                            %i.glyphicon.glyphicon-ok
-                            Pick-up available
-          .modal.fade{role: "dialog", id: "#{receiver.id}_contact"}
-            .modal-dialog
-              / Modal content
-              .modal-content
-                .modal-header
-                  %button.close{"data-dismiss" => "modal", :type => "button"} ×
-                  %h4.modal-title= receiver.agency_name&.upcase
-                .modal-body
-                  .row
-                    .col-sm-6
-                      %h5.text-center
-                        Daily Food Recovery Contact:
-                      %table.table
-                        %thead
-                          %th
-                          %th
-                        %tbody
-                          %tr
-                            %td
-                              %i.glyphicon.glyphicon-user
-                            %td
-                              = receiver.contact_details.first&.dfr_contact_name
-                          %tr
-                            %td
-                              %i.glyphicon.glyphicon-earphone
-                            %td
-                              = "#{receiver.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if receiver.contact_details.first&.dfr_preferred_contact_method == 'office'}"
-                          %tr
-                            %td
-                              %i.glyphicon.glyphicon-phone
-                            %td
-                              = "#{receiver.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if receiver.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
-                          %tr
-                            %td
-                              %i.glyphicon.glyphicon-envelope
-                            %td
-                              = receiver.contact_details.first&.dfr_contact_email
-                    .col-sm-6
-                      %h5.text-center
-                        General Contact Info:
-                      %table.table
-                        %thead
-                          %th
-                          %th
-                        %tbody
-                          %tr
-                            %td
-                              %i.glyphicon.glyphicon-user
-                            %td
-                              = receiver.contact_details.first&.contact_name
-                          %tr
-                            %td
-                              %i.glyphicon.glyphicon-earphone
-                            %td
-                              = receiver.contact_details.first&.contact_phone
-                          %tr
-                            %td
-                              %i.glyphicon.glyphicon-envelope
-                            %td
-                              = receiver.contact_details.first&.contact_email
-                .modal-footer
-                  = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
-          .modal.fade{role: "dialog", id: "#{receiver.id}_schedule"}
-            .modal-dialog
-              / Modal content
-              .modal-content
-                .modal-header
-                  %button.close{"data-dismiss" => "modal", :type => "button"} ×
-                  %h4.modal-title= receiver.agency_name&.upcase
-                .modal-body
-                  .row
-                    .col-sm-12
-                      %h5 Hours of Operation:
-                  .row
-                    .col-sm-9
-                      = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: receiver.donation_schedules, editable: false}
-                .modal-footer
-                  = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
-    .row
-      .col-md-12.text-center
-        = paginate @receivers
+                            = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{receiver.latitude},#{receiver.longitude}&markers=#{receiver.latitude},#{receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+                                        class: 'img-responsive img-rounded', alt: "#{receiver.agency_name} on the map"
+                      - if receiver.transportation_available?
+                        %br
+                        .row
+                          .col-xs-12
+                            .text-center
+                              %i.glyphicon.glyphicon-ok
+                              Pick-up available
+            .modal.fade{role: "dialog", id: "#{receiver.id}_contact"}
+              .modal-dialog
+                / Modal content
+                .modal-content
+                  .modal-header
+                    %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                    %h4.modal-title= receiver.agency_name&.upcase
+                  .modal-body
+                    .row
+                      .col-sm-6
+                        %h5.text-center
+                          Daily Food Recovery Contact:
+                        %table.table
+                          %thead
+                            %th
+                            %th
+                          %tbody
+                            %tr
+                              %td
+                                %i.glyphicon.glyphicon-user
+                              %td
+                                = receiver.contact_details.first&.dfr_contact_name
+                            %tr
+                              %td
+                                %i.glyphicon.glyphicon-earphone
+                              %td
+                                = "#{receiver.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if receiver.contact_details.first&.dfr_preferred_contact_method == 'office'}"
+                            %tr
+                              %td
+                                %i.glyphicon.glyphicon-phone
+                              %td
+                                = "#{receiver.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if receiver.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
+                            %tr
+                              %td
+                                %i.glyphicon.glyphicon-envelope
+                              %td
+                                = receiver.contact_details.first&.dfr_contact_email
+                      .col-sm-6
+                        %h5.text-center
+                          General Contact Info:
+                        %table.table
+                          %thead
+                            %th
+                            %th
+                          %tbody
+                            %tr
+                              %td
+                                %i.glyphicon.glyphicon-user
+                              %td
+                                = receiver.contact_details.first&.contact_name
+                            %tr
+                              %td
+                                %i.glyphicon.glyphicon-earphone
+                              %td
+                                = receiver.contact_details.first&.contact_phone
+                            %tr
+                              %td
+                                %i.glyphicon.glyphicon-envelope
+                              %td
+                                = receiver.contact_details.first&.contact_email
+                  .modal-footer
+                    = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
+            .modal.fade{role: "dialog", id: "#{receiver.id}_schedule"}
+              .modal-dialog
+                / Modal content
+                .modal-content
+                  .modal-header
+                    %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                    %h4.modal-title= receiver.agency_name&.upcase
+                  .modal-body
+                    .row
+                      .col-sm-12
+                        %h5 Hours of Operation:
+                    .row
+                      .col-sm-9
+                        = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: receiver.donation_schedules, editable: false}
+                  .modal-footer
+                    = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
+      .row
+        .col-md-12.text-center
+          = paginate @receivers
+    - else
+      .row
+        .col-md-12
+          %h3 No results match your search!
