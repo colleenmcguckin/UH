@@ -1,227 +1,232 @@
-- if @user.donor?
-  .row
-    .portlet
-      .portlet-title
-        .caption
-          %i.glyphicon.glyphicon-cutlery
-          %span.caption-subject.text-uppercase
-            = @receiver.agency_name&.upcase
-          %span.caption-helper
-            Waiting on #{@receiver.pending_donation_count} donation#{'s' if @receiver.pending_donation_count != 1}
-      .portlet-body
-        .row
-          .col-md-3
-            %h5 Incoming Items:
-            - pending_items_in_strings(@receiver).each do |item|
-              = item
-          .col-md-3
-            %h5 Restrictions:
-            - @receiver.restrictions.each do |restriction|
-              - restriction.categories.each do |category|
-                = category.name
-              %br
-              - restriction.storage_temps.each do |storage_temp|
-                = storage_temp.description
-              %br
-          .col-md-3
-            %h5 Location:
-            %p
-              = @receiver.street_address
-              %br
-              = "#{@receiver.city}, #{@receiver.state} #{@receiver.zip}"
-          .col-md-3
-            .row
-              .col-xs-12
-                .text-center
-                  = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@receiver.latitude},#{@receiver.longitude}&markers=#{@receiver.latitude},#{@receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
-                              class: 'img-responsive img-rounded', alt: "#{@receiver.agency_name} on the map"
-            - if @receiver.transportation_available?
-              %br
+.profile-content
+  - if @user.donor?
+    .row
+      .show-portlet
+        .portlet-title
+          .caption
+            %i.glyphicon.glyphicon-cutlery
+            %span.caption-subject.text-uppercase
+              = @receiver.agency_name&.upcase
+            %span.caption-helper
+              Waiting on #{@receiver.pending_donation_count} donation#{'s' if @receiver.pending_donation_count != 1}
+        .portlet-body
+          .row
+            .col-md-3
+              %h5 Incoming Items:
+              - pending_items_in_strings(@receiver).each do |item|
+                = item
+            .col-md-3
+              %h5 Restrictions:
+              - @receiver.restrictions.each do |restriction|
+                - restriction.categories.each do |category|
+                  = category.name
+                %br
+                - restriction.storage_temps.each do |storage_temp|
+                  = storage_temp.description
+                %br
+            .col-md-3
+              %h5 Location:
+              %p
+                = @receiver.street_address
+                %br
+                = "#{@receiver.city}, #{@receiver.state} #{@receiver.zip}"
+            .col-md-3
               .row
                 .col-xs-12
                   .text-center
-                    %i.glyphicon.glyphicon-ok
-                    Pick-up available
-      .portlet-title
-        .caption
-          %i.glyphicon.glyphicon-earphone
-          %span.caption-subject.text-uppercase
-            Contact Info
-      .portlet-body
-        .row
-          .col-sm-6
-            %h5.text-center
-              Daily Food Recovery Contact:
-            %table.table
-              %thead
-                %th
-                %th
-              %tbody
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-user
-                  %td
-                    = @receiver.contact_details.first&.dfr_contact_name
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-earphone
-                  %td
-                    = "#{@receiver.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if @receiver.contact_details.first&.dfr_preferred_contact_method == 'office'}"
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-phone
-                  %td
-                    = "#{@receiver.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if @receiver.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-envelope
-                  %td
-                    = @receiver.contact_details.first&.dfr_contact_email
-          .col-sm-6
-            %h5.text-center
-              General Contact Info:
-            %table.table
-              %thead
-                %th
-                %th
-              %tbody
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-user
-                  %td
-                    = @receiver.contact_details.first&.contact_name
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-earphone
-                  %td
-                    = @receiver.contact_details.first&.contact_phone
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-envelope
-                  %td
-                    = @receiver.contact_details.first&.contact_email
-      .portlet-title
-        .caption
-          %i.glyphicon.glyphicon-earphone
-          %span.caption-subject.text-uppercase
-            Hours of Operation
-      .portlet-body
-        .row
-          .col-sm-6
-            = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @receiver.donation_schedules, editable: false}
-          .col-sm-3.col-sm-offset-3
-            = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  @receiver.id), class: 'btn btn-success'
-
-- elsif @user.receiver?
-  .row
-    .portlet
-      .portlet-title
-        .caption
-          %i.glyphicon.glyphicon-cutlery
-          %span.caption-subject.text-uppercase
-            My Profile
-          %span.caption-helper
-            =link_to "Waiting on #{@user.pending_donation_count} donation#{'s' if @user.pending_donation_count != 1}", receiver_donations_path(@user)
-      .portlet-body
-        .row
-          .col-md-3
-            %h5 Incoming Items:
-            - pending_items_in_strings(@user).each do |item|
-              = item
-          .col-md-3
-            %h5= link_to 'Restrictions', receiver_restriction_path(@user, @user.restrictions.first)
-            - @user.restrictions.each do |restriction|
-              - restriction.categories.each do |category|
-                = category.name
-              %br
-              - restriction.storage_temps.each do |storage_temp|
-                = storage_temp.description
-          .col-md-3
-            %h5= link_to 'Location', edit_receiver_path(@user)
-            %p
-              = @user.street_address
-              %br
-              = "#{@user.city}, #{@user.state} #{@user.zip}"
-          .col-md-3
-            .row
-              .col-xs-12
-                .text-center
-                  = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@user.latitude},#{@user.longitude}&markers=#{@user.latitude},#{@user.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
-                              class: 'img-responsive img-rounded', alt: "#{@user.agency_name} on the map"
-            - if @user.transportation_available?
-              %br
-              .row
-                .col-xs-12
-                  .text-center
-                    = link_to receiver_logistic_path(@user, @user.logistics.first) do
+                    = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@receiver.latitude},#{@receiver.longitude}&markers=#{@receiver.latitude},#{@receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+                                class: 'img-responsive img-rounded', alt: "#{@receiver.agency_name} on the map"
+              - if @receiver.transportation_available?
+                %br
+                .row
+                  .col-xs-12
+                    .text-center
                       %i.glyphicon.glyphicon-ok
-                      You offer Pick-Up
-      .portlet-title
-        .caption
-          %i.glyphicon.glyphicon-earphone
-          %span.caption-subject.text-uppercase
-            Contact Info
-            = link_to 'Edit', receiver_contact_detail_path(@user, @user.contact_details.first)
-      .portlet-body
-        .row
-          .col-sm-6
-            %h5.text-center
-              Daily Food Recovery Contact:
-            %table.table
-              %thead
-                %th
-                %th
-              %tbody
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-user
-                  %td
-                    = @user.contact_details.first&.dfr_contact_name
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-earphone
-                  %td
-                    = "#{@user.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if @user.contact_details.first&.dfr_preferred_contact_method == 'office'}"
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-phone
-                  %td
-                    = "#{@user.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if @user.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-envelope
-                  %td
-                    = @user.contact_details.first&.dfr_contact_email
-          .col-sm-6
-            %h5.text-center
-              General Contact Info:
-            %table.table
-              %thead
-                %th
-                %th
-              %tbody
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-user
-                  %td
-                    = @user.contact_details.first&.contact_name
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-earphone
-                  %td
-                    = @user.contact_details.first&.contact_phone
-                %tr
-                  %td
-                    %i.glyphicon.glyphicon-envelope
-                  %td
-                    = @user.contact_details.first&.contact_email
-      .portlet-title
-        .caption
-          %i.glyphicon.glyphicon-earphone
-          %span.caption-subject.text-uppercase
-            Hours of Operation
-            = link_to 'Edit', receiver_donation_schedules_path(@user)
-      .portlet-body
-        .row
-          .col-sm-8.col-sm-offset-2
-            = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @user.donation_schedules, editable: true}
+                      Pick-up available
+        .portlet-title
+          .caption
+            %i.glyphicon.glyphicon-earphone
+            %span.caption-subject.text-uppercase
+              Contact Info
+        .portlet-body
+          .row
+            .col-sm-6
+              %h5.text-center
+                Daily Food Recovery Contact:
+              %table.table
+                %thead
+                  %th
+                  %th
+                %tbody
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-user
+                    %td
+                      = @receiver.contact_details.first&.dfr_contact_name
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-earphone
+                    %td
+                      = "#{@receiver.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if @receiver.contact_details.first&.dfr_preferred_contact_method == 'office'}"
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-phone
+                    %td
+                      = "#{@receiver.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if @receiver.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-envelope
+                    %td
+                      = @receiver.contact_details.first&.dfr_contact_email
+            .col-sm-6
+              %h5.text-center
+                General Contact Info:
+              %table.table
+                %thead
+                  %th
+                  %th
+                %tbody
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-user
+                    %td
+                      = @receiver.contact_details.first&.contact_name
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-earphone
+                    %td
+                      = @receiver.contact_details.first&.contact_phone
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-envelope
+                    %td
+                      = @receiver.contact_details.first&.contact_email
+        .portlet-title
+          .caption
+            %i.glyphicon.glyphicon-earphone
+            %span.caption-subject.text-uppercase
+              Hours of Operation
+        .portlet-body
+          .row
+            .col-sm-6
+              = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @receiver.donation_schedules, editable: false}
+            .col-sm-3.col-sm-offset-3
+              = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  @receiver.id), class: 'btn btn-success'
+
+  - elsif @user.receiver?
+    .row
+      .show-portlet
+        .portlet-title
+          .caption
+            %i.glyphicon.glyphicon-cutlery
+            %span.caption-subject.text-uppercase
+              My Profile
+            %span.caption-helper
+              =link_to "Waiting on #{@user.pending_donation_count} donation#{'s' if @user.pending_donation_count != 1}", receiver_donations_path(@user)
+        .portlet-body
+          .row
+            .col-md-3
+              %h5 Incoming Items:
+              - pending_items_in_strings(@user).each do |item|
+                = item
+            .col-md-3
+              %h5= link_to 'Restrictions', receiver_restriction_path(@user, @user.restrictions.first)
+              - @user.restrictions.each do |restriction|
+                - restriction.categories.each do |category|
+                  = category.name
+                %br
+                - restriction.storage_temps.each do |storage_temp|
+                  = storage_temp.description
+            .col-md-3
+              %h5= link_to 'Location', edit_receiver_path(@user)
+              %p
+                = @user.street_address
+                %br
+                = "#{@user.city}, #{@user.state} #{@user.zip}"
+            .col-md-3
+              .row
+                .col-xs-12
+                  .text-center
+                    = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@user.latitude},#{@user.longitude}&markers=#{@user.latitude},#{@user.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+                                class: 'img-responsive img-rounded', alt: "#{@user.agency_name} on the map"
+                %br
+                .row
+                  .col-xs-12
+                    .text-center
+                      - if @user.transportation_available?
+                        %i.glyphicon.glyphicon-ok
+                        You offer Pick-Up
+                      - else
+                        %i.glyphicon.glyphicon-remove
+                        You do not offer Pick-Up
+                      %br
+                      = link_to 'Edit', receiver_logistic_path(@user, @user.logistics.first)
+        .portlet-title
+          .caption
+            %i.glyphicon.glyphicon-earphone
+            %span.caption-subject.text-uppercase
+              Contact Info
+              = link_to 'Edit', receiver_contact_detail_path(@user, @user.contact_details.first)
+        .portlet-body
+          .row
+            .col-sm-6
+              %h5.text-center
+                Daily Food Recovery Contact:
+              %table.table
+                %thead
+                  %th
+                  %th
+                %tbody
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-user
+                    %td
+                      = @user.contact_details.first&.dfr_contact_name
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-earphone
+                    %td
+                      = "#{@user.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if @user.contact_details.first&.dfr_preferred_contact_method == 'office'}"
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-phone
+                    %td
+                      = "#{@user.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if @user.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-envelope
+                    %td
+                      = @user.contact_details.first&.dfr_contact_email
+            .col-sm-6
+              %h5.text-center
+                General Contact Info:
+              %table.table
+                %thead
+                  %th
+                  %th
+                %tbody
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-user
+                    %td
+                      = @user.contact_details.first&.contact_name
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-earphone
+                    %td
+                      = @user.contact_details.first&.contact_phone
+                  %tr
+                    %td
+                      %i.glyphicon.glyphicon-envelope
+                    %td
+                      = @user.contact_details.first&.contact_email
+        .portlet-title
+          .caption
+            %i.glyphicon.glyphicon-earphone
+            %span.caption-subject.text-uppercase
+              Hours of Operation
+              = link_to 'Edit', receiver_donation_schedules_path(@user)
+        .portlet-body
+          .row
+            .col-sm-8.col-sm-offset-2
+              = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @user.donation_schedules, editable: true}

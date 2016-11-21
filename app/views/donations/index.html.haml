@@ -2,16 +2,17 @@
   - if @user.donor?
     %table.table.table-striped
       %thead
-        - %w[ID Recipient Date Items Status].each do |th|
+        %th
+        - %w[Recipient Date Items Status].each do |th|
           %th= th
       %tbody
         - @donations.each do |donation|
           %tr
             %td
-              = link_to "#{donation.id}", receiver_donation_path(@user, donation)
+              = link_to "View", receiver_donation_path(@user, donation)
             %td
               -if donation.receiver
-                = donation.receiver.email
+                = link_to "#{donation.receiver.agency_name.titleize}", donor_donation_receiver_path(donation.donor, donation, donation.receiver)
               -elsif donation.items.any?
                 = link_to 'Add Receiver', donor_donation_receivers_path(@user, donation)
             %td
@@ -26,12 +27,7 @@
                 = link_to 'Add Item', new_donor_donation_donation_item_path(@user, donation) unless donation.donated?
                 %br
             %td
-              -if donation.received?
-                Confirmed
-              -elsif donation.donated? && !donation.received?
-                Donated
-              -else
-                Pending
+              = donation_status_text donation
     = simple_form_for [@user, @new_donation] do |f|
       = f.error_notification
       = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'

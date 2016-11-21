@@ -1,36 +1,139 @@
 .profile-content
   .text-center
-    %h2 Donation ##{@donation.id}
+    %h2
+      Donation ##{@donation.id}
+    %h3
+      = donation_status_text @donation
   %hr.featurette-divider
   .row
-    .col-md-4
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Status
-        .panel-body
-          - if @donation.received?
-            = 'Received'
-          - elsif @donation.donated?
-            = 'Donated'
-          - else
-            = 'Pending' unless @donation.donated?
-    .col-md-4
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Donor
-        .panel-body
-          = @donation.donor.email
-    .col-md-4
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title
-            Receiver
-        .panel-body
-          - if @donation.receiver
-            = link_to @donation.receiver.email, @donation.receiver
-            = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
-          - else
-            = link_to 'Add Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
+    .col-md-12
+      - if @donation.receiver
+        .show-portlet
+          .portlet-title
+            .caption
+              %i.glyphicon.glyphicon-cutlery
+              %span.caption-subject.text-uppercase
+                = @donation.receiver.agency_name&.upcase
+              %span.caption-helper
+                = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
+            .actions
+              %a.btn{'data-toggle': "modal", 'data-target': "##{@donation.receiver.id}_contact"}
+                %i.glyphicon.glyphicon-phone-alt
+              %a.btn{'data-toggle': "modal", 'data-target': "##{@donation.receiver.id}_schedule"}
+                %i.glyphicon.glyphicon-calendar
+              = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, @donation.receiver), class: 'btn'
+          .portlet-body
+            .row
+              .col-md-3
+                %h5 Incoming Items:
+                - pending_items_in_strings(@donation.receiver).each do |item|
+                  = item
+              .col-md-3
+                %h5 Restrictions:
+                - @donation.receiver.restrictions.each do |restriction|
+                  - restriction.categories.each do |category|
+                    = category.name
+                  %br
+                  - @donation.restriction.storage_temps.each do |storage_temp|
+                    = storage_temp.description
+                  %br
+              .col-md-3
+                %h5 Location:
+                %p
+                  = @donation.receiver.street_address
+                  %br
+                  = "#{@donation.receiver.city}, #{@donation.receiver.state} #{@donation.receiver.zip}"
+              .col-md-3
+                .row
+                  .col-xs-12
+                    .text-center
+                      = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@donation.receiver.latitude},#{@donation.receiver.longitude}&markers=#{@donation.receiver.latitude},#{@donation.receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+                                  class: 'img-responsive img-rounded', alt: "#{@donation.receiver.agency_name} on the map"
+                - if @donation.receiver.transportation_available?
+                  %br
+                  .row
+                    .col-xs-12
+                      .text-center
+                        %i.glyphicon.glyphicon-ok
+                        Pick-up available
+        .modal.fade{role: "dialog", id: "#{@donation.receiver.id}_contact"}
+          .modal-dialog
+            / Modal content
+            .modal-content
+              .modal-header
+                %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                %h4.modal-title= @donation.receiver.agency_name&.upcase
+              .modal-body
+                .row
+                  .col-sm-6
+                    %h5.text-center
+                      Daily Food Recovery Contact:
+                    %table.table
+                      %thead
+                        %th
+                        %th
+                      %tbody
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-user
+                          %td
+                            = @donation.receiver.contact_details.first&.dfr_contact_name
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-earphone
+                          %td
+                            = "#{@donation.receiver.contact_details.first&.dfr_contact_office_phone} #{'(Primary)' if @donation.receiver.contact_details.first&.dfr_preferred_contact_method == 'office'}"
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-phone
+                          %td
+                            = "#{@donation.receiver.contact_details.first&.dfr_contact_cell_phone} #{'(Primary)' if @donation.receiver.contact_details.first&.dfr_preferred_contact_method == 'cell'}"
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-envelope
+                          %td
+                            = @donation.receiver.contact_details.first&.dfr_contact_email
+                  .col-sm-6
+                    %h5.text-center
+                      General Contact Info:
+                    %table.table
+                      %thead
+                        %th
+                        %th
+                      %tbody
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-user
+                          %td
+                            = @donation.receiver.contact_details.first&.contact_name
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-earphone
+                          %td
+                            = @donation.receiver.contact_details.first&.contact_phone
+                        %tr
+                          %td
+                            %i.glyphicon.glyphicon-envelope
+                          %td
+                            = @donation.receiver.contact_details.first&.contact_email
+        .modal.fade{role: "dialog", id: "#{@donation.receiver.id}_schedule"}
+          .modal-dialog
+            / Modal content
+            .modal-content
+              .modal-header
+                %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                %h4.modal-title= @donation.receiver.agency_name&.upcase
+              .modal-body
+                .row
+                  .col-sm-12
+                    %h5 Hours of Operation:
+                .row
+                  .col-sm-9
+                    = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @donation.receiver.donation_schedules, editable: false}
+      - else
+        %h3
+          No receiving agency yet.
+          = link_to 'Add one now', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
   .row
     .col-md-12
       .panel.panel-default
@@ -39,7 +142,7 @@
         .panel-body
           .row
             .col-md-4.offset-md-8
-              = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation) unless @user.receiver? || @donation.donated?
+              = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation), class: 'btn btn-primary' unless @user.receiver? || @donation.donated?
         %table.table.table-striped
           %thead
             %th

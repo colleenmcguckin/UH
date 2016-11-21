@@ -29,8 +29,8 @@
       - if @user.donor?
         %li
           = link_to 'Foods', donor_foods_path(@user)
-      %li
-        %a
-          My Reports
+      -# %li
+      -#   %a
+      -#     My Reports
       %li
         = render partial: 'layouts/signout'
