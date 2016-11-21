@@ -160,7 +160,10 @@
                         %i.glyphicon.glyphicon-remove
                         You do not offer Pick-Up
                       %br
-                      = link_to 'Edit', receiver_logistic_path(@user, @user.logistics.first)
+                      - if @user.logistics.any?
+                        = link_to 'Edit', receiver_logistic_path(@user, @user.logistics.first)
+                      - else
+                        = link_to 'Edit', new_receiver_logistic_path(@user)
         .portlet-title
           .caption
             %i.glyphicon.glyphicon-earphone

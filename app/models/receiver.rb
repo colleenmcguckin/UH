@@ -39,7 +39,7 @@ class Receiver < ActiveRecord::Base
   end
 
   def transportation_available?
-    logistics.first.transportation_available == 'Yes'
+    logistics.first&.transportation_available == 'Yes'
   end
 
   def setup_schedule

@@ -57,7 +57,7 @@ class ContactDetailsController < ApplicationController
       :dfr_contact_email,
       :dfr_contact_office_phone,
       :dfr_contact_cell_phone,
-      :dfr__contact_method
+      :dfr_preferred_contact_method
     )
   end
 end
