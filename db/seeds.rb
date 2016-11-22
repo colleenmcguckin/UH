@@ -7,7 +7,8 @@ Donor.create email: 'donor@donor.com',
              zip: Faker::Address.zip_code,
              contact_name: Faker::Name.name,
              contact_email: Faker::Internet.email,
-             contact_phone: Faker::PhoneNumber.cell_phone
+             contact_phone: Faker::PhoneNumber.cell_phone,
+             web_url: Faker::Internet.url
 
 Receiver.create email: 'receiver@receiver.com',
                 password: 'password',
@@ -15,7 +16,8 @@ Receiver.create email: 'receiver@receiver.com',
                 street_address: Faker::Address.street_address,
                 city: Faker::Address.city,
                 state: Faker::Address.state_abbr,
-                zip: Faker::Address.zip_code
+                zip: Faker::Address.zip_code,
+                web_url: Faker::Internet.url
 
 10.times do
   Donor.create email:     Faker::Internet.email,
@@ -27,7 +29,8 @@ Receiver.create email: 'receiver@receiver.com',
                zip: Faker::Address.zip_code,
                contact_name: Faker::Name.name,
                contact_email: Faker::Internet.email,
-               contact_phone: Faker::PhoneNumber.cell_phone
+               contact_phone: Faker::PhoneNumber.cell_phone,
+               web_url: Faker::Internet.url
 
 
 end
@@ -40,6 +43,7 @@ end
                   city: Faker::Address.city,
                   state: Faker::Address.state_abbr,
                   zip: Faker::Address.zip_code
+                  web_url: Faker::Internet.url
 end
 
 Admin.create email:    'admin@admin.com',

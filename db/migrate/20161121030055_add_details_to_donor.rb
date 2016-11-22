@@ -8,5 +8,6 @@ class AddDetailsToDonor < ActiveRecord::Migration
     add_column :donors, :contact_name, :string
     add_column :donors, :contact_email, :string
     add_column :donors, :contact_phone, :string
+    add_column :donors, :web_url, :string
   end
 end

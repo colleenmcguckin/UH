@@ -9,5 +9,6 @@ class AddDetailsToReceiver < ActiveRecord::Migration
     add_column :receivers, :paused, :boolean, default: false
     add_column :receivers, :latitude, :float
     add_column :receivers, :longitude, :float
+    add_column :receivers, :web_url, :string
   end
 end

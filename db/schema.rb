@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 20161121030055) do
     t.string   "contact_name"
     t.string   "contact_email"
     t.string   "contact_phone"
+    t.string   "web_url"
   end
 
   add_index "donors", ["email"], name: "index_donors_on_email", unique: true, using: :btree
@@ -235,6 +236,7 @@ ActiveRecord::Schema.define(version: 20161121030055) do
     t.boolean  "paused",                 default: false
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "web_url"
   end
 
   add_index "receivers", ["email"], name: "index_receivers_on_email", unique: true, using: :btree
