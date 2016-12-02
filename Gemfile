@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 
+
 gem "paranoia", "~> 2.2"
 
 gem 'kaminari'
@@ -69,4 +70,5 @@ end
 group :production do
   gem 'puma-heroku'
   gem 'rails_12factor'
+  gem 'faker'
 end
