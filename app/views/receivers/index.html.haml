@@ -8,9 +8,9 @@
           %li
             = simple_form_for :search, url: donor_donation_receivers_path(@donation.donor, @donation), method: :get, html: {class: 'form-inline'} do |f|
               .form-group
-                = f.input :distance, as: :select, collection: %w[5 10 20 30 50], label: 'Search within ', class: 'search-form'
-                = f.input :zip, label: ' miles of ', class: 'search-form'
-                = f.button :submit, 'Go!', class: 'search-form'
+                = f.input :distance, as: :select, collection: %w[5 10 20 30 50], label: 'Search within ', class: 'search-form', input_html: {style: 'margin-left: 10px;'}
+                = f.input :zip, label: ' miles of ', class: 'search-form', input_html: {style: 'margin-left: 10px;'}
+                = f.button :submit, 'Go!', class: 'search-form', input_html: {style: 'margin-left: 10px;'}
             %br
           = link_to 'Clear Search', donor_donation_receivers_path(@donation.donor, @donation, distance: '', zip: ''), class: 'btn btn-primary', id: 'clear-search'
 
@@ -69,6 +69,10 @@
                             .text-center
                               %i.glyphicon.glyphicon-ok
                               Pick-up available
+                  .row
+                    .col-md-6
+                      - if receiver.demographics.any?
+                        = "We typically serve around #{receiver.demographics.first.total_guests_served_per_week} people per week."
             .modal.fade{role: "dialog", id: "#{receiver.id}_contact"}
               .modal-dialog
                 / Modal content

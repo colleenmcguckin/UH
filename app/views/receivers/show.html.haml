@@ -43,6 +43,11 @@
                     .text-center
                       %i.glyphicon.glyphicon-ok
                       Pick-up available
+          .row
+            .col-md-6
+              - if @receiver.demographics.any?
+                = "We typically serve around #{@receiver.demographics.first.total_guests_served_per_week} people per week."
+        %br
         .portlet-title
           .caption
             %i.glyphicon.glyphicon-earphone
