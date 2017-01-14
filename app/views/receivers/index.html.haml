@@ -36,6 +36,10 @@
                       %i.glyphicon.glyphicon-calendar
                     = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, receiver), class: 'btn'
                 .portlet-body
+                  - if receiver.web_url
+                    .row
+                      .col-md-12
+                        = link_to 'Visit Website', "#{receiver.website}"
                   .row
                     .col-md-3
                       %h5 Incoming Items:

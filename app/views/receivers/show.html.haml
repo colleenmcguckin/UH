@@ -10,6 +10,10 @@
             %span.caption-helper
               Waiting on #{@receiver.pending_donation_count} donation#{'s' if @receiver.pending_donation_count != 1}
         .portlet-body
+          - if @receiver.web_url
+            .row
+              .col-md-12
+                = link_to 'Visist Website', @receiver.website
           .row
             .col-md-3
               %h5 Incoming Items:
@@ -129,6 +133,10 @@
             %span.caption-helper
               =link_to "Waiting on #{@user.pending_donation_count} donation#{'s' if @user.pending_donation_count != 1}", receiver_donations_path(@user)
         .portlet-body
+          -if @user.web_url
+            .row
+              .col-md-12
+                = link_to 'My Website', @user.website
           .row
             .col-md-3
               %h5 Incoming Items:

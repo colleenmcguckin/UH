@@ -107,4 +107,11 @@ class Receiver < ActiveRecord::Base
     Receiver.where id: receivers_to_keep.map(&:id)
   end
 
+  def website
+    return unless web_url
+    unless web_url.include? "http://"
+      "http://#{web_url}"
+    end
+  end
+
 end

@@ -13,11 +13,11 @@ Donor.create email:          'donor@donor.com',
 Receiver.create email:          'receiver@receiver.com',
                 password:       'password',
                 agency_name:    Faker::Company.name,
+                web_url:        'www.google.com',
                 street_address: Faker::Address.street_address,
                 city:           Faker::Address.city,
                 state:          Faker::Address.state_abbr,
-                zip:            Faker::Address.zip_code,
-                web_url:        Faker::Internet.url
+                zip:            Faker::Address.zip_code
 
 10.times do
   Donor.create email:          Faker::Internet.email,
@@ -43,7 +43,7 @@ Receiver.create email:            Faker::Internet.email,
                   city:           Faker::Address.city,
                   state:          Faker::Address.state_abbr,
                   zip:            Faker::Address.zip_code,
-                  web_url:        Faker::Internet.url
+                  web_url:        'www.google.com'
 end
 
 Admin.create email:    'admin@admin.com',

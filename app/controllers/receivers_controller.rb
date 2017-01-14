@@ -68,6 +68,7 @@ class ReceiversController < ApplicationController
   def receiver_params
     params.require(:receiver).permit(
       :agency_name,
+      :web_address,
       :street_address,
       :city,
       :state,
