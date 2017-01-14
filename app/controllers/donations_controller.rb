@@ -104,6 +104,10 @@ class DonationsController < ApplicationController
       :confirmed_at,
       :donated_at,
       :received_at,
+      :total_meals,
+      :total_value_cents,
+      :total_value_dollars,
+      :total_weight,
       items: []
     )
   end

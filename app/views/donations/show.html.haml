@@ -214,6 +214,21 @@
                 - if @user.donor? && !@donation.donated?
                   %td
                     = link_to 'x', donor_donation_donation_item_path(@user, @donation, item), method: :delete, class: 'btn btn-danger'
+        .panel-footer
+          .row
+            = simple_form_for [@user, @donation] do |f|
+              .col-sm-2
+                = f.input :total_meals, hint: 'How many total meals are included in this donation?'
+              .col-sm-2
+                = f.input :total_weight, as: :integer, required: true, hint: 'Enter the total weight of donation items in pounds.'
+              .col-sm-3
+                = f.input :total_value_dollars, required: true, hint: 'For a donation valued at $20.75, put 20 in this box.'
+              .col-sm-3
+                = f.input :total_value_cents, required: true, hint: 'For a donation valued at $20.75, put 75 in this box.'
+              .col-sm-2
+                = f.label ' '
+                %br
+                = f.submit 'Save Summary', class: 'btn btn-primary'
   - if @donation.donated?
     .row
       .col-md-12
