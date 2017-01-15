@@ -93,7 +93,8 @@ class ReceiversController < ApplicationController
       :dfr_contact_office_phone,
       :dfr_contact_email,
       :dfr_preferred_contact_method,
-      :paused
+      :paused,
+      :verified_at
     )
   end
 

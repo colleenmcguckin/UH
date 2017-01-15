@@ -23,6 +23,8 @@ class Receiver < ActiveRecord::Base
   after_create :setup_schedule
   after_validation :geocode, if: ->(obj){ obj.street_address.present? and obj.street_address_changed? }
 
+  scope :paused, ->{ where(paused: true) }
+  scope :unpaused, ->{ where(paused: false) }
 
   # validates_format_of :tax_id, with: /^[1-9]\d?-\d{7}$/, :on => :create
 
