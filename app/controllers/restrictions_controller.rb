@@ -15,7 +15,7 @@ class RestrictionsController < ApplicationController
   def create
     @restriction = @user.restrictions.first || Restriction.new(receiver_id: @user.id)
     if @restriction.update(restriction_params)
-      redirect_to receiver_restriction_path(@user, @restriction), notice: 'Restrictions successfully saved. Set up your schedule now!'
+      redirect_to receiver_restriction_path(@user, @restriction), notice: 'Restrictions successfully saved. Set up your availability now!'
     else
       render :new, notice: 'Could not save restriction info at this time. Please try again.'
     end

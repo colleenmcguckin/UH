@@ -8,65 +8,87 @@
         .col-md-6
           %h4 Agency Client Demopgrahics
       .row
-        .col-md-4
+        .col-md-6
           %h4 Gender
           %hr.featurette-divider
           =f.input :percent_male, collection: Demographic::PERCENTAGE_RANGES
           =f.input :percent_female, collection: Demographic::PERCENTAGE_RANGES
           =f.input :percent_other_gender, collection: Demographic::PERCENTAGE_RANGES
-        .col-md-4
+        .col-md-6
           %h4 Age
           %hr.featurette-divider
 
           =f.input :percent_youth, collection: Demographic::PERCENTAGE_RANGES
           =f.input :percent_adult, collection: Demographic::PERCENTAGE_RANGES
           =f.input :percent_senior, collection: Demographic::PERCENTAGE_RANGES
-        .col-md-4
-          %h4 Nationality
-          %hr.featurette-divider
-          =f.input :percent_american_native, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_african_american, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_asian, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_hispanic, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_pacific_islander, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_white, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_portuguese, collection: Demographic::PERCENTAGE_RANGES
       .row
-        .col-md-4
-          %h4 Family
-          %hr.featurette-divider
-          =f.input :percent_single_no_kids, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_single_with_kids, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percentage_married_no_kids, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percentage_married_with_kids, collection: Demographic::PERCENTAGE_RANGES
-        .col-md-4
+        .col-md-12
+          .row
+            .col-md-12
+              %h4 Nationality
+              %hr.featurette-divider
+          .row
+            .col-md-6
+              =f.input :percent_american_native, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_african_american, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_asian, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_hispanic, collection: Demographic::PERCENTAGE_RANGES
+            .col-md-6
+              =f.input :percent_pacific_islander, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_white, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_portuguese, collection: Demographic::PERCENTAGE_RANGES
+      .row
+        .col-md-12
+          .row
+            .col-md-12
+              %br
+              %h4 Family
+              %hr.featurette-divider
+          .row
+            .col-md-6
+              =f.input :percent_single_no_kids, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_single_with_kids, collection: Demographic::PERCENTAGE_RANGES
+            .col-md-6
+              =f.input :percentage_married_no_kids, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percentage_married_with_kids, collection: Demographic::PERCENTAGE_RANGES
+        .col-md-6
+          %br
           %h4 Employment
           %hr.featurette-divider
           =f.input :precent_employed, collection: Demographic::PERCENTAGE_RANGES
           =f.input :percent_unemployed, collection: Demographic::PERCENTAGE_RANGES
-        .col-md-4
+        .col-md-6
+          %br
           %h4 Military Status
           %hr.featurette-divider
           =f.input :percent_veteran_military, collection: Demographic::PERCENTAGE_RANGES
           =f.input :percent_active_military, collection: Demographic::PERCENTAGE_RANGES
       .row
-        .col-md-4
-          %h4 Guest
+        .col-md-6
+          %br
+          %h4 Guests
           %hr.featurette-divider
           =f.input :percentage_with_dietary_restrictions, collection: Demographic::PERCENTAGE_RANGES
           =f.input :total_guests_served_per_week
-        .col-md-4
-          %h4 Meal
-          %hr.featurette-divider
-          =f.input :meals_served_per_breakfast, input_html: {value: f.object.meals_served_per_breakfast || 0 }
-          =f.input :meals_served_per_lunch, input_html: {value: f.object.meals_served_per_lunch || 0 }
-          =f.input :meals_served_per_dinner, input_html: {value: f.object.meals_served_per_dinner || 0 }
-          =f.input :total_receiving_groceries, input_html: {value: f.object.total_receiving_groceries || 0 }
-        .col-md-4
+        .col-md-6
+          %br
           %h4 Transportation
           %hr.featurette-divider
           =f.input :mode_of_transportation, collection: ['Walk', 'Car', 'Public Transportation', 'Shuttle', 'Clients live on site', 'n/a']
           =f.input :distance_traveled, collection: ['Less than 1 mile', '1 - 4 miles', '5 - 10 miles', '10+ miles', 'Clients live on site', 'n/a']
+      .row
+        .col-md-12
+          %h4 Meals
+          %hr.featurette-divider
+          .row
+            .col-md-12
+              .row
+                .col-md-6
+                  =f.input :meals_served_per_breakfast, input_html: {value: f.object.meals_served_per_breakfast || 0 }
+                  =f.input :meals_served_per_lunch, input_html: {value: f.object.meals_served_per_lunch || 0 }
+                .col-md-6
+                  =f.input :meals_served_per_dinner, input_html: {value: f.object.meals_served_per_dinner || 0 }
+                  =f.input :total_receiving_groceries, input_html: {value: f.object.total_receiving_groceries || 0 }
       .text-sm-right
         .form-actions
           .row
