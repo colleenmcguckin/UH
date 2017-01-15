@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Thanks for using Urban Harvester, #{@donor.contact_name}
+    %p
+      Your recent donation to #{@receiver.agency_name} has been marked received.
+      %br/
+      Thanks for contributing to the Urban Harvester community!
+
+    %ul
+      Donation Item Details
+      - @donation.items.each do |i|
+        %li="#{i.quantity} #{i.quantity_type} of #{i.food.name}"
+    %h4
+      %a{href: 'http://harvester-urban.herokuapp.com'}
+        Urban Harvester

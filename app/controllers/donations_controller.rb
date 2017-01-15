@@ -85,6 +85,7 @@ class DonationsController < ApplicationController
     load_donation
 
     if @donation.receive!
+      ApplicationMailer.donation_received_mailer(@donation).deliver_now
       redirect_to receiver_donations_path(@user, @donation), notice: 'Donation has been confirmed. Thank you!'
     else
       render :show, notice: "Something went wrong, please try again. Donation couldn't be confirmed at this time."
