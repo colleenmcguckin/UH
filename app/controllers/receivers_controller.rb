@@ -8,9 +8,9 @@ class ReceiversController < ApplicationController
     else
       @donation = Donation.find(params[:donation_id])
       if params[:search]
-        @receivers = Receiver.filter(@donation).near(params[:search][:zip], params[:search][:distance].to_i).order(:agency_name).page params[:page]
+        @receivers = Receiver.unpaused.filter(@donation).near(params[:search][:zip], params[:search][:distance].to_i).order(:agency_name).page params[:page]
       else
-        @receivers = Receiver.filter(@donation).order(:agency_name).page params[:page]
+        @receivers = Receiver.unpaused.filter(@donation).order(:agency_name).page params[:page]
       end
     end
 
