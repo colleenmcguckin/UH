@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Thanks for using Urban Harvester, #{@receiver.contact_details&.last&.dfr_contact_name}
+    %p
+      You have been added to receive a new donation.
+      Log into your account to see the details.
+      %br/
+      If for some reason you cannot receive this donation, contact the donor immediately.
+    %ul
+      Donor Contact Details
+      %li #{@donor.agency_name}
+      %li #{@donor.contact_name}
+      %li #{@donor.contact_email}
+      %li #{@donor.contact_phone}
+    %br
+    %ul
+      Donation Item Details
+      - @donation.items.each do |i|
+        %li="#{i.quantity} #{i.quantity_type} of #{i.food.name}"
+    %h4
+      %a{href: 'http://urbanharvester.org'}
+      Urban Harvester

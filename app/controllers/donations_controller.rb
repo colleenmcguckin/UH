@@ -74,6 +74,7 @@ class DonationsController < ApplicationController
   def donate
     load_donation
     if @donation.donate!
+      ApplicationMailer.added_to_donation_mailer(@donation).deliver_now
       redirect_to donor_donation_path(@user, @donation), notice: 'Receiver has been notified. Write the tracking code on your donation and take it to them now!'
     else
       render :show, notice: "Something went wrong, please try again. Receiver couldn't be confirmed at this time."
