@@ -47,6 +47,14 @@ class ReceiversController < ApplicationController
   def verify
   end
 
+  def check_verification
+    if @user.update(receiver_params) && @user.verify!
+      redirect_to new_receiver_contact_detail_path(@user), notice: 'Tax ID Verified!'
+    else
+      redirect_to verify_receiver_path(@user), notice: 'Could not verify Tax ID. Please try again or contact support.'
+    end
+  end
+
   def pause
     if @user.pause!
       redirect_to receiver_donation_schedules_path(@user), notice: 'Availability successfully paused.'

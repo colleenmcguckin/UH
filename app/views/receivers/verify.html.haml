@@ -1,6 +1,6 @@
 .profile-content
   %h3 Please supply the following details about your organization
-  = simple_form_for(@user) do |f|
+  = simple_form_for @user, url: check_verification_receiver_path(@user), method: :get do |f|
     = f.error_notification
     .form-inputs
       .row

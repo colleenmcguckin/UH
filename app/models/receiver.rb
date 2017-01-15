@@ -1,3 +1,5 @@
+require "http"
+
 class Receiver < ActiveRecord::Base
   paginates_per 5
   geocoded_by :zip
@@ -33,9 +35,12 @@ class Receiver < ActiveRecord::Base
   end
 
   def verify!
-    #hit the api
-    #if verified update verified_at field
-    #if rejected give notice
+    response = Http.head "http://138.197.214.141/#{tax_id}"
+    if response.status == 200
+      true
+    else
+      false
+    end
   end
 
   def transportation_available?

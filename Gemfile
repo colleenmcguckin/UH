@@ -5,6 +5,7 @@ ruby '~> 2.3.2'
 gem 'rails', '4.2.7.1'
 
 gem 'devise'
+gem 'devise-bootstrap-views'
 
 gem 'pg'
 gem 'puma'
@@ -45,7 +46,7 @@ gem 'pry-theme'
 
 gem 'pry-rails' # for nice rails console in production
 gem 'awesome_print'
-
+gem "http"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

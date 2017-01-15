@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   get 'receivers/:id/details', to: 'receivers#details', as: 'receiver_details'
   get 'receivers/:id/verify', to: 'receivers#verify', as: 'verify_receiver'
+  get 'receivers/:id/check_verification', to: 'receivers#check_verification', as: 'check_verification_receiver'
 
   get 'receivers/:id/pause', to: 'receivers#pause', as: 'pause_receiver'
   get 'receivers/:id/unpause', to: 'receivers#unpause', as: 'unpause_receiver'
