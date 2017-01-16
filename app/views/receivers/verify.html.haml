@@ -8,5 +8,5 @@
           %h4 Step 1: Verify Tax Status
       .row
         .col-md-6
-          = f.input :tax_id, label: 'Tax ID/EIN'
+          = f.input :tax_id, label: 'Tax ID/EIN', hint: "Don't include any dashes or special characters"
           = f.submit 'Verify me!', class: 'btn btn-success'

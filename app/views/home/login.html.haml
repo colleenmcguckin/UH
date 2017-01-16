@@ -1,5 +1,8 @@
-%h1 Log In as...
+.container-fluid
+  .row
+    .col-sm-12
+      %h1 Log In as...
+  .row
+    = render partial: 'buttons', locals: {path: 'session'}
 
-= render partial: 'buttons', locals: {path: 'session'}
-
-= link_to "admin login", new_admin_session_path
+    -# = link_to "admin login", new_admin_session_path

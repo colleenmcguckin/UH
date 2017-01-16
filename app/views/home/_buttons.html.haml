@@ -1,3 +1,10 @@
-- %w[donor receiver].each do |role|
+- if path == 'session'
   .col-sm-6
-    = link_to "#{role.titleize}", polymorphic_path("new_#{role}_#{path}"), class: "btn btn-primary btn-login"
+    = link_to "Food Donor", new_donor_session_path, class: "btn btn-primary text-center"
+  .col-sm-6
+    = link_to "Receiving Agency", new_receiver_session_path, class: "btn btn-primary text-center"
+- else
+  .col-sm-6
+    = link_to "Food Donor", new_donor_registration_path, class: "btn btn-primary text-center"
+  .col-sm-6
+    = link_to "Receiving Agency", new_receiver_registration_path, class: "btn btn-primary text-center"
