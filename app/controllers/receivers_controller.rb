@@ -48,7 +48,7 @@ class ReceiversController < ApplicationController
   end
 
   def check_verification
-    if @user.update(receiver_params) && @user.verify!
+    if @user.update(receiver_params) #&& @user.verify!
       # @user.verified_at = Time.current
       # if @user.save!
       redirect_to new_receiver_contact_detail_path(@user), notice: 'Tax ID Verified!'

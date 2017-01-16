@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114172204) do
+ActiveRecord::Schema.define(version: 20170116084527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20170114172204) do
     t.string  "mode_of_transportation"
     t.string  "distance_traveled"
     t.integer "receiver_id"
+    t.string  "percent_other_nationality"
   end
 
   create_table "dietary_restrictions", force: :cascade do |t|
@@ -150,7 +151,6 @@ ActiveRecord::Schema.define(version: 20170114172204) do
     t.datetime "updated_at"
     t.string   "total_weight"
     t.integer  "total_value_dollars"
-    t.integer  "total_value_cents"
     t.integer  "total_meals"
   end
 

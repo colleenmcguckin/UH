@@ -21,4 +21,8 @@ class Food < ActiveRecord::Base
   def donation_count
     DonationItem.where(food_id: self.id).to_a.count{ |item| item.donation.donated? }
   end
+
+  def archived?
+    true if deleted_at
+  end
 end

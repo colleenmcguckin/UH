@@ -13,11 +13,11 @@
         .col-md-6
           %h4.text-center Daily Food Recovery Contact Information
           %hr.featurette-divider
-          =f.input :dfr_contact_name
-          =f.input :dfr_contact_email
-          =f.input :dfr_contact_office_phone
-          =f.input :dfr_contact_cell_phone
-          =f.input :dfr_preferred_contact_method, as: :select, collection: %w[cell office email]
+          =f.input :dfr_contact_name, label: 'Daily Food Recovery Contact Name'
+          =f.input :dfr_contact_email, label: 'Daily Food Recovery Contact Email'
+          =f.input :dfr_contact_office_phone, label: 'Daily Food Recovery Contact Phone'
+          =f.input :dfr_contact_cell_phone, label: 'Daily Food Recovery Contact Cell Phone'
+          =f.input :dfr_preferred_contact_method, label: 'Daily Food Recovery Preferred Contact Method', as: :select, collection: %w[cell office email]
       %hr.featurette-divider
     .text-sm-right
       .form-actions

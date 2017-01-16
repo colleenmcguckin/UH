@@ -1,6 +1,6 @@
 .profile-content
   = render partial: 'shared/progress_bar', locals: {value: 80}
-  %h3 Please supply the following details about your organization
+  %h3 Food Receiver Agency Intake
   = simple_form_for([@user, @logistic]) do |f|
     = f.error_notification
     .form-inputs

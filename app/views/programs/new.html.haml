@@ -1,12 +1,12 @@
 .profile-content
   = render partial: 'shared/progress_bar', locals: {value: 40}
-  %h3 Please supply the following details about your organization
+  %h3 Food Receiver Agency Intake
   = simple_form_for([@user, @program]) do |f|
     = f.error_notification
     .form-inputs
       .row
         .col-md-6.col-md-offset-3
-          %h4.text-center Program Info
+          %h4.text-center Agency Info
       .row
         .col-md-6.col-md-offset-3
           =f.input :perishable_food_distribution, as: :collection_select, collection: %w[Yes No], label: 'Does your agency have a perishable food distribution program in place?'
@@ -20,4 +20,4 @@
       .form-actions
         .row
           .col-md-6.col-md-offset-3
-            = f.button :submit, "Save Program Info", { class: 'btn btn-success' }
+            = f.button :submit, "Save Agency Info", { class: 'btn btn-success' }

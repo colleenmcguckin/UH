@@ -18,3 +18,11 @@
 //= require_tree .
 
 $('.select-2').select2();
+
+$(function() {
+  var form = $("#form"),
+  submitButt = $("#saveSummary");
+  form.on("change",function(e) {
+     submitButt.prop("disabled",false); // NOT a toggle
+  });
+});

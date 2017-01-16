@@ -1,6 +1,6 @@
 .profile-content
   = render partial: 'shared/progress_bar', locals: {value: 60}
-  %h3 Please supply the following details about your organization
+  %h3 Food Receiver Agency Intake
   = simple_form_for [@user, @demographic], url: receiver_demographics_path, method: :post  do |f|
     = f.error_notification
     .form-inputs
@@ -29,14 +29,15 @@
               %hr.featurette-divider
           .row
             .col-md-6
-              =f.input :percent_american_native, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_white, collection: Demographic::PERCENTAGE_RANGES
               =f.input :percent_african_american, collection: Demographic::PERCENTAGE_RANGES
               =f.input :percent_asian, collection: Demographic::PERCENTAGE_RANGES
               =f.input :percent_hispanic, collection: Demographic::PERCENTAGE_RANGES
             .col-md-6
+              =f.input :percent_american_native, collection: Demographic::PERCENTAGE_RANGES
               =f.input :percent_pacific_islander, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_white, collection: Demographic::PERCENTAGE_RANGES
               =f.input :percent_portuguese, collection: Demographic::PERCENTAGE_RANGES
+              =f.input :percent_other_nationality, collection: Demographic::PERCENTAGE_RANGES
       .row
         .col-md-12
           .row
