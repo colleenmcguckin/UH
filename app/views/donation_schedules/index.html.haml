@@ -45,6 +45,13 @@
             .row
               .col-sm-12
                 = link_to 'Pause Availability', pause_receiver_path(@user), class: 'btn btn-danger'
+      %hr
+        .row
+          .col-sm-12
+            %h4.text-center Done editing your schedule? Go back to your profile by clicking the button below.
+        .row
+          .col-sm-12.text-center
+            = link_to 'Back to Profile', receiver_path(@user), class: 'btn btn-success'
 -else
   .profile-content
     .text-center
