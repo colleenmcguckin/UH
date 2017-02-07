@@ -1,12 +1,55 @@
 .profile-content
-  %h3 Food Receiver Agency Intake
-  = simple_form_for @user, url: check_verification_receiver_path(@user), method: :get do |f|
-    = f.error_notification
-    .form-inputs
-      .row
-        .col-md-6
-          %h4 Step 1: Verify Tax Status
-      .row
-        .col-md-6
-          = f.input :tax_id, label: 'Tax ID/EIN', hint: "Don't include any dashes or special characters"
-          = f.submit 'Verify me!', class: 'btn btn-success'
+  .text-center
+    %h3 Food Receiver Agency Intake
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 1: Verify Tax Status
+        .panel-body
+          = simple_form_for @user, url: check_verification_receiver_path(@user), method: :get do |f|
+            = f.error_notification
+            .form-inputs
+              .row
+                .col-sm-12
+                  %h4 Enter your tax ID or EIN number in the box below. Do not include any dashes or special characters.
+              .row
+                .col-sm-12
+                  = f.input :tax_id, label: 'Tax ID/EIN', hint: "Ex: 123456789"
+                  %hr.featurette-divider
+                    = f.submit 'Save & Continue', class: 'btn btn-success'
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 2: Enter Contact Details
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 3: Enter Agency Information
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 4: Enter Client Demographics
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 5: Enter Donation Logistics
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 6: Enter Food Restrictions
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 7: Set Up Schedule
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 8: Confirm & Finish

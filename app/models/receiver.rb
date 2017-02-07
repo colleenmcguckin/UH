@@ -28,6 +28,8 @@ class Receiver < ActiveRecord::Base
 
   # validates_format_of :tax_id, with: /^[1-9]\d?-\d{7}$/, :on => :create
 
+  attr_accessor :intake_survey_completed
+
   def donor?
     false
   end

@@ -1,23 +1,68 @@
 .profile-content
-  = render partial: 'shared/progress_bar', locals: {value: 40}
-  %h3 Food Receiver Agency Intake
-  = simple_form_for([@user, @program]) do |f|
-    = f.error_notification
-    .form-inputs
-      .row
-        .col-md-6.col-md-offset-3
-          %h4.text-center Agency Info
-      .row
-        .col-md-6.col-md-offset-3
-          =f.input :perishable_food_distribution, as: :collection_select, collection: %w[Yes No], label: 'Does your agency have a perishable food distribution program in place?'
-          =f.input :food_type_provided, as: :collection_select, collection: ['Full Meals', 'Groceries', 'Both', 'n/a'], label: 'Does your agency provide meals or groceries to your clients?'
-          =f.input :charge_for_service, as: :collection_select, collection: %w[Yes No], label: 'Do you charge guests for the groceries or meals you offer?'
-          =f.input :meal_style, as: :collection_select, collection: ['Take Out', 'Eat In', 'Both', 'n/a'], label: 'How are the meals provided?'
-          =f.input :staff_size, input_html: {value: 0}, label: 'How many people are on your staff?'
-          =f.association :dietary_restrictions, as: :check_boxes, collection: DietaryRestriction.all.to_a, label_method: :name, label: 'Which dietary restrictions do you accomodate?'
-      %hr.featurette-divider
-    .text-sm-right
-      .form-actions
-        .row
-          .col-md-6.col-md-offset-3
-            = f.button :submit, "Save Agency Info", { class: 'btn btn-success' }
+  .text-center
+    %h3 Food Receiver Agency Intake
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Verify Tax Status
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Contact Details
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 3: Enter Agency Info
+        .panel-body
+          = simple_form_for([@user, @program]) do |f|
+            = f.error_notification
+            .form-inputs
+              .row
+                .col-md-12
+                  %h4.text-center Agency Info
+              .row
+                .col-md-10.col-md-offset-1
+                  =f.input :perishable_food_distribution, as: :collection_select, collection: %w[Yes No], label: 'Does your agency have a perishable food distribution program in place?'
+                  =f.input :food_type_provided, as: :collection_select, collection: ['Full Meals', 'Groceries', 'Both', 'n/a'], label: 'Does your agency provide meals or groceries to your clients?'
+                  =f.input :charge_for_service, as: :collection_select, collection: %w[Yes No], label: 'Do you charge guests for the groceries or meals you offer?'
+                  =f.input :meal_style, as: :collection_select, collection: ['Take Out', 'Eat In', 'Both', 'n/a'], label: 'How are the meals provided?'
+                  =f.input :staff_size, input_html: {value: 0, min: 0}, label: 'How many people are on your staff?'
+                  =f.association :dietary_restrictions, as: :check_boxes, collection: DietaryRestriction.all.to_a, label_method: :name, label: 'Check off the dietary restrictions you accomodate:'
+              %hr.featurette-divider
+            .text-sm-right
+              .form-actions
+                .row
+                  .col-md-12.text-center
+                    = f.button :submit, "Save & Continue", { class: 'btn btn-success' }
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 4: Enter Client Demographics
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 5: Enter Donation Logistics
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 6: Enter Food Restrictions
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 7: Set Up Schedule
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 8: Confirm & Finish

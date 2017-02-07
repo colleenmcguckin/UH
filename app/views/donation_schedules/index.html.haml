@@ -1,46 +1,118 @@
-.profile-content
-  .row
-    .col-md-5
-      %h4
-        Current Availability:
-      = render partial: 'table_schedule', locals: {donation_schedules: @donation_schedules, editable: true}
-    .col-md-5.col-md-offset-1
-      %h5
-        This is your availability to accept donations.
-      %p
-        Donors will want to know what times you are available to accept items.
-        They can see this schedule when choosing a donation site, so try to keep this as updated as possible.
-  %hr.featurette-divider
-  .row
-    .col-md-5
-      %h4
-        Current Status:
-        - if @user.paused?
-          .text-danger
-            %h3 PAUSED
-        - else
-          .text-success
-            %h3 ACTIVE
-    .col-md-5.col-md-offset-1
-      - if @user.paused?
-        .row
-          .col-sm-12
-            %h5
-              Your availability is currently paused.
-            %p
-              Donors are not currently able to see your profile or add your site to a donation.
-              Use this button to unpause your availability.
-        .row
-          .col-sm-12
-            = link_to 'Unpause Availability', unpause_receiver_path(@user), class: 'btn btn-success'
-      - else
-        .row
-          .col-sm-12
-            %h5
-              Temporarily turn off your availability.
-            %p
-              Use this button to pause your availability.
-              Donors will not be able to view your profile or add you to donations while you are paused.
-        .row
-          .col-sm-12
-            = link_to 'Pause Availability', pause_receiver_path(@user), class: 'btn btn-danger'
+- if @user.intake_survey_completed == 'true'
+  .profile-content
+    .row
+      .col-md-5
+        %h4
+          Current Availability:
+        = render partial: 'table_schedule', locals: {donation_schedules: @donation_schedules, editable: true}
+      .col-md-5.col-md-offset-1
+        %h5
+          This is your availability to accept donations.
+        %p
+          Donors will want to know what times you are available to accept items.
+          They can see this schedule when choosing a donation site, so try to keep this as updated as possible. Change your availability for each day by clicking 'edit' next on the scehdule.
+    %hr.featurette-divider
+      .row
+        .col-md-5
+          %h4
+            Current Status:
+            - if @user.paused?
+              .text-danger
+                %h3 PAUSED
+            - else
+              .text-success
+                %h3 ACTIVE
+        .col-md-5.col-md-offset-1
+          - if @user.paused?
+            .row
+              .col-sm-12
+                %h5
+                  Your availability is currently paused.
+                %p
+                  Donors are not currently able to see your profile or add your site to a donation.
+                  Use this button to unpause your availability.
+            .row
+              .col-sm-12
+                = link_to 'Unpause Availability', unpause_receiver_path(@user), class: 'btn btn-success'
+          - else
+            .row
+              .col-sm-12
+                %h5
+                  Temporarily turn off your availability.
+                %p
+                  Use this button to pause your availability.
+                  Donors will not be able to view your profile or add you to donations while you are paused.
+            .row
+              .col-sm-12
+                = link_to 'Pause Availability', pause_receiver_path(@user), class: 'btn btn-danger'
+-else
+  .profile-content
+    .text-center
+      %h3 Food Receiver Agency Intake
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-success
+          .panel-heading
+            %h4.panel-title
+              %span.glyphicon.glyphicon-ok
+              Verify Tax Status
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-success
+          .panel-heading
+            %h4.panel-title
+              %span.glyphicon.glyphicon-ok
+              Enter Contact Details
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-success
+          .panel-heading
+            %h4.panel-title
+              %span.glyphicon.glyphicon-ok
+              Enter Agency Info
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-success
+          .panel-heading
+            %h4.panel-title
+              %span.glyphicon.glyphicon-ok
+              Enter Donation Logistics
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-success
+          .panel-heading
+            %h4.panel-title
+              %span.glyphicon.glyphicon-ok
+              Enter Client Demographics
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-success
+          .panel-heading
+            %h4.panel-title
+              %span.glyphicon.glyphicon-ok
+              Enter Food Restrictions
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-primary
+          .panel-heading
+            %h4.panel-title Step 7: Set Up Schedule
+          .panel-body
+            .col-md-5
+              %h4
+                Current Availability:
+              = render partial: 'table_schedule', locals: {donation_schedules: @donation_schedules, editable: true}
+            .col-md-5.col-md-offset-1
+              %h5
+                This is your availability to accept donations.
+              %p
+                Donors will want to know what times you are available to accept items.
+                They can see this schedule when choosing a donation site, so try to keep this as updated as possible. Change your availability for each day by clicking 'edit' next on the scehdule.
+          %hr.featurette-divider
+          .row.text-center
+            = link_to 'Save & Continue', receiver_registration_confirmation_path(@user), class: 'btn btn-success'
+          %br
+    .row
+      .col-sm-10.col-sm-offset-1
+        .panel.panel-primary
+          .panel-heading
+            %h4.panel-title Step 8: Confirm & Finish

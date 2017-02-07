@@ -1,0 +1,74 @@
+.profile-content
+  .text-center
+    %h3 Food Receiver Agency Intake
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Verify Tax Status
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Contact Details
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Agency Info
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Client Demographics
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Food Restrictions
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 7: Enter Donation Acceptance Schedule
+        .panel-body
+          %h4 Edit Schedule for #{@donation_schedule.day_of_week_in_words.titleize}
+          = simple_form_for [@user, @donation_schedule] do |f|
+            = f.error_notification
+            .row
+              .col-xs-6
+                = f.input :open_at_hour, as: :collection_select, collection: DonationSchedule::HOURS_OF_THE_DAY.zip(0.upto(24)), include_blank: 'Closed'
+              .col-xs-6
+                = f.input :open_at_minute, as: :collection_select, collection: (0..59).to_a.select { |n| n % 5 == 0}, selected: (f.object.open_at_minute or 0), include_blank: 'Closed'
+            .row
+              .col-xs-6
+                = f.input :close_at_hour, as: :collection_select, collection: DonationSchedule::HOURS_OF_THE_DAY.zip(0.upto(24)), include_blank: 'Closed'
+              .col-xs-6
+                = f.input :close_at_minute, as: :collection_select, collection: (0..59).to_a.select { |n| n % 5 == 0}, selected: (f.object.open_at_minute or 0), include_blank: 'Closed'
+              .col-xs-5
+                = link_to 'Back', receiver_donation_schedules_path(@user), class: 'btn btn-primary'
+              .col-xs-5.col-xs-offset-1
+                = f.button :submit, 'Update Schedule', class: 'btn btn-success'
+
+        .col-md-5.col-md-offset-1
+          .row
+            %h5 Current Schedule:
+            = render partial: 'table_schedule', locals: {donation_schedules: @donation_schedules, editable: false}
+          .row
+      %hr.featurette-divider
+
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 8: Confirm & Finish

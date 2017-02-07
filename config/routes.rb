@@ -33,6 +33,8 @@ Rails.application.routes.draw do
 
   get 'receivers/:id/pause', to: 'receivers#pause', as: 'pause_receiver'
   get 'receivers/:id/unpause', to: 'receivers#unpause', as: 'unpause_receiver'
+  get 'receivers/:id/confirm_intake', to: 'receivers#confirm_intake', as: 'receiver_registration_confirmation'
+  get 'receivers/:id/thank_you', to: 'receivers#thank_you', as: 'receiver_thank_you'
 
   get 'donations/:id/add_receiver', to: 'donations#add_receiver', as: 'donation_add_receiver'
   get 'donations/:id/receive', to: 'donations#receive', as: 'donation_receive'

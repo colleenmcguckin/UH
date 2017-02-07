@@ -31,12 +31,16 @@ class ReceiversController < ApplicationController
 
   def update
     if @user.update receiver_params
-      if @user.contact_details.any?
-        redirect_to receiver_path(@user), notice: 'Updates successfully saved.'
+      if receiver_params[:intake_survey_completed]
+        redirect_to receiver_thank_you_path(@user), notice: 'Thank you for completing your profile!'
       else
-        redirect_to new_receiver_contact_detail_path @user, notice: 'Updates successfully saved.'
+        if @user.contact_details.any?
+          redirect_to receiver_path(@user), notice: 'Updates successfully saved.'
+        else
+          redirect_to new_receiver_contact_detail_path @user, notice: 'Updates successfully saved.'
+        end
       end
-    elsif
+    else
       render 'receivers#details', notice: 'Updates could not be saved at this time, please try again.'
     end
   end
@@ -74,6 +78,9 @@ class ReceiversController < ApplicationController
     end
   end
 
+  def confirm_intake
+  end
+
   private
 
   def receiver_params
@@ -94,7 +101,8 @@ class ReceiversController < ApplicationController
       :dfr_contact_email,
       :dfr_preferred_contact_method,
       :paused,
-      :verified_at
+      :verified_at,
+      :intake_survey_completed
     )
   end
 

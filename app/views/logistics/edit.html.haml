@@ -10,7 +10,7 @@
         .col-md-6.col-md-offset-3
           =f.input :transportation_available, as: :collection_select, collection: %w[Yes No], label: 'Do you provide transportation for the pickup of donated food?'
           =f.input :driver_status, as: :collection_select, collection: ['Staff', 'Volunteers', 'Both', 'n/a'], label: 'Are your drivers staff or volunteers?'
-          =f.input :insurance_status, as: :collection_select, collection: ['Our organization provides insurance to drivers', 'Our drivers have their own private insurance.', 'We do not know the insurance status of our drivers.', 'n/a'], label: 'How are your drivers insured?'
+          =f.input :insurance_status, as: :collection_select, collection: ['Our organization provides insurance to drivers', 'Our drivers have their own private insurance.', 'n/a'], label: 'How are your drivers insured?'
           =f.input :vehicle_style, as: :collection_select, collection: ['Car', 'Pickup Truck', 'Box Truck', 'Refrigerated Vehicle', 'Other', 'n/a'], label: 'What type of vehicle do you use?'
           =f.input :freezer_type, as: :collection_select, collection: ['Upright', 'Walk-in', 'n/a'], label: 'What type of freezer does your facility use?'
           =f.input :refrigerator_type, as: :collection_select, collection: ['Upright', 'Walk-in', 'n/a'], label: 'What type of refrigerator does your facility use?'

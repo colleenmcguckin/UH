@@ -1,97 +1,179 @@
 .profile-content
-  = render partial: 'shared/progress_bar', locals: {value: 60}
-  %h3 Food Receiver Agency Intake
-  = simple_form_for [@user, @demographic], url: receiver_demographics_path, method: :post  do |f|
-    = f.error_notification
-    .form-inputs
-      .row
-        .col-md-6
-          %h4 Agency Client Demographics
-      .row
-        .col-md-6
-          %h4 Gender
-          %hr.featurette-divider
-          =f.input :percent_male, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_female, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_other_gender, collection: Demographic::PERCENTAGE_RANGES
-        .col-md-6
-          %h4 Age
-          %hr.featurette-divider
-
-          =f.input :percent_youth, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_adult, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_senior, collection: Demographic::PERCENTAGE_RANGES
-      .row
-        .col-md-12
-          .row
-            .col-md-12
-              %h4 Nationality
-              %hr.featurette-divider
-          .row
-            .col-md-6
-              =f.input :percent_white, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_african_american, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_asian, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_hispanic, collection: Demographic::PERCENTAGE_RANGES
-            .col-md-6
-              =f.input :percent_american_native, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_pacific_islander, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_portuguese, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_other_nationality, collection: Demographic::PERCENTAGE_RANGES
-      .row
-        .col-md-12
-          .row
-            .col-md-12
-              %br
-              %h4 Family
-              %hr.featurette-divider
-          .row
-            .col-md-6
-              =f.input :percent_single_no_kids, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percent_single_with_kids, collection: Demographic::PERCENTAGE_RANGES
-            .col-md-6
-              =f.input :percentage_married_no_kids, collection: Demographic::PERCENTAGE_RANGES
-              =f.input :percentage_married_with_kids, collection: Demographic::PERCENTAGE_RANGES
-        .col-md-6
-          %br
-          %h4 Employment
-          %hr.featurette-divider
-          =f.input :precent_employed, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_unemployed, collection: Demographic::PERCENTAGE_RANGES
-        .col-md-6
-          %br
-          %h4 Military Status
-          %hr.featurette-divider
-          =f.input :percent_veteran_military, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :percent_active_military, collection: Demographic::PERCENTAGE_RANGES
-      .row
-        .col-md-6
-          %br
-          %h4 Guests
-          %hr.featurette-divider
-          =f.input :percentage_with_dietary_restrictions, collection: Demographic::PERCENTAGE_RANGES
-          =f.input :total_guests_served_per_week
-        .col-md-6
-          %br
-          %h4 Transportation
-          %hr.featurette-divider
-          =f.input :mode_of_transportation, collection: ['Walk', 'Car', 'Public Transportation', 'Shuttle', 'Clients live on site', 'n/a']
-          =f.input :distance_traveled, collection: ['Less than 1 mile', '1 - 4 miles', '5 - 10 miles', '10+ miles', 'Clients live on site', 'n/a']
-      .row
-        .col-md-12
-          %h4 Meals
-          %hr.featurette-divider
-          .row
-            .col-md-12
+  .text-center
+    %h3 Food Receiver Agency Intake
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Verify Tax Status
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Contact Details
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Agency Info
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 4: Enter Client Demographics
+        .panel-body
+          = simple_form_for [@user, @demographic], url: receiver_demographics_path, method: :post  do |f|
+            = f.error_notification
+            .form-inputs
+              .row
+                .text-center
+                  %h3 Client Demographics
               .row
                 .col-md-6
-                  =f.input :meals_served_per_breakfast, input_html: {value: f.object.meals_served_per_breakfast || 0 }
-                  =f.input :meals_served_per_lunch, input_html: {value: f.object.meals_served_per_lunch || 0 }
+                  %h4.text-center Gender
+                  %hr.featurette-divider
+                  .row
+                    .col-md-4
+                      =f.input :percent_male, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Male"
+                    .col-md-4
+                      =f.input :percent_female, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Female"
+                    .col-md-4
+                      =f.input :percent_other_gender, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Other"
                 .col-md-6
-                  =f.input :meals_served_per_dinner, input_html: {value: f.object.meals_served_per_dinner || 0 }
-                  =f.input :total_receiving_groceries, input_html: {value: f.object.total_receiving_groceries || 0 }
-      .text-sm-right
-        .form-actions
-          .row
-            .col-md-9
-              = f.button :submit, "Save & Continue", { class: 'btn btn-success' }
+                  %h4.text-center Age
+                  %hr.featurette-divider
+                  .row
+                    .col-md-4
+                      =f.input :percent_youth, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Youth"
+                    .col-md-4
+                      =f.input :percent_adult, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Adult"
+                    .col-md-4
+                      =f.input :percent_senior, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Senior"
+              %br
+              .row
+                .col-md-12
+                  .row
+                    .col-md-12
+                      %h4.text-center Nationality
+                      %hr.featurette-divider
+                  .row
+                    .col-md-3
+                      =f.input :percent_white, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% White"
+                    .col-md-3
+                      =f.input :percent_african_american, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% African American"
+                    .col-md-3
+                      =f.input :percent_asian, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Asian"
+                    .col-md-3
+                      =f.input :percent_hispanic, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Hispanic"
+                  %br
+                  .row
+                    .col-md-3
+                      =f.input :percent_american_native, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% American Native"
+                    .col-md-3
+                      =f.input :percent_pacific_islander, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Pacific Islander"
+                    .col-md-3
+                      =f.input :percent_portuguese, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Portuguese"
+                    .col-md-3
+                      =f.input :percent_other_nationality, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Other"
+              %br
+              .row
+                .col-md-12
+                  .row
+                    .col-md-12
+                      %h4.text-center Family
+                      %hr.featurette-divider
+                  .row
+                    .col-md-3
+                      =f.input :percent_single_no_kids, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Single, no kids"
+                    .col-md-3
+                      =f.input :percent_single_with_kids, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Single with kids"
+                    .col-md-3
+                      =f.input :percentage_married_no_kids, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Married, no kids"
+                    .col-md-3
+                      =f.input :percentage_married_with_kids, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Married with kids"
+              %br
+              .row
+                .col-md-6
+                  %br
+                  %h4.text-center Employment
+                  %hr.featurette-divider
+                  .row
+                    .col-md-6
+                      =f.input :precent_employed, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Employed"
+                    .col-md-6
+                      =f.input :percent_unemployed, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Unemployed"
+                .col-md-6
+                  %br
+                  %h4.text-center Military Status
+                  %hr.featurette-divider
+                  .row
+                    .col-md-6
+                      =f.input :percent_veteran_military, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Veteran Military"
+                    .col-md-6
+                      =f.input :percent_active_military, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Active Military"
+              .row
+                .col-md-6
+                  %br
+                  %h4.text-center Guests
+                  %hr.featurette-divider
+                  .row
+                    .col-md-6
+                      =f.input :percentage_with_dietary_restrictions, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% With Dietary Restrictions"
+                    .col-md-6
+                      =f.input :total_guests_served_per_week, input_html: {min: 0}, label: "Total Guests Served Per Week"
+                .col-md-6
+                  %br
+                  %h4.text-center Transportation
+                  %hr.featurette-divider
+                  .row
+                    .col-md-6
+                      =f.input :mode_of_transportation, as: :radio_buttons, collection: ['Walk', 'Car', 'Public Transportation', 'Shuttle', 'Clients live on site', 'n/a'], label: "Main Transportation Mode"
+                    .col-md-6
+                      =f.input :distance_traveled, as: :radio_buttons, collection: ['Less than 1 mile', '1 - 4 miles', '5 - 10 miles', '10+ miles', 'Clients live on site', 'n/a'], label: "Average Distance Traveled"
+              .row
+                .col-md-12
+                  %h4 Meals
+                  %hr.featurette-divider
+                  .row
+                    .col-md-12
+                      .row
+                        .col-md-3
+                          =f.input :meals_served_per_breakfast, input_html: {value: f.object.meals_served_per_breakfast || 0, min: 0 }, label: "# of Meals Served per Breakfast"
+                        .col-md-3
+                          =f.input :meals_served_per_lunch, input_html: {value: f.object.meals_served_per_lunch || 0, min: 0 }, label: "# of Meals Served per Lunch"
+                        .col-md-3
+                          =f.input :meals_served_per_dinner, input_html: {value: f.object.meals_served_per_dinner || 0, min: 0 }, label: "# of Meals Served per Dinner"
+                        .col-md-3
+                          =f.input :total_receiving_groceries, input_html: {value: f.object.total_receiving_groceries || 0, min: 0 }, label: "# of Clients Receiving Groceries"
+              .text-sm-right
+                .form-actions
+                  %hr
+                  .row
+                    .col-md-12.text-center
+                      = f.button :submit, "Save & Continue", { class: 'btn btn-success' }
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 5: Enter Donation Logistics
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 6: Enter Food Restrictions
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 7: Set Up Schedule
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title Step 8: Confirm & Finish

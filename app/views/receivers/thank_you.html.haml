@@ -31,18 +31,36 @@
             Enter Client Demographics
   .row
     .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Food Restrictions
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Enter Donation Acceptance Schedule
+  .row
+    .col-sm-10.col-sm-offset-1
+      .panel.panel-success
+        .panel-heading
+          %h4.panel-title
+            %span.glyphicon.glyphicon-ok
+            Confirm & Finish
+  .row
+    .col-sm-10.col-sm-offset-1
       .panel.panel-primary
         .panel-heading
-          %h4.panel-title Step 6: Enter Food Restrictions
+          %h4.panel-title THANK YOU!
         .panel-body
-          = render partial: 'form'
-  .row
-    .col-sm-10.col-sm-offset-1
-      .panel.panel-primary
-        .panel-heading
-          %h4.panel-title Step 7: Set Up Schedule
-  .row
-    .col-sm-10.col-sm-offset-1
-      .panel.panel-primary
-        .panel-heading
-          %h4.panel-title Step 8: Confirm & Finish
+          %p Thank you for sharing your information so we can connect the best food options to your organization. We hope you have an excellent experience using Urban Harvester.
+        %hr
+          .row
+            .col-sm-6.text-center
+              = link_to "Go To Profile", receiver_path(@user), class: 'btn btn-success'
+            .col-sm-6.text-center
+              = link_to "Sign Out", destroy_receiver_session_path, method: :delete, class: 'btn btn-success'
+          %br

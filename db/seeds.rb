@@ -245,7 +245,7 @@ Receiver.all.each do |r|
   r.logistics.create(
     transportation_available:    %w[Yes No].sample,
     driver_status:               ['Staff', 'Volunteers', 'Both', 'n/a'].sample,
-    insurance_status:            ['Our organization provides insurance to drivers', 'Our drivers have their own private insurance.', 'We do not know the insurance status of our drivers.', 'n/a'].sample,
+    insurance_status:            ['Our organization provides insurance to drivers', 'Our drivers have their own private insurance.', 'n/a'].sample,
     vehicle_style:               ['Car', 'Pickup Truck', 'Box Truck', 'Refrigerated Vehicle', 'Other', 'n/a'].sample,
     freezer_type:                ['Upright', 'Walk-in', 'n/a'].sample,
     refrigerator_type:           ['Upright', 'Walk-in', 'n/a'].sample,
