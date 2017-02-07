@@ -1,4 +1,4 @@
-- if @user.intake_survey_completed == 'true'
+- if @user.intake_survey_completed
   .profile-content
     .row
       .col-md-5
@@ -107,7 +107,10 @@
               %p
                 Donors will want to know what times you are available to accept items.
                 They can see this schedule when choosing a donation site, so try to keep this as updated as possible. Change your availability for each day by clicking 'edit' next on the scehdule.
-          %hr.featurette-divider
+            %hr
+            .col-md-12.text-center
+              %h4
+                When you are done setting up your schedule click the button below to continue.
           .row.text-center
             = link_to 'Save & Continue', receiver_registration_confirmation_path(@user), class: 'btn btn-success'
           %br
