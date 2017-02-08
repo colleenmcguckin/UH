@@ -16,8 +16,22 @@
               .row
                 .col-sm-12
                   = f.input :tax_id, label: 'Tax ID/EIN', hint: "Ex: 123456789"
+              .row
+                .col-sm-12
+                  %h4 Enter your agency's details below.
+                  = f.input :agency_name
+                  = f.input :street_address
+                  .row
+                    .col-sm-4
+                      = f.input :city
+                    .col-sm-4
+                      = f.input :state, as: :select, collection: %w[AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY]
+                    .col-sm-4
+                      = f.input :zip
                   %hr.featurette-divider
-                    = f.submit 'Save & Continue', class: 'btn btn-success'
+                    .row
+                      .col-sm-12.text-center
+                        = f.submit 'Save & Continue', class: 'btn btn-success'
   .row
     .col-sm-10.col-sm-offset-1
       .panel.panel-primary
