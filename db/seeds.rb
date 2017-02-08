@@ -295,4 +295,82 @@ Receiver.all.each do |r|
     mode_of_transportation: [50, 100, 500, 1000].sample,
     distance_traveled: [50, 100, 500, 1000].sample,
   )
+
+  Receiver.create(
+    email:          'unionstation@receiver.com',
+    password:       'password',
+    agency_name:    'Union Station Adult Center',
+    street_address: '412 S. Raymond St.',
+    city:           'Pasadena',
+    state:          'CA',
+    zip:            '91104',
+    tax_id:         '123456789'
+  )
+
+  Receiver.create(
+    email:          'friendsindeed@receiver.com',
+    password:       'password',
+    agency_name:    'Friends In Deed',
+    street_address: '444 E. East Washington',
+    city:           'Pasadena',
+    state:          'CA',
+    zip:            '91104',
+    tax_id:         '123456789'
+  )
+
+  Receiver.create(
+    email:          'losangelesmission@receiver.com',
+    password:       'password',
+    agency_name:    'The Los Angeles Mission',
+    street_address: '303 East 5th Street',
+    city:           'Los Angeles',
+    state:          'CA',
+    zip:            '90013',
+    tax_id:         '123456789'
+  )
+
+  Receiver.create(
+    email:          'losangelesmission@receiver.com',
+    password:       'password',
+    agency_name:    'SOVA Family Services',
+    street_address: '6439 Vanowen St.',
+    city:           'Van Nuys',
+    state:          'CA',
+    zip:            '91406',
+    tax_id:         '123456789'
+  )
+
+  Receiver.create(
+    email:          'gilroycompassioncenter@receiver.com',
+    password:       'password',
+    agency_name:    'Gilroy Compassion Center',
+    street_address: '370 Thomkins Court',
+    city:           'Gilroy',
+    state:          'CA',
+    zip:            '95020',
+    tax_id:         '123456789'
+  )
+
+  Receiver.create(
+    email:          'homefirst@receiver.com',
+    password:       'password',
+    agency_name:    'Home First-Sobrato House Youth Center',
+    street_address: '496 S. 3rd Street',
+    city:           'San Jose',
+    state:          'CA',
+    zip:            '95112',
+    tax_id:         '123456789'
+  )
+
+  Receiver.create(
+    email:          'tricityvalley@receiver.com',
+    password:       'password',
+    agency_name:    'Tri-City Valley Food Bank',
+    street_address: '37350 Joseph St.',
+    city:           'Fremont',
+    state:          'CA',
+    zip:            '94536',
+    tax_id:         '123456789'
+  )
+
 end
