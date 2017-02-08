@@ -6,7 +6,9 @@
     .profile-usertitle-name
       = @user.agency_name
     .profile-usertitle-subheading
-    %h4 My Profile
+    %h4
+      = @user.donor? ? 'Donor' : 'Receiving Agency'
+      Profile
   .profile-userbuttons
     -if @user.donor?
       = simple_form_for [@user, @new_donation] do |f|

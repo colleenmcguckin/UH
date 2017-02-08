@@ -32,7 +32,7 @@ class ReceiversController < ApplicationController
   def update
     if @user.update receiver_params
       if receiver_params[:intake_survey_completed]
-        redirect_to receiver_thank_you_path(@user), notice: 'Thank you for completing your profile!'
+        redirect_to receiver_thank_you_path(@user), notice: 'Updates successfully saved.'
       else
         if @user.contact_details.any?
           redirect_to receiver_path(@user), notice: 'Updates successfully saved.'
@@ -58,7 +58,7 @@ class ReceiversController < ApplicationController
       redirect_to new_receiver_contact_detail_path(@user), notice: 'Tax ID Verified!'
       # end
     else
-      redirect_to verify_receiver_path(@user), notice: 'Could not verify Tax ID. Please try again or contact support.'
+      redirect_to verify_receiver_path(@user), notice: 'Could not verify Tax ID. Please ensure only numbers are entered into the Tax ID box and try again or contact support.'
     end
   end
 
