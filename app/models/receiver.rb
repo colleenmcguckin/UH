@@ -29,6 +29,7 @@ class Receiver < ActiveRecord::Base
   # validates_format_of :tax_id, with: /^[1-9]\d?-\d{7}$/, :on => :create
   validates_numericality_of :tax_id, on: :update, message: 'Omit special characters and only use numbers in this box.'
   validates_length_of :tax_id, is: 9, on: :update, message: 'Tax ID/EIN Number must be 9 numbers long.'
+  validates :agency_name, :street_address, :city, :state, :zip, presence: true, on: :update
 
   def donor?
     false

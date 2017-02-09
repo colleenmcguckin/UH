@@ -41,7 +41,11 @@ class ReceiversController < ApplicationController
         end
       end
     else
-      render 'receivers#details', notice: 'Updates could not be saved at this time, please try again.'
+      if @user.intake_survey_completed
+        render :edit, notice: 'Updates could not be saved at this time, please try again.'
+      else
+        render 'receivers#details', notice: 'Updates could not be saved at this time, please try again.'
+      end
     end
   end
 
@@ -58,7 +62,7 @@ class ReceiversController < ApplicationController
       redirect_to new_receiver_contact_detail_path(@user), notice: 'Tax ID Verified!'
       # end
     else
-      redirect_to verify_receiver_path(@user), notice: 'Could not verify Tax ID. Please ensure only numbers are entered into the Tax ID box and try again or contact support.'
+      redirect_to verify_receiver_path(@user), notice: 'Could not verify Tax ID. Please ensure all information is filled out, with only numbers are entered into the Tax ID box. If the problem persists, please contact support.'
     end
   end
 
