@@ -7,7 +7,7 @@
     .row
       .col-md-10.col-md-offset-1
         = f.association :categories, as: :check_boxes, collection: Category.all.to_a, label_method: :name, label: 'Check the food categories you are not able to receive:'
-        = f.association :storage_temps, as: :check_boxes, collection: StorageTemp.all.to_a, label_method: :description, label: 'Check the starge methods you are not able to accomodate:'
+        = f.association :storage_temps, as: :check_boxes, collection: StorageTemp.all.to_a, label_method: :description, label: 'Check the storage methods you are not able to accomodate:'
     %br
     .row
       %h5.text-center If you have no restrictions click the "Save & Continue" button below to continue.
