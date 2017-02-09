@@ -30,7 +30,11 @@ class ContactDetailsController < ApplicationController
     if @contact_detail.update(contact_detail_params)
       redirect_to receiver_contact_detail_path(@user, @contact_detail), notice: 'Contact details successfully updated.'
     else
-      render :new, notice: 'Could not save contact details at this time. Please try again.'
+      if @user.intake_survey_completed
+        render :edit, notice: 'Could not save contact details at this time. Please try again.'
+      else
+        render :new, notice: 'Could not save contact details at this time. Please try again.'
+      end
     end
   end
 
