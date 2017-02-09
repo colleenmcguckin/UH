@@ -4,11 +4,15 @@
       .show-portlet
         .portlet-title
           .caption
-            %i.glyphicon.glyphicon-cutlery
-            %span.caption-subject.text-uppercase
-              = @receiver.agency_name&.upcase
-            %span.caption-helper
-              Waiting on #{@receiver.pending_donation_count} donation#{'s' if @receiver.pending_donation_count != 1}
+            .row
+              .col-sm-8
+                %i.glyphicon.glyphicon-cutlery
+                %span.caption-subject.text-uppercase
+                  = @receiver.agency_name&.upcase
+                %span.caption-helper
+                  Waiting on #{@receiver.pending_donation_count} donation#{'s' if @receiver.pending_donation_count != 1}
+              .col-sm-1.col-sm-offset-3
+                = link_to 'Add To Current Donation', donation_add_receiver_path(@donation, receiver_id:  @receiver.id), class: 'btn btn-success'
         .portlet-body
           - if @receiver.web_url
             .row
@@ -119,19 +123,19 @@
           .row
             .col-sm-6
               = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @receiver.donation_schedules, editable: false}
-            .col-sm-3.col-sm-offset-3
-              = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  @receiver.id), class: 'btn btn-success'
 
   - elsif @user.receiver?
     .row
       .show-portlet
         .portlet-title
           .caption
-            %i.glyphicon.glyphicon-cutlery
-            %span.caption-subject.text-uppercase
-              My Profile
-            %span.caption-helper
-              =link_to "Waiting on #{@user.pending_donation_count} donation#{'s' if @user.pending_donation_count != 1}", receiver_donations_path(@user)
+            .row
+              .col-sm-8
+                %i.glyphicon.glyphicon-cutlery
+                %span.caption-subject.text-uppercase
+                  My Profile
+                %span.caption-helper
+                  =link_to "Waiting on #{@user.pending_donation_count} donation#{'s' if @user.pending_donation_count != 1}", receiver_donations_path(@user)
         .portlet-body
           -if @user.web_url
             .row

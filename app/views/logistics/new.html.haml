@@ -50,7 +50,7 @@
                   =f.input :freezer_type, as: :collection_select, collection: ['Upright', 'Walk-in', 'n/a'], label: 'What type of freezer does your facility use?'
                   =f.input :refrigerator_type, as: :collection_select, collection: ['Upright', 'Walk-in', 'n/a'], label: 'What type of refrigerator does your facility use?'
                   =f.input :indoor_dry_storage, as: :collection_select, collection: %w[Yes No], label: 'Do you have indoor dry storage space?'
-                  =f.input :safe_handling_program, as: :string, label: 'What safe food handling or public health certification is in place?'
+                  =f.input :safe_handling_program, as: :collection_select, collection: ['Trained Staff', 'Serve Safe', 'Food Safety Manager National Registry of Food Safety Professionals', 'National registry of food safety professionals'], label: 'What safe food handling or public health certification is in place?'
                   =f.input :meal_usage, as: :collection_select, collection: ['We provide meals or groceries only.', 'Providing meals is part of a larger program we offer.'], label: 'How does the donation of fresh food fit into your organization?'
                   =f.input :meal_distribution_frequency, as: :collection_select, collection: ['Multiple times per day', 'Daily', 'Multiple times per week', 'Weekly', 'Other', 'n/a'], label: 'How often do you provide food to your clients?'
                   =f.association :contributions, as: :check_boxes, collection: Contribution.all.to_a, label_method: :name, label: 'Food for your program is provided by:'
