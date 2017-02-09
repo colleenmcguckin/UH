@@ -10,7 +10,7 @@
       = @user.donor? ? 'Donor' : 'Receiving Agency'
       Profile
   .profile-userbuttons
-    -if @user.donor?
+    -if @user.donor? && @user.profile_completed?
       = simple_form_for [@user, @new_donation] do |f|
         = f.error_notification
         = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'

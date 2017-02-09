@@ -15,4 +15,12 @@ class Donor < ActiveRecord::Base
     false
   end
 
+  def profile_completed?
+    if contact_phone && contact_email && contact_name
+      return true
+    else
+      false
+    end
+  end
+
 end

@@ -1,7 +1,7 @@
 .profile-content
   .row
     .col-sm-6.col-sm-offset-3
-      %h1 Add Item To Donation #{@donation.id}
+      %h1 Add Food Item To Donation #{@donation.id}
 
       = simple_form_for [@user, @donation, @donation_item], url: donor_donation_donation_items_path, method: :post do |f|
         = f.error_notification

@@ -74,12 +74,17 @@
                       = item.quantity
                       = item.quantity_type.titleize
                   -else
-                    = link_to 'Add Item', new_donor_donation_donation_item_path(@user, donation) unless donation.donated?
+                    = link_to 'Add Food Item', new_donor_donation_donation_item_path(@user, donation) unless donation.donated?
                     %br
                 %td
                   = donation.tracking_code if donation.donated?
                 %td
                   = donation_status_text donation
-        = simple_form_for [@user, @new_donation] do |f|
-          = f.error_notification
-          = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'
+        - if @user.profile_completed?
+          = simple_form_for [@user, @new_donation] do |f|
+            = f.error_notification
+            = f.button :submit, 'Start New Donation', class: 'btn btn-success btn-md'
+        - else
+          %h5.text-center.red You must complete your profile before starting a new donation.
+          .text-center
+            = link_to 'Edit Profile', edit_donor_path(@user), class: 'btn btn-primary'

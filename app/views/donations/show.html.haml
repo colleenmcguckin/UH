@@ -190,7 +190,7 @@
         .panel-body
           .row
             .col-md-4.offset-md-8
-              = link_to 'Add Item', new_donor_donation_donation_item_path(@user, @donation), class: 'btn btn-primary' unless @user.receiver? || @donation.donated?
+              = link_to 'Add Food Item', new_donor_donation_donation_item_path(@user, @donation), class: 'btn btn-primary' unless @user.receiver? || @donation.donated?
         %table.table.table-striped
           %thead
             %th

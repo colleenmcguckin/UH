@@ -6,6 +6,9 @@
           %h3.panel-title Your Foods
         .panel-body
           .row
+            .col-sm-12
+              %p This is your overall list of foods. You can add food items to this list. A food item must be added to this list before it can be added to a donation.
+          .row
             .col-md-4.offset-md-8
               = link_to 'Add Food', new_donor_food_path(@user), class: 'btn btn-primary'
         %table.table.table-striped

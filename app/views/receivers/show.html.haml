@@ -139,19 +139,35 @@
                 = link_to 'My Website', @user.website
           .row
             .col-md-3
-              %h5 Incoming Items:
+              %h4 Incoming Items:
               - pending_items_in_strings(@user).each do |item|
                 = item
             .col-md-3
-              %h5= link_to 'Restrictions', receiver_restriction_path(@user, @user.restrictions.first)
+              %h4
+                Restrictions
+                = link_to 'Edit', edit_receiver_restriction_path(@user, @user.restrictions.first)
               - @user.restrictions.each do |restriction|
-                - restriction.categories.each do |category|
-                  = category.name
+                %h5
+                  Food Categories
+                - if restriction.categories.any?
+                  - restriction.categories.each do |category|
+                    = category.name
+                    %br
+                - else
+                  = 'None Set'
                 %br
-                - restriction.storage_temps.each do |storage_temp|
-                  = storage_temp.description
+                %h5
+                  Storage Temperatures
+                - if restriction.storage_temps.any?
+                  - restriction.storage_temps.each do |storage_temp|
+                    = storage_temp.description
+                    %br
+                - else
+                  = 'No Storage Temperature Restrictions Set'
             .col-md-3
-              %h5= link_to 'Location', edit_receiver_path(@user)
+              %h4
+                Location
+                = link_to 'Edit', edit_receiver_path(@user)
               %p
                 = @user.street_address
                 %br
@@ -246,3 +262,84 @@
           .row
             .col-sm-8.col-sm-offset-2
               = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @user.donation_schedules, editable: true}
+        %br
+        .portlet-title
+          .caption
+            %i.glyphicon.glyphicon-list-alt
+            %span.caption-subject.text-uppercase
+              Logistical Details
+              = link_to 'Edit', edit_receiver_logistic_path(@user, @user.logistics.first)
+        .portlet-body
+          .row
+            .col-sm-6
+              %h4 Transportation Details
+              %table.table
+                %thead
+                  %th
+                  %th
+                %tbody
+                  %tr
+                    %td
+                      Transportation available?
+                    %td
+                      = @user.logistics.first&.transportation_available
+                  %tr
+                    %td
+                      Driver Details
+                    %td
+                      = @user.logistics.first&.driver_status
+                  %tr
+                    %td
+                      Insurance Status
+                    %td
+                      = @user.logistics.first&.insurance_status
+                  %tr
+                    %td
+                      Vehicle Details
+                    %td
+                      = @user.logistics.first&.vehicle_style
+            .col-sm-6
+              %h4 Storage Details
+              %table.table
+                %thead
+                  %th
+                  %th
+                %tbody
+                  %tr
+                    %td
+                      Freezer Type
+                    %td
+                      = @user.logistics.first&.freezer_type
+                  %tr
+                    %td
+                      Refrigerator Type
+                    %td
+                      = @user.logistics.first&.refrigerator_type
+                  %tr
+                    %td
+                      Indoor Dry Storage?
+                    %td
+                      = @user.logistics.first&.indoor_dry_storage
+          .row
+            .col-sm-6
+              %h4 Other Details
+              %table.table
+                %thead
+                  %th
+                  %th
+                %tbody
+                  %tr
+                    %td
+                      Safe Handling Program
+                    %td
+                      = @user.logistics.first&.safe_handling_program
+                  %tr
+                    %td
+                      Meal Usage
+                    %td
+                      = @user.logistics.first&.meal_usage
+                  %tr
+                    %td
+                      Distribution Frequency
+                    %td
+                      = @user.logistics.first&.meal_distribution_frequency
