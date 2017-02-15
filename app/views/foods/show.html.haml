@@ -26,9 +26,9 @@
     .col-md-4
       .panel.panel-default
         .panel-heading
-          %h3.panel-title Prepared Meal?
+          %h3.panel-title Prepared Food?
         .panel-body
-          = @food.prepared_meal.to_s.titleize
+          = @food.prepared_meal ? 'Yes' : 'No'
     .col-md-4
       .panel.panel-default
         .panel-heading

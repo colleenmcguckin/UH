@@ -13,8 +13,9 @@
             %td
               -if donation.receiver
                 = link_to "#{donation.receiver.agency_name.titleize}", donor_donation_receiver_path(donation.donor, donation, donation.receiver)
+                = link_to "Edit", donor_donation_receivers_path(@user, donation), class: 'btn btn-primary btn-xs'
               -elsif donation.items.any?
-                = link_to 'Add Receiver', donor_donation_receivers_path(@user, donation)
+                = link_to 'Assign Receiver', donor_donation_receivers_path(@user, donation)
             %td
               = format_date_long donation.created_at
             %td

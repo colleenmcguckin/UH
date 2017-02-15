@@ -4,3 +4,4 @@
       %h1 Add Food
       %h5 Food added here will appear on your list of foods to donate.
       = render partial: 'form'
+      = link_to 'Cancel', donor_foods_path(@user)

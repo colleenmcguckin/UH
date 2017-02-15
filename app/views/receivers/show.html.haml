@@ -12,12 +12,12 @@
                 %span.caption-helper
                   Waiting on #{@receiver.pending_donation_count} donation#{'s' if @receiver.pending_donation_count != 1}
               .col-sm-1.col-sm-offset-3
-                = link_to 'Add To Current Donation', donation_add_receiver_path(@donation, receiver_id:  @receiver.id), class: 'btn btn-success'
+                = link_to 'Assign', donation_add_receiver_path(@donation, receiver_id:  @receiver.id), class: 'btn btn-success'
         .portlet-body
           - if @receiver.web_url
             .row
               .col-md-12
-                = link_to 'Visist Website', @receiver.website
+                = link_to 'Visit Website', @receiver.website
           .row
             .col-md-3
               %h5 Incoming Items:

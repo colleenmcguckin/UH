@@ -63,7 +63,7 @@ end
   'Grains',
   'Dairy',
   'Shelf Stable',
-  'Prepared Meal',
+  'Prepared Food',
   'Faith Based'].each do |name|
   Category.create(
     name: name

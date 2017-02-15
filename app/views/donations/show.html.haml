@@ -16,13 +16,13 @@
                 %span.caption-subject.text-uppercase
                   = @donation.receiver.agency_name&.upcase
                 %span.caption-helper
-                  = link_to 'Edit Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated?
+                  = link_to 'Change Receiver', donor_donation_receivers_path(@user, @donation), class: 'btn btn-primary btn-xs' unless @donation.donated?
               .actions
                 %a.btn{'data-toggle': "modal", 'data-target': "##{@donation.receiver.id}_contact"}
                   %i.glyphicon.glyphicon-phone-alt
                 %a.btn{'data-toggle': "modal", 'data-target': "##{@donation.receiver.id}_schedule"}
                   %i.glyphicon.glyphicon-calendar
-                = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, @donation.receiver), class: 'btn'
+                = link_to 'Details', donor_donation_receiver_path(@donation.donor, @donation, @donation.receiver), class: 'btn'
             .portlet-body
               .row
                 .col-md-3
@@ -134,11 +134,10 @@
                       = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @donation.receiver.donation_schedules, editable: false}
         - else
           %h3
-            No receiving agency yet.
-            - if @donation.items.any?
-              = link_to 'Add one now', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
-            - else
-              Add your items before selecting a receiver.
+            -# - if @donation.items.any?
+            -#   = link_to 'Assign A Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
+            -# - else
+            Add your items before selecting a receiver.
   - elsif @user.receiver?
     .row
       .col-md-12
@@ -177,9 +176,8 @@
                           = @donation.donor.contact_email
         - else
           %h3
-            No receiving agency yet.
             - if @donation.items.any?
-              = link_to 'Add one now', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
+              = link_to 'Assign Receiver', donor_donation_receivers_path(@user, @donation) unless @donation.donated? || @donation.items.none?
             - else
               Add your items before selecting a receiver.
   .row

@@ -1,16 +1,16 @@
 .profile-content
   .row
     .col-sm-6.col-sm-offset-3
-      %h1 Add Food Item To Donation #{@donation.id}
+      %h1 Add Food Item
 
+  .row
+    .col-sm-6.col-sm-offset-3
+      %h5 Don't see what you're looking for below? Add a new food to your food list above with this button:
+      = link_to "New Food", new_donor_food_path(@user), class: 'btn btn-primary'
+      %hr
       = simple_form_for [@user, @donation, @donation_item], url: donor_donation_donation_items_path, method: :post do |f|
         = f.error_notification
         = f.association :food, collection: @user.foods, value_method: :id, label_method: :name
         = f.input :quantity
         = f.input :quantity_type, as: :collection_select, collection: DonationItem::QUANTITY_TYPES
         = f.button :submit, 'Add to Donation', class: 'btn btn-success'
-
-  .row
-    .col-sm-6.col-sm-offset-3
-      %h5 Don't see what you're looking for? Add a new food to the list above with this button:
-      = link_to "New Food", new_donor_food_path(@user), class: 'btn btn-primary'

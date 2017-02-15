@@ -3,11 +3,14 @@
     .col-md-12
       .panel.panel-default
         .panel-heading
-          %h3.panel-title Your Foods
+          %h3.panel-title My Foods
         .panel-body
           .row
             .col-sm-12
-              %p This is your overall list of foods. You can add food items to this list. A food item must be added to this list before it can be added to a donation.
+              %p
+                This is your overall list of foods.
+                %br You can add food items to this list.
+                A food item must be added to this list before it can be added to a donation.
           .row
             .col-md-4.offset-md-8
               = link_to 'Add Food', new_donor_food_path(@user), class: 'btn btn-primary'
@@ -20,7 +23,7 @@
             %th
               Storage
             %th
-              Prepared Meal?
+              Prepared Food?
             %th
               Category
             %th
@@ -35,7 +38,7 @@
                 %td
                   = food.storage_temp
                 %td
-                  = food.prepared_meal
+                  = food.prepared_meal ? 'Yes' : 'No'
                 %td
                   = food.category.name
                 - if @user.donor?

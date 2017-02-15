@@ -34,7 +34,8 @@
                       %i.glyphicon.glyphicon-phone-alt
                     %a.btn{'data-toggle': "modal", 'data-target': "##{receiver.id}_schedule"}
                       %i.glyphicon.glyphicon-calendar
-                    = link_to 'See More', donor_donation_receiver_path(@donation.donor, @donation, receiver), class: 'btn'
+                    = link_to 'Details', donor_donation_receiver_path(@donation.donor, @donation, receiver), class: 'btn'
+                    = link_to 'Assign', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-assign'
                 .portlet-body
                   - if receiver.web_url
                     .row
@@ -64,8 +65,9 @@
                       .row
                         .col-xs-12
                           .text-center
-                            = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{receiver.latitude},#{receiver.longitude}&markers=#{receiver.latitude},#{receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
-                                        class: 'img-responsive img-rounded', alt: "#{receiver.agency_name} on the map"
+                            %iframe{ src: "//www.google.com/maps/embed/v1/place?q=#{receiver.latitude},#{receiver.longitude}&zoom=7&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8"}
+                            -# = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{receiver.latitude},#{receiver.longitude}&markers=#{receiver.latitude},#{receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+                            -#             class: 'img-responsive img-rounded', alt: "#{receiver.agency_name} on the map"
                       - if receiver.transportation_available?
                         %br
                         .row
@@ -137,8 +139,8 @@
                                 %i.glyphicon.glyphicon-envelope
                               %td
                                 = receiver.contact_details.first&.contact_email
-                  .modal-footer
-                    = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
+                  -# .modal-footer
+                  -#   = link_to 'Assign Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
             .modal.fade{role: "dialog", id: "#{receiver.id}_schedule"}
               .modal-dialog
                 / Modal content
@@ -153,8 +155,8 @@
                     .row
                       .col-sm-9
                         = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: receiver.donation_schedules, editable: false}
-                  .modal-footer
-                    = link_to 'Add Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
+                  -# .modal-footer
+                  -#   = link_to 'Assign Receiver', donation_add_receiver_path(@donation, receiver_id:  receiver.id), class: 'btn btn-primary'
       .row
         .col-md-12.text-center
           = paginate @receivers
