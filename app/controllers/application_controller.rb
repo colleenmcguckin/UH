@@ -40,13 +40,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_up_path_for(resource)
-    if resource.is_a(Receiver)
-      verify_receiver_path resource
-    else
-      super
-    end
-  end
+  # def after_sign_up_path_for(resource)
+  #   if resource.is_a(Receiver)
+  #     verify_receiver_path resource
+  #   elsif resource.is_a(Donor)
+  #     edit_donor_path resource
+  #   else
+  #     super
+  #   end
+  # end
 
   def load_new_donation
     @new_donation = Donation.new

@@ -1,5 +1,5 @@
 class Donation < ActiveRecord::Base
-  
+
   belongs_to :receiver
   belongs_to :donor
 
@@ -51,4 +51,9 @@ class Donation < ActiveRecord::Base
     self.received_at = Time.current
     self.save
   end
+
+  def summary_completed?
+    true if !total_weight.empty? && total_meals && total_value_dollars
+  end
+
 end
