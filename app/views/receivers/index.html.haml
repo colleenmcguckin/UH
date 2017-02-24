@@ -8,8 +8,8 @@
           %li
             = simple_form_for :search, url: donor_donation_receivers_path(@donation.donor, @donation), method: :get, html: {class: 'form-inline'} do |f|
               .form-group
-                = f.input :distance, as: :select, collection: %w[5 10 20 30 50], label: 'Search within ', class: 'search-form', input_html: {style: 'margin-left: 10px;'}
-                = f.input :zip, label: ' miles of ', class: 'search-form', input_html: {style: 'margin-left: 10px;'}
+                = f.input :distance, as: :select, collection: %w[5 10 20 30 50], label: 'Search within ', class: 'search-form', selected: (params[:search][:distance] if params[:search]), input_html: {style: 'margin-left: 10px;'}
+                = f.input :zip, label: ' miles of ', class: 'search-form', input_html: {style: 'margin-left: 10px;'}, input_html: { value: params[:search] ? params[:search][:zip] : '' }
                 = f.button :submit, 'Go!', class: 'search-form', input_html: {style: 'margin-left: 10px;'}
             %br
           = link_to 'Clear Search', donor_donation_receivers_path(@donation.donor, @donation, distance: '', zip: ''), class: 'btn btn-primary', id: 'clear-search'
