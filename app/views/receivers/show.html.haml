@@ -9,9 +9,10 @@
                 %i.glyphicon.glyphicon-cutlery
                 %span.caption-subject.text-uppercase
                   = @receiver.agency_name&.upcase
+                  %br
                 %span.caption-helper
                   Waiting on #{@receiver.pending_donation_count} donation#{'s' if @receiver.pending_donation_count != 1}
-              .col-sm-1.col-sm-offset-3
+              .col-sm-1
                 = link_to 'Assign', donation_add_receiver_path(@donation, receiver_id:  @receiver.id), class: 'btn btn-success'
         .portlet-body
           - if @receiver.web_url
@@ -19,11 +20,11 @@
               .col-md-12
                 = link_to 'Visit Website', @receiver.website
           .row
-            .col-md-3
-              %h5 Incoming Items:
-              - pending_items_in_strings(@receiver).each do |item|
-                = item
-            .col-md-3
+            -# .col-md-3
+            -#   %h5 Incoming Items:
+            -#   - pending_items_in_strings(@receiver).each do |item|
+            -#     = item
+            .col-md-4
               %h5 Restrictions:
               - @receiver.restrictions.each do |restriction|
                 - restriction.categories.each do |category|
@@ -32,18 +33,20 @@
                 - restriction.storage_temps.each do |storage_temp|
                   = storage_temp.description
                 %br
-            .col-md-3
+            .col-md-4
               %h5 Location:
               %p
                 = @receiver.street_address
                 %br
                 = "#{@receiver.city}, #{@receiver.state} #{@receiver.zip}"
-            .col-md-3
-              .row
-                .col-xs-12
-                  .text-center
-                    = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@receiver.latitude},#{@receiver.longitude}&markers=#{@receiver.latitude},#{@receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
-                                class: 'img-responsive img-rounded', alt: "#{@receiver.agency_name} on the map"
+            .col-md-4
+              -# .row
+              -#   .col-xs-12
+              -#     .text-center
+              .google-maps
+                %iframe{ src: "//www.google.com/maps/embed/v1/place?q=#{@receiver.latitude},#{@receiver.longitude}&zoom=7&key=AIzaSyC8IbYzdu0iQ-rIrgFgKJKJ8FR1f7q_C9g"}
+                -# = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@receiver.latitude},#{@receiver.longitude}&markers=#{@receiver.latitude},#{@receiver.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+                -#               class: 'img-responsive img-rounded', alt: "#{@receiver.agency_name} on the map"
               - if @receiver.transportation_available?
                 %br
                 .row

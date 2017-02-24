@@ -10,7 +10,7 @@ class ReceiversController < ApplicationController
       if params[:search]
         @receivers = Receiver.unpaused.filter(@donation).near(params[:search][:zip], params[:search][:distance].to_i).order(:agency_name).page params[:page]
       else
-        @receivers = Receiver.unpaused.filter(@donation).order(:agency_name).page params[:page]
+        @receivers = []
       end
     end
 
