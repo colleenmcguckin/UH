@@ -56,11 +56,11 @@ class ReceiversController < ApplicationController
   end
 
   def check_verification
-    if @user.update(receiver_params) #&& @user.verify!
-      # @user.verified_at = Time.current
-      # if @user.save!
-      redirect_to new_receiver_contact_detail_path(@user), notice: 'Tax ID Verified!'
-      # end
+    if @user.update(receiver_params) && @user.verify!
+      @user.verified_at = Time.current
+      if @user.save!
+        redirect_to new_receiver_contact_detail_path(@user), notice: 'Tax ID Verified!'
+      end
     else
       redirect_to verify_receiver_path(@user), notice: 'Could not verify Tax ID. Please ensure all information is filled out, with only numbers are entered into the Tax ID box. If the problem persists, please contact support.'
     end

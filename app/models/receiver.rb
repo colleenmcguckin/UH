@@ -32,6 +32,7 @@ class Receiver < ActiveRecord::Base
   validates :agency_name, :street_address, :city, :state, :zip, presence: true, on: :update
   validates_numericality_of :zip, on: :update
   validates_length_of :zip, is: 5, on: :update, message: 'must be 5 Digits.'
+
   def donor?
     false
   end
