@@ -53,7 +53,7 @@ class Donation < ActiveRecord::Base
   end
 
   def summary_completed?
-    true if !total_weight.empty? && total_meals && total_value_dollars
+    true if !total_weight.blank? && total_meals && total_value_dollars
   end
 
 end
