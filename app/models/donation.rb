@@ -4,15 +4,15 @@ class Donation < ActiveRecord::Base
   belongs_to :donor
 
   has_many :items, class_name: 'DonationItem'
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, allow_destroy: true
   before_save :add_tracking_code, on: [:donate]
 
   with_options if: :donated_at do |donation|
     donation.validates :tracking_code, uniqueness: true
   end
 
-  scope :donated, ->{ where(donated_at: 'IS NOT NULL') }
-  scope :received, -> { donated.where(received_at: 'IS NOT NULL') }
+  scope :donated, ->{ where.not(donated_at: nil) }
+  scope :received, -> { donated.where.not(received_at: nil) }
 
   def add_item food, quantity, quantity_type
     items.new food_id: food.id, quantity: quantity, quantity_type: quantity_type

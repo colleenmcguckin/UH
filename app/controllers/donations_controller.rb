@@ -103,13 +103,13 @@ class DonationsController < ApplicationController
       :donor_id,
       :receiver_id,
       :tracking_code,
-      :confirmed_at,
+      :confirmed_by_donor_at,
       :donated_at,
       :received_at,
       :total_meals,
       :total_value_dollars,
       :total_weight,
-      items: []
+      items_attributes: [:food, :quantity, :quantity_type]
     )
   end
 

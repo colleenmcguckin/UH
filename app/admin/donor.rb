@@ -14,18 +14,18 @@ ActiveAdmin.register Donor do
 # end
 
   index do
-   column(:agency_name)
-   column(:contact_name)
-   column(:city)
-   column(:state)
-   column 'Completed Donations' do |donor|
-     donor.donations.select{ |d| d.received? }.count
-   end
-   column 'Waiting for Confirmation' do |donor|
-     donor.donations.select{ |d| d.donated? }.reject{ |d| d.received? }.count
-   end
-   column(:last_sign_in_at)
-   actions
+    column(:agency_name)
+    column(:contact_name)
+    column(:city)
+    column(:state)
+    column 'Completed Donations' do |donor|
+      donor.donations.select{ |d| d.received? }.count
+    end
+    column 'Waiting for Confirmation' do |donor|
+      donor.donations.select{ |d| d.donated? }.reject{ |d| d.received? }.count
+    end
+    column(:last_sign_in_at)
+    actions
   end
 
   filter :email
@@ -75,6 +75,10 @@ ActiveAdmin.register Donor do
         end
       end
     end
+  end
+
+  form do
+    
   end
 
 end

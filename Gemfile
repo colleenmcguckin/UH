@@ -39,6 +39,7 @@ gem 'geocoder'
 
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin.git'
 gem 'responsive_active_admin'
+gem 'activeadmin_addons'
 
 gem 'pry'
 gem 'pry-doc'
@@ -47,6 +48,9 @@ gem 'pry-theme'
 gem 'pry-rails' # for nice rails console in production
 gem 'awesome_print'
 gem "http"
+
+gem 'select2-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

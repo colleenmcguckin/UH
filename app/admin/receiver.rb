@@ -43,7 +43,7 @@ ActiveAdmin.register Receiver do
       row :last_sign_in_ip
     end
 
-    table_for donor.donations do
+    table_for receiver.donations do
       column "Donor", :donor do |d|
         link_to(d.donor.agency_name, admin_donor_path(d.donor))
       end
@@ -72,6 +72,10 @@ ActiveAdmin.register Receiver do
         end
       end
     end
+  end
+
+  form do
+    
   end
 
 end

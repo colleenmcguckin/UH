@@ -145,11 +145,11 @@
               .col-md-12
                 = link_to 'My Website', @user.website
           .row
-            .col-md-3
+            .col-md-4
               %h4 Incoming Items:
               - pending_items_in_strings(@user).each do |item|
                 = item
-            .col-md-3
+            .col-md-4
               %h4
                 Restrictions
                 = link_to 'Edit', edit_receiver_restriction_path(@user, @user.restrictions.first)
@@ -171,7 +171,7 @@
                     %br
                 - else
                   = 'No Storage Temperature Restrictions Set'
-            .col-md-3
+            .col-md-4
               %h4
                 Location
                 = link_to 'Edit', edit_receiver_path(@user)
@@ -179,33 +179,33 @@
                 = @user.street_address
                 %br
                 = "#{@user.city}, #{@user.state} #{@user.zip}"
-            .col-md-3
-              .row
-                .col-xs-12
-                  .text-center
-                    = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@user.latitude},#{@user.longitude}&markers=#{@user.latitude},#{@user.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
-                                class: 'img-responsive img-rounded', alt: "#{@user.agency_name} on the map"
-                %br
-                .row
-                  .col-xs-12
-                    .text-center
-                      - if @user.transportation_available?
-                        %i.glyphicon.glyphicon-ok
-                        You offer Pick-Up
-                      - else
-                        %i.glyphicon.glyphicon-remove
-                        You do not offer Pick-Up
-                      %br
-                      - if @user.logistics.any?
-                        = link_to 'Edit', receiver_logistic_path(@user, @user.logistics.first)
-                      - else
-                        = link_to 'Edit', new_receiver_logistic_path(@user)
-        .portlet-title
+            -# .col-md-3
+            -#   .row
+            -#     .col-xs-12
+            -#       .text-center
+            -#         = image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@user.latitude},#{@user.longitude}&markers=#{@user.latitude},#{@user.longitude}&zoom=7&size=250x250&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",
+            -#                     class: 'img-responsive img-rounded', alt: "#{@user.agency_name} on the map"
+            -#     %br
+            -#     .row
+            -#       .col-xs-12
+            -#         .text-center
+            -#           - if @user.transportation_available?
+            -#             %i.glyphicon.glyphicon-ok
+            -#             You offer Pick-Up
+            -#           - else
+            -#             %i.glyphicon.glyphicon-remove
+            -#             You do not offer Pick-Up
+            -#           %br
+            -#           - if @user.logistics.any?
+            -#             = link_to 'Edit', receiver_logistic_path(@user, @user.logistics.first)
+            -#           - else
+            -#             = link_to 'Edit', new_receiver_logistic_path(@user)
+        .portlet-title-top-border
           .caption
             %i.glyphicon.glyphicon-earphone
             %span.caption-subject.text-uppercase
               Contact Info
-              = link_to 'Edit', receiver_contact_detail_path(@user, @user.contact_details.first)
+              = link_to 'Edit', edit_receiver_contact_detail_path(@user, @user.contact_details.first)
         .portlet-body
           .row
             .col-sm-6
@@ -259,7 +259,7 @@
                       %i.glyphicon.glyphicon-envelope
                     %td
                       = @user.contact_details.first&.contact_email
-        .portlet-title
+        .portlet-title-top-border
           .caption
             %i.glyphicon.glyphicon-calendar
             %span.caption-subject.text-uppercase
@@ -270,7 +270,7 @@
             .col-sm-8.col-sm-offset-2
               = render partial: 'donation_schedules/table_schedule', locals: { donation_schedules: @user.donation_schedules, editable: true}
         %br
-        .portlet-title
+        .portlet-title-top-border
           .caption
             %i.glyphicon.glyphicon-list-alt
             %span.caption-subject.text-uppercase

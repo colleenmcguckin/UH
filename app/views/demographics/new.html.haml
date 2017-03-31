@@ -14,7 +14,7 @@
         .panel-heading
           %h4.panel-title
             %span.glyphicon.glyphicon-ok
-            Enter Contact Details
+            Enter Contact Information
   .row
     .col-sm-10.col-sm-offset-1
       .panel.panel-success
@@ -39,12 +39,12 @@
                   %h4.text-center Gender
                   %hr.featurette-divider
                   .row
-                    .col-md-4
+                    .col-md-6
                       =f.input :percent_male, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Male"
-                    .col-md-4
+                    .col-md-6
                       =f.input :percent_female, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Female"
-                    .col-md-4
-                      =f.input :percent_other_gender, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Other"
+                    -# .col-md-4
+                      -# =f.input :percent_other_gender, as: :radio_buttons, collection: Demographic::PERCENTAGE_RANGES, label: "% Other"
                 .col-md-6
                   %h4.text-center Age
                   %hr.featurette-divider

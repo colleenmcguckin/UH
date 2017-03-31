@@ -1,15 +1,9 @@
 .profile-content
-  %h3 Edit Contact Details
+  %h3 Edit Contact Info
   = simple_form_for([@user, @contact_detail]) do |f|
     = f.error_notification
     .form-inputs
       .row
-        .col-md-6
-          %h4.text-center General Contact Information
-          %hr.featurette-divider
-          = f.input :contact_name
-          = f.input :contact_phone, as: :tel
-          = f.input :contact_email
         .col-md-6
           %h4.text-center Daily Food Recovery Contact Information
           %hr.featurette-divider
@@ -18,6 +12,12 @@
           =f.input :dfr_contact_office_phone, as: :tel, label: 'Daily Food Recovery Contact Phone'
           =f.input :dfr_contact_cell_phone, label: 'Daily Food Recovery Contact Cell Phone'
           =f.input :dfr_preferred_contact_method, label: 'Daily Food Recovery Preferred Contact Method', as: :select, collection: %w[cell office email]
+        .col-md-6
+          %h4.text-center General Contact Information
+          %hr.featurette-divider
+          = f.input :contact_name
+          = f.input :contact_phone, as: :tel
+          = f.input :contact_email
       %hr.featurette-divider
     .text-sm-right
       .form-actions
