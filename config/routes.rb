@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get 'login', to: 'home#login'
   get 'register', to: 'home#register'
 
-  devise_for :receivers, controllers: { registrations: "registrations" }
-  devise_for :donors, controllers: { registrations: "registrations" }
+  devise_for :receivers, controllers: { registrations: "registrations", sessions: "sessions" }
+  devise_for :donors, controllers: { registrations: "registrations", sessions: "sessions" }
   resources :donors do
     resources :foods
     resources :donations, except: [:new] do
