@@ -10,6 +10,7 @@ module ApplicationHelper
   end
 
   def am_or_pm hour
+    return if hour.nil?
     if hour < 12
       'am'
     else
@@ -18,10 +19,19 @@ module ApplicationHelper
   end
 
   def twelve_hour hour
+    return if hour.nil?
     if hour > 12
       hour - 12
     else
       hour.zero? ? 12 : hour
+    end
+  end
+
+  def table_schedule_text day
+    if day.closed?
+      "#{day.day_of_week_in_words.upcase}: Closed"
+    else
+      "#{day.day_of_week_in_words.upcase}: #{twelve_hour(day.open_at_hour)}:#{minutes_to_string(day.open_at_minute)} #{am_or_pm(day.open_at_hour)} to #{twelve_hour(day.close_at_hour)}:#{minutes_to_string(day.close_at_minute)} #{am_or_pm(day.close_at_hour)}"
     end
   end
 

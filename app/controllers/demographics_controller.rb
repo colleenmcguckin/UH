@@ -55,6 +55,7 @@ class DemographicsController < ApplicationController
       :percent_pacific_islander,
       :percent_white,
       :percent_portuguese,
+      :percent_other_nationality,
       :percent_single_no_kids,
       :percent_single_with_kids,
       :percentage_married_no_kids,

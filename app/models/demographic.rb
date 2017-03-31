@@ -4,7 +4,6 @@ class Demographic < ActiveRecord::Base
 
   validates :percent_male, presence: true
   validates :percent_female, presence: true
-  validates :percent_other_gender, presence: true
   validates :percent_youth, presence: true
   validates :percent_adult, presence: true
   validates :percent_senior, presence: true

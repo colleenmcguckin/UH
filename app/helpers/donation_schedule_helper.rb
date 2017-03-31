@@ -1,6 +1,8 @@
 module DonationScheduleHelper
 
   def minutes_to_string(minutes)
+    return if minutes.nil?
+
     if minutes.zero?
       '00'
     elsif minutes == 5

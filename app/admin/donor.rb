@@ -3,7 +3,7 @@ ActiveAdmin.register Donor do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-# permit_params :list, :of, :attributes, :on, :model
+permit_params :email, :agency_name, :street_address, :city, :state, :zip, :contact_name, :contact_email, :contact_phone, :web_url
 #
 # or
 #
@@ -77,8 +77,20 @@ ActiveAdmin.register Donor do
     end
   end
 
-  form do
-    
+  form do |f|
+    inputs "Donor Details" do
+      input :email
+      input :agency_name
+      input :street_address
+      input :city
+      input :state
+      input :zip
+      input :contact_name
+      input :contact_email
+      input :contact_phone
+      input :web_url
+    end
+    actions
   end
 
 end
