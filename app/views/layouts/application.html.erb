@@ -16,7 +16,7 @@
 
   <% if @user %>
     <div class='col-sm-3'>
-      <%= render partial: 'layouts/sidebar' %>
+      <%= render partial: 'layouts/sidebar' unless @user.admin? %>
     </div>
 
     <div class='col-sm-9'>

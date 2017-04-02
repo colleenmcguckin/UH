@@ -12,13 +12,17 @@ class Receiver < ActiveRecord::Base
   has_many :donations
   has_many :donation_schedules
   has_many :contact_details
+  accepts_nested_attributes_for :contact_details
   has_many :demographics
   accepts_nested_attributes_for :demographics
   has_many :programs
+  accepts_nested_attributes_for :programs
   has_many :dietary_restrictions, through: :programs
   has_many :logistics
+  accepts_nested_attributes_for :logistics
   has_many :contributions, through: :logistics
   has_many :restrictions
+  accepts_nested_attributes_for :restrictions
 
   after_create :setup_schedule
   after_validation :geocode, if: ->(obj){ obj.street_address.present? and obj.street_address_changed? }

@@ -8,4 +8,8 @@ class RegistrationsController < Devise::RegistrationsController
       edit_donor_path resource
     end
   end
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end

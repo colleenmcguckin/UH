@@ -21,13 +21,15 @@ class DonationSchedulesController < ApplicationController
 
   def edit
     load_donation_schedules
-    @donation_schedule = @user.donation_schedules.find params[:id]
+    @donation_schedule = @donation_schedules.find params[:id]
   end
 
   def update
-    @donation_schedule = @user.donation_schedules.find params[:id]
+    @receiver = Receiver.find params[:receiver_id]
+
+    @donation_schedule = @receiver.donation_schedules.find params[:id]
     if @donation_schedule.update donation_schedule_params
-      redirect_to receiver_donation_schedules_path @user
+      redirect_to receiver_donation_schedules_path @receiver
     else
       render :new, notice: 'Schedule could not be saved. Please try again'
     end
@@ -39,7 +41,8 @@ class DonationSchedulesController < ApplicationController
   private
 
   def load_donation_schedules
-    @donation_schedules = @user.donation_schedules.order(:day_of_week)
+    @receiver = Receiver.find params[:receiver_id]
+    @donation_schedules = @receiver.donation_schedules.order(:day_of_week)
   end
 
   def donation_schedule_params

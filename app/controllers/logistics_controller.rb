@@ -29,7 +29,7 @@ class LogisticsController < ApplicationController
     if @logistic.update(logistic_params)
       redirect_to receiver_path(@user), notice: 'Logistic info successfully updated.'
     else
-      if @user.intake_survey_completed
+      if @user.intake_survey_completed || @user.admin
         render :edit, notice: 'Could not save logistic info at this time. Please try again.'
       else
         render :new, notice: 'Could not save logistic info at this time. Please try again.'

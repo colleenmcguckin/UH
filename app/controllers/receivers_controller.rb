@@ -30,18 +30,18 @@ class ReceiversController < ApplicationController
   end
 
   def update
-    if @user.update receiver_params
+    if @receiver.update receiver_params
       if receiver_params[:intake_survey_completed]
-        redirect_to receiver_thank_you_path(@user), notice: 'Updates successfully saved.'
+        redirect_to receiver_thank_you_path(@receiver), notice: 'Updates successfully saved.'
       else
-        if @user.contact_details.any?
-          redirect_to receiver_path(@user), notice: 'Updates successfully saved.'
+        if @receiver.contact_details.any?
+          redirect_to receiver_path(@receiver), notice: 'Updates successfully saved.'
         else
-          redirect_to new_receiver_contact_detail_path @user, notice: 'Updates successfully saved.'
+          redirect_to new_receiver_contact_detail_path @receiver, notice: 'Updates successfully saved.'
         end
       end
     else
-      if @user.intake_survey_completed
+      if @reciver.intake_survey_completed || @user.admin?
         render :edit, notice: 'Updates could not be saved at this time, please try again.'
       else
         render 'receivers#details', notice: 'Updates could not be saved at this time, please try again.'
@@ -56,27 +56,27 @@ class ReceiversController < ApplicationController
   end
 
   def check_verification
-    if @user.update(receiver_params) && @user.verify!
-      @user.verified_at = Time.current
-      if @user.save!
-        redirect_to new_receiver_contact_detail_path(@user), notice: 'Tax ID Verified!'
+    if @receiver.update(receiver_params) && @receiver.verify!
+      @receiver.verified_at = Time.current
+      if @receiver.save!
+        redirect_to new_receiver_contact_detail_path(@receiver), notice: 'Tax ID Verified!'
       end
     else
-      redirect_to verify_receiver_path(@user), notice: 'Could not verify Tax ID. Please ensure all information is filled out, with only numbers are entered into the Tax ID box. If the problem persists, please contact support.'
+      redirect_to verify_receiver_path(@receiver), notice: 'Could not verify Tax ID. Please ensure all information is filled out, with only numbers are entered into the Tax ID box. If the problem persists, please contact support.'
     end
   end
 
   def pause
-    if @user.pause!
-      redirect_to receiver_donation_schedules_path(@user), notice: 'Availability successfully paused.'
+    if @receiver.pause!
+      redirect_to receiver_donation_schedules_path(@receiver), notice: 'Availability successfully paused.'
     else
       render :index, notice: 'Availability could not be paused at this time. Please try again.'
     end
   end
 
   def unpause
-    if @user.unpause!
-      redirect_to receiver_donation_schedules_path(@user), notice: 'Availability successfully unpaused.'
+    if @receiver.unpause!
+      redirect_to receiver_donation_schedules_path(@receiver), notice: 'Availability successfully unpaused.'
     else
       render :index, notice: 'Availability could not be unpaused at this time. Please try again.'
     end
@@ -86,7 +86,9 @@ class ReceiversController < ApplicationController
   end
 
   private
-
+  before_action def load_receiver
+    @receiver = Receiver.find params[:id]
+  end
   def receiver_params
     params.require(:receiver).permit(
       :agency_name,

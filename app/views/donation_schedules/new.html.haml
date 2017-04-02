@@ -43,7 +43,7 @@
           %h4.panel-title Step 7: Enter Donation Acceptance Schedule
         .panel-body
           %h4 Edit Schedule for #{@donation_schedule.day_of_week_in_words.titleize}
-          = simple_form_for [@user, @donation_schedule] do |f|
+          = simple_form_for [@receiver, @donation_schedule] do |f|
             = f.error_notification
             .row
               .col-xs-6
