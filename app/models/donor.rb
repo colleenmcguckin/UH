@@ -13,6 +13,10 @@ class Donor < ActiveRecord::Base
     true
   end
 
+  def admin?
+    false
+  end
+
   def receiver?
     false
   end

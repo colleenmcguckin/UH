@@ -27,7 +27,7 @@ class Donation < ActiveRecord::Base
   end
 
   def confirmed_by_donor?
-    confirmed_by_donor_at?
+    true if donated_at?
   end
 
   def add_tracking_code

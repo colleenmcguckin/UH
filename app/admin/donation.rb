@@ -19,7 +19,6 @@ ActiveAdmin.register Donation do
   index do
     column :donor
     column :receiver
-    column :confirmed_by_donor_at
     column :donated_at
     column :received_at
     column :total_weight
@@ -35,7 +34,6 @@ ActiveAdmin.register Donation do
         attributes_table do
           row :donor
           row :receiver
-          row :confirmed_by_donor_at
           row :donated_at
           row :received_at
           row :total_weight
@@ -60,17 +58,22 @@ ActiveAdmin.register Donation do
 
   form do |f|
     inputs 'Donation Details' do
-      input :receiver, as: :select, collection: Receiver.all.map(&:agency_name)
-      input :donor, as: :select, collection: Donor.all.map(&:agency_name)
+      input :receiver, as: :select, collection: Receiver.all.map{ |r| [r.agency_name, r.id] }
+      input :donor, as: :select, collection: Donor.all.map{ |d| [d.agency_name, d.id] }
       input :total_weight, hint: 'In Pounds'
       input :total_value_dollars
       input :total_meals
+      input :donated_at, as: :datetime_picker, hint: "The time the donor donated this donation."
+      input :received_at, as: :datetime_picker, hint: "The time the receiving agency got the donation."
     end
 
-    inputs 'Donation Items' do
-      has_many :items, allow_destroy: true do |d|
-        d.input :food_id, as: :search_select, url: admin_foods_path,
-                fields: [:agency_name, :email], display_name: 'agency_name', minimum_input_length: 2
+    unless f.object.new_record?
+      inputs 'Donation Items' do
+        has_many :items, allow_destroy: true do |d|
+          d.input :food_id, as: :select, collection: f.object.donor.foods.map{ |f| [f.name, f.id] }
+          d.input :quantity
+          d.input :quantity_type, as: :select, collection: DonationItem::QUANTITY_TYPES
+        end
       end
     end
 

@@ -13,6 +13,9 @@ permit_params :email,
               :tax_id,
               :paused,
               :web_url,
+              :verified_at,
+              :password,
+              :password_confirmation,
               :intake_survey_completed,
               contact_details_attributes: [:id,
                                            :dfr_contact_name,
@@ -83,9 +86,20 @@ permit_params :email,
 #   permitted
 # end
   controller do
+
     def update
+      user = Receiver.find(params[:id])
       params.permit!
-      super
+      if params[:receiver][:password].blank?
+        user.update_without_password(params[:receiver])
+      else
+        user.update_attributes(params[:receiver])
+      end
+      if user.errors.blank?
+        redirect_to admin_receiver_path(user), :notice => "Receiver updated successfully."
+      else
+        render :edit
+      end
     end
   end
 
@@ -334,7 +348,10 @@ permit_params :email,
       input :tax_id
       input :paused
       input :web_url
+      input :verified_at, as: :datetime_picker, hint: "When this receiver's tax id was verified."
       input :intake_survey_completed
+      input :password, hint: "#{'Do not fill in this field unless you have a good reason to!' unless f.object.new_record?}"
+      input :password_confirmation, hint: "#{'Do not fill in this field unless you have a good reason to!' unless f.object.new_record?}"
     end
     actions
 
@@ -385,8 +402,8 @@ permit_params :email,
           p.input :dietary_restriction_ids, as: :check_boxes, collection: DietaryRestriction.all.to_a, label_method: :name, label: 'Check off the dietary restrictions you accomodate:'
         end
       end
+      actions
     end
-    actions
 
     unless f.object.new_record?
       h3 'IMPORTANT: Add only 1 set of restrictions to a receiving agency. The existing record should be edited if changes are needed.'
@@ -396,8 +413,8 @@ permit_params :email,
           r.input :storage_temps, as: :check_boxes, collection: StorageTemp.all.map{ |st| [st.description, st.id]}, label_method: :first, value_method: :last, label: 'Check the storage methods you are not able to accomodate:'
         end
       end
+      actions
     end
-    actions
 
     unless f.object.new_record?
       h3 'IMPORTANT: Add only 1 set of gender demographics to a receiving agency. The existing record should be edited if changes are needed.'
@@ -443,7 +460,7 @@ permit_params :email,
           d.input :total_receiving_groceries, input_html: {value: d.object.total_receiving_groceries || 0, min: 0 }, label: "# of Clients Receiving Groceries"
         end
       end
+      actions
     end
-    actions
   end
 end

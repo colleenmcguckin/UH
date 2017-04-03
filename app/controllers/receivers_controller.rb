@@ -1,6 +1,7 @@
 class ReceiversController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :load_receiver, except: [:index, :show]
 
   def index
     if @user.receiver?
@@ -86,8 +87,12 @@ class ReceiversController < ApplicationController
   end
 
   private
-  before_action def load_receiver
-    @receiver = Receiver.find params[:id]
+  def load_receiver
+    if @user.admin? || @user.receiver?
+      @receiver = Receiver.find params[:id]
+    else
+      @receiver = Receiver.find params[:receiver_id]
+    end
   end
   def receiver_params
     params.require(:receiver).permit(

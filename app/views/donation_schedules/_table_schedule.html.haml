@@ -16,4 +16,4 @@
             = "#{twelve_hour(day.close_at_hour)}:#{minutes_to_string(day.close_at_minute)} #{am_or_pm(day.close_at_hour)}"
         - if editable == true
           %td
-            = link_to "Edit #{day.day_of_week_in_words.titleize} Schedule", edit_receiver_donation_schedule_path(@receiver, day)
+            = link_to "Edit #{day.day_of_week_in_words.titleize} Schedule", edit_receiver_donation_schedule_path((@receiver || @user), day)

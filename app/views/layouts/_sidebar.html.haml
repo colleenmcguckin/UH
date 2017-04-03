@@ -4,7 +4,10 @@
 
   .profile-usertitle
     .profile-usertitle-name
-      = @user.agency_name || @receiver.agency_name
+      - if @user.donor?
+        = @user.agency_name
+      - else
+        @receiver.agency_name
     .profile-usertitle-subheading
     %h4
       = @user.donor? ? 'Donor' : 'Receiving Agency'
