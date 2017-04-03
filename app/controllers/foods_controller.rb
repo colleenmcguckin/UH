@@ -43,7 +43,7 @@ class FoodsController < ApplicationController
 
   def destroy
     load_food
-
+    
     if @food.deleted?
       if @food.restore
         redirect_to donor_foods_path(@user), notice: 'Food has been restored.'
@@ -86,7 +86,7 @@ class FoodsController < ApplicationController
   end
 
   def only_donors_allowed
-    if @user.receiver?
+    unless @user.donor?
       redirect_to receiver_path @user, notice: 'You must be a donor to do this.'
     end
   end
