@@ -15,7 +15,6 @@
       %li #{@receiver.contact_details.first.dfr_contact_name}
       %li #{@receiver.contact_details.first.dfr_contact_email}
       %li #{@receiver.contact_details.first.dfr_contact_cell_phone}
-    %br
     %ul
       Tracking Code
       %li= @donation.tracking_code
@@ -25,5 +24,6 @@
         %li="#{i.quantity} #{i.quantity_type} of #{i.food.name}"
     %h4
       Thanks for contributing,
+      %br
       %a{href: 'http://harvester-urban.herokuapp.com'}
         Urban Harvester
