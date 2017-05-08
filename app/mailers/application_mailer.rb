@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "uh.donationportal@gmail.com"
   layout 'mailer'
 
   def added_to_donation_mailer donation
