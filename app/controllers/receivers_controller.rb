@@ -42,10 +42,11 @@ class ReceiversController < ApplicationController
         end
       end
     else
-      if @reciver.intake_survey_completed || @user.admin?
-        render :edit, notice: 'Updates could not be saved at this time, please try again.'
+      binding.pry
+      if @receiver.intake_survey_completed || @user.admin?
+        redirect_to @receiver, notice: 'Updates could not be saved at this time, please try again.'
       else
-        render 'receivers#details', notice: 'Updates could not be saved at this time, please try again.'
+        redirect_to @receiver, notice: 'Updates could not be saved at this time, please try again.'
       end
     end
   end
@@ -97,7 +98,8 @@ class ReceiversController < ApplicationController
   def receiver_params
     params.require(:receiver).permit(
       :agency_name,
-      :web_address,
+      :web_url,
+      :email,
       :street_address,
       :city,
       :state,
