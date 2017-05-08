@@ -1,8 +1,8 @@
 = simple_form_for [@user, @food] do |f|
   = f.error_notification
-  = f.input :name
-  = f.input :description, hint: 'ingredients, reheating instructions, etc.'
-  = f.input :storage_temp, as: :collection_select, collection: ['Refrigerated', 'Frozen', 'Shelf Stable']
-  = f.input :prepared_meal, as: :select, collection: [['Yes', true], ['No', false]], label: 'Prepared Food?'
   = f.association :category, value_method: :id, label_method: :name
+  = f.input :prepared_meal, as: :select, collection: [['Yes', true], ['No', false]], label: 'Prepared Food?'
+  = f.input :storage_temp, as: :collection_select, collection: ['Refrigerated', 'Frozen', 'Shelf Stable']
+  = f.input :name, label: 'Description Name'
+  = f.input :description, hint: 'ingredients, reheating instructions, etc.', label: 'Instructions/Details', as: :text
   = f.button :submit, label: 'Add Food to List'
