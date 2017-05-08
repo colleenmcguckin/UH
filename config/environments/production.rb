@@ -54,7 +54,7 @@ Rails.application.configure do
     :port => "587",
     :domain => "gmail.com",
     :user_name => "uh.donationportal@gmail.com",
-    :password => EVN['gmail_password'],
+    :password => ENV['gmail_password'],
     :authentication => :plain,
     :enable_starttls_auto => true
   }
