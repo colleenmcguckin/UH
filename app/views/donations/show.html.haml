@@ -47,7 +47,7 @@
                     = "#{@donation.receiver.city}, #{@donation.receiver.state} #{@donation.receiver.zip}"
                 .col-md-3
                   .google-maps
-                    %iframe{ src: "//www.google.com/maps/embed/v1/place?q=#{receiver.latitude},#{receiver.longitude}&zoom=7&key=AIzaSyC8IbYzdu0iQ-rIrgFgKJKJ8FR1f7q_C9g"}
+                    %iframe{ src: "//www.google.com/maps/embed/v1/place?q=#{@donation.receiver.latitude},#{@donation.receiver.longitude}&zoom=7&key=AIzaSyC8IbYzdu0iQ-rIrgFgKJKJ8FR1f7q_C9g"}
                   - if @donation.receiver.transportation_available?
                     %br
                     .row
