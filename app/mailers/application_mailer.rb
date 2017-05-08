@@ -10,7 +10,7 @@ class ApplicationMailer < ActionMailer::Base
     mail(to: @receiver.contact_details.first.dfr_contact_email, subject: 'Urban Harvester - You have been added to a donation!')
   end
 
-  def confirm_donation_sent donation
+  def confirm_donation_sent_mailer donation
     @receiver = donation.receiver
     @donor = donation.donor
     @donation = donation
