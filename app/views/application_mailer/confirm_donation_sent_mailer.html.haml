@@ -9,7 +9,13 @@
       This is confirmation that the details of your recent donation to has been sent to #{@receiver.agency_name}.
       %br/
       Write the tracking code on your donation boxes and take them to #{@receiver.agency_name} now, unless you have arranged another form of transportation.
-
+    %ul
+      Receiving Agency Contact Information
+      %li #{@receiver.agency_name}
+      %li #{@receiver.contact_details.first.dfr_contact_name}
+      %li #{@receiver.contact_details.first.dfr_contact_email}
+      %li #{@receiver.contact_details.first.dfr_contact_phone}
+    %br
     %ul
       Tracking Code
       %li= @donation.tracking_code
